@@ -4,6 +4,7 @@ import { Layout } from './components/layout/Layout';
 import { Home } from './pages/Home';
 import { ShopProvider } from './context/ShopProvider';
 import { AuthProvider } from './context/AuthProvider';
+import { ScrollToTop } from './components/common/ScrollToTop';
 
 const Category = lazy(() => import('./pages/Category').then(m => ({ default: m.Category })));
 const ProductDetail = lazy(() => import('./pages/ProductDetail').then(m => ({ default: m.ProductDetail })));
@@ -31,6 +32,7 @@ function App() {
     <AuthProvider>
       <ShopProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Suspense fallback={<RouteLoadingFallback />}>
           <Routes>
             <Route path="/" element={<Layout />}>
