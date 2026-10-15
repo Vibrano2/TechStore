@@ -1,12 +1,11 @@
 import { formatPrice } from '../utils/formatPrice';
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, Shield, ArrowLeft, Loader2, PackageCheck, FileText, Download, MailCheck, AlertCircle, Building2, Copy, Check, UploadCloud, X, CreditCard, Printer } from 'lucide-react';
+import { CheckCircle, Shield, ArrowLeft, Loader2, PackageCheck, FileText, Download, MailCheck, AlertCircle, Building2, Copy, Check, UploadCloud, X, CreditCard } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { useAuth } from '../context/AuthContext';
 import { createOrder, downloadInvoicePdf, resendOrderConfirmation, uploadPaymentProof } from '../services/ordersApi';
 import { useSEO } from '../utils/useSEO';
-import { printOrDownloadReceipt } from '../utils/generateReceipt';
 
 export interface SavedOrder {
   id: string;
@@ -117,30 +116,6 @@ export const Checkout = () => {
     setStripeCardName(`${firstNameInput || 'Max'} ${lastNameInput || 'Mustermann'}`);
   };
 
-  const handleGenerateReceipt = () => {
-    if (completedOrder) {
-      printOrDownloadReceipt(completedOrder);
-    } else {
-      printOrDownloadReceipt({
-        orderNumber: completedOrderNumber,
-        date: new Date().toLocaleDateString('de-DE'),
-        items: cart.map(i => ({ name: i.product.name, brand: i.product.brand, quantity: i.quantity, price: i.product.price })),
-        subtotal: cartTotal,
-        shipping: shippingFee,
-        vatAmount,
-        total,
-        paymentMethod: paymentMethod === 'stripe' ? 'Stripe (Kreditkarte)' : (paymentMethod === 'bank_transfer' ? 'Manuelle Banküberweisung (Vorkasse)' : paymentMethod),
-        customer: {
-          firstName: firstNameInput,
-          lastName: lastNameInput,
-          street: streetInput,
-          postalCode: postalCodeInput,
-          city: cityInput,
-          email: emailInput,
-        }
-      });
-    }
-  };
 
   const handleDownloadInvoice = async () => {
     if (!completedOrderNumber || isDownloadingInvoice) return;
@@ -494,15 +469,7 @@ export const Checkout = () => {
           )}
 
           <div className="flex flex-col sm:flex-row gap-3 pt-2 border-t border-neutral-100">
-            <button
-              type="button"
-              onClick={handleGenerateReceipt}
-              className="bg-navy-900 hover:bg-navy-900/90 text-white py-2.5 px-4 rounded-[10px] text-xs font-bold flex items-center justify-center gap-2 shadow-xs cursor-pointer flex-1 transition-colors"
-              title="Kaufbeleg & Quittung für diese Bestellung als PDF drucken oder speichern"
-            >
-              <Printer size={16} className="text-electric-500" />
-              <span>Quittung generieren (PDF / Drucken)</span>
-            </button>
+
             <button
               onClick={handleDownloadInvoice}
               disabled={isDownloadingInvoice}
