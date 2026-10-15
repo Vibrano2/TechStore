@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /account
+Disallow: /checkout
+Disallow: /cart
+Disallow: /api/
+
+Sitemap: https://technikwelt.shop/sitemap.xml

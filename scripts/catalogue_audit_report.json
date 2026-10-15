@@ -1,0 +1,117 @@
+{
+  "totalEntries": 321,
+  "uniqueIds": 321,
+  "duplicateIds": [],
+  "uniqueSlugs": 321,
+  "duplicateSlugs": [],
+  "duplicateNamesCount": 0,
+  "duplicateNames": [],
+  "missingImagesCount": 0,
+  "missingImages": [],
+  "oversizedImagesCount": 317,
+  "oversizedSample": [
+    {
+      "productId": "p1",
+      "name": "Acer Aspire 5",
+      "relPath": "../assets/icons/products/acer-aspire-5.png",
+      "sizeKB": 1060,
+      "absPath": "C:\\Users\\USER\\TechStore\\src\\assets\\icons\\products\\acer-aspire-5.png"
+    },
+    {
+      "productId": "p2",
+      "name": "Amazon Fire Tv Stick 4k",
+      "relPath": "../assets/icons/products/amazon-fire-tv-stick-4k.png",
+      "sizeKB": 985,
+      "absPath": "C:\\Users\\USER\\TechStore\\src\\assets\\icons\\products\\amazon-fire-tv-stick-4k.png"
+    },
+    {
+      "productId": "p3",
+      "name": "Anker Power Station",
+      "relPath": "../assets/icons/products/anker-power-station.png",
+      "sizeKB": 1848,
+      "absPath": "C:\\Users\\USER\\TechStore\\src\\assets\\icons\\products\\anker-power-station.png"
+    },
+    {
+      "productId": "p4",
+      "name": "Apple Airpods Pro",
+      "relPath": "../assets/icons/products/apple-airpods-pro.png",
+      "sizeKB": 1066,
+      "absPath": "C:\\Users\\USER\\TechStore\\src\\assets\\icons\\products\\apple-airpods-pro.png"
+    },
+    {
+      "productId": "p5",
+      "name": "Apple Ipad Air",
+      "relPath": "../assets/icons/products/apple-ipad-air.png",
+      "sizeKB": 1210,
+      "absPath": "C:\\Users\\USER\\TechStore\\src\\assets\\icons\\products\\apple-ipad-air.png"
+    },
+    {
+      "productId": "p6",
+      "name": "iPhone 15 Pro Max",
+      "relPath": "../assets/icons/products/apple-iphone-17-pro.png",
+      "sizeKB": 1360,
+      "absPath": "C:\\Users\\USER\\TechStore\\src\\assets\\icons\\products\\apple-iphone-17-pro.png"
+    },
+    {
+      "productId": "p7",
+      "name": "Apple Iphone 17",
+      "relPath": "../assets/icons/products/apple-iphone-17.png",
+      "sizeKB": 1134,
+      "absPath": "C:\\Users\\USER\\TechStore\\src\\assets\\icons\\products\\apple-iphone-17.png"
+    },
+    {
+      "productId": "p8",
+      "name": "Apple Macbook Air",
+      "relPath": "../assets/icons/products/apple-macbook-air.png",
+      "sizeKB": 978,
+      "absPath": "C:\\Users\\USER\\TechStore\\src\\assets\\icons\\products\\apple-macbook-air.png"
+    },
+    {
+      "productId": "p9",
+      "name": "Asus Zenbook 14",
+      "relPath": "../assets/icons/products/asus-zenbook-14.png",
+      "sizeKB": 1037,
+      "absPath": "C:\\Users\\USER\\TechStore\\src\\assets\\icons\\products\\asus-zenbook-14.png"
+    },
+    {
+      "productId": "p10",
+      "name": "Awol Vision 4k Laser Projector",
+      "relPath": "../assets/icons/products/awol-vision-4k-laser-projector.png",
+      "sizeKB": 1200,
+      "absPath": "C:\\Users\\USER\\TechStore\\src\\assets\\icons\\products\\awol-vision-4k-laser-projector.png"
+    }
+  ],
+  "incompleteProductsCount": 0,
+  "incompleteProducts": [],
+  "categoryStats": {
+    "Computer & Laptops": 44,
+    "TV & Projektoren": 24,
+    "Smart Home": 34,
+    "Audio": 19,
+    "Zubehör": 57,
+    "Smartphones": 24,
+    "Haushalt": 80,
+    "E-Mobilität": 39
+  },
+  "emobilityTotal": 22,
+  "emobilityWithClaims": [
+    {
+      "id": "p120",
+      "name": "Komfort E-Scooter mit Sitz 500W",
+      "category": "E-Mobilität",
+      "hasStvzoClaim": true
+    },
+    {
+      "id": "p123",
+      "name": "Kalkhoff Image 5.B Move City E-Bike",
+      "category": "E-Mobilität",
+      "hasStvzoClaim": true
+    },
+    {
+      "id": "p241",
+      "name": "Thermo E-Scooter Handschuhe winddicht Touchscreen",
+      "category": "E-Mobilität",
+      "hasStvzoClaim": true
+    }
+  ]
+}

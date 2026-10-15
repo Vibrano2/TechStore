@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-10-13T15:16:41.177Z",
+  "profile": {
+    "device": "Mobile (390x844)",
+    "network": "Fast 3G (1.6 Mbps Down, 750 kbps Up, 150ms RTT)",
+    "cpu": "4x Throttling"
+  },
+  "homepage": {
+    "pageName": "Homepage",
+    "url": "http://127.0.0.1:4173/",
+    "totalRequests": 9,
+    "totalBytesKB": 1321.2,
+    "bytesByTypeKB": {
+      "html": 0.5,
+      "js": 594.4,
+      "css": 78.4,
+      "images": 647.9,
+      "other": 0
+    },
+    "performanceMetrics": {
+      "ttfb": 18,
+      "domInteractive": 201,
+      "domContentLoaded": 1342,
+      "loadEventEnd": 1344,
+      "fcp": 3449,
+      "cls": 0
+    },
+    "loadDurationMs": 1353
+  },
+  "category": {
+    "pageName": "Category (Gaming)",
+    "url": "http://127.0.0.1:4173/category/gaming",
+    "totalRequests": 5,
+    "totalBytesKB": 689.3,
+    "bytesByTypeKB": {
+      "html": 0.5,
+      "js": 610.1,
+      "css": 78.4,
+      "images": 0,
+      "other": 0.3
+    },
+    "performanceMetrics": {
+      "ttfb": 4,
+      "domInteractive": 213,
+      "domContentLoaded": 1316,
+      "loadEventEnd": 1317,
+      "fcp": 2015,
+      "cls": 0
+    },
+    "loadDurationMs": 1323
+  }
+}

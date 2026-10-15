@@ -1,0 +1,53 @@
+{
+  "totalOptimizedImages": 321,
+  "transparencyPreservedCount": 321,
+  "maxDimensionWithin800": true,
+  "conversionFailures": 0,
+  "backupExcludedFromDist": true,
+  "distImageCount": 329,
+  "distTotalImageMB": "51.75",
+  "mockProductsMappedCount": 321,
+  "missingImageFiles": 0,
+  "representativeSamples": {
+    "182-high-speed-corexy-3d-printer.png": {
+      "width": 800,
+      "height": 800,
+      "channels": 4,
+      "hasAlpha": true,
+      "format": "png",
+      "fileSizeKB": 224
+    },
+    "202-microdermabrasion-machine.png": {
+      "width": 800,
+      "height": 800,
+      "channels": 4,
+      "hasAlpha": true,
+      "format": "png",
+      "fileSizeKB": 237
+    },
+    "207-pressotherapy-lymphatic-drainage-system.png": {
+      "width": 800,
+      "height": 800,
+      "channels": 4,
+      "hasAlpha": true,
+      "format": "png",
+      "fileSizeKB": 259
+    },
+    "acer-aspire-5.png": {
+      "width": 800,
+      "height": 800,
+      "channels": 4,
+      "hasAlpha": true,
+      "format": "png",
+      "fileSizeKB": 106
+    },
+    "bose-quietcomfort-headphones.png": {
+      "width": 800,
+      "height": 800,
+      "channels": 4,
+      "hasAlpha": true,
+      "format": "png",
+      "fileSizeKB": 219
+    }
+  }
+}

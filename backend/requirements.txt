@@ -1,0 +1,12 @@
+Django>=5.0,<5.2
+djangorestframework>=3.14.0
+django-cors-headers>=4.3.0
+python-dotenv>=1.0.0
+# Pure-Python MySQL driver for cPanel (no C compiler needed):
+PyMySQL>=1.1.0
+cryptography>=42.0.0
+# For GoBD-compliant PDF invoice generation:
+reportlab>=4.4.0
+# Official Resend transactional email SDK & HTTP requests:
+resend>=2.49.0
+requests>=2.31.0
