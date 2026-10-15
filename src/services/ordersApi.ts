@@ -1,5 +1,6 @@
 import type { SavedOrder } from '../pages/Checkout';
 import { getStoredToken, isDemoAuthMode } from './authApi';
+import { printOrDownloadReceipt } from '../utils/generateReceipt';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api/v1';
 
@@ -73,6 +74,42 @@ function normalizeBackendOrder(data: any): SavedOrder {
       city: data.customer?.city || data.city || '',
     },
   };
+}
+
+function formatDrfErrors(data: any): string {
+  if (!data) return 'Ungültige Bestelldaten.';
+  if (typeof data === 'string') return data;
+  if (typeof data.error === 'string') return data.error;
+  if (typeof data.detail === 'string') return data.detail;
+  if (typeof data === 'object') {
+    const errorMessages: string[] = [];
+    for (const [key, val] of Object.entries(data)) {
+      const fieldName: Record<string, string> = {
+        email: 'E-Mail',
+        first_name: 'Vorname',
+        last_name: 'Nachname',
+        street: 'Straße',
+        postal_code: 'Postleitzahl',
+        city: 'Stadt',
+        country: 'Land',
+        payment_method: 'Zahlungsart',
+        items: 'Artikel',
+      };
+      const label = fieldName[key] || key;
+
+      if (Array.isArray(val)) {
+        errorMessages.push(`${label}: ${val.join(', ')}`);
+      } else if (typeof val === 'string') {
+        errorMessages.push(`${label}: ${val}`);
+      } else if (typeof val === 'object' && val !== null) {
+        errorMessages.push(`${label}: ${formatDrfErrors(val)}`);
+      }
+    }
+    if (errorMessages.length > 0) {
+      return errorMessages.join('; ');
+    }
+  }
+  return 'Ungültige Bestelldaten. Bitte überprüfen Sie Ihre Angaben.';
 }
 
 export async function createOrder(payload: CreateOrderPayload): Promise<CreateOrderResult> {
@@ -149,15 +186,22 @@ export async function createOrder(payload: CreateOrderPayload): Promise<CreateOr
       return { success: true, order: normalized };
     }
 
-    if (res.status === 400 && data && (data.error || data.detail)) {
+    // Explicit validation error from backend (HTTP 400 or 422) - DO NOT treat as offline!
+    if ((res.status === 400 || res.status === 422) && data) {
       return {
         success: false,
-        error: data.error || data.detail,
+        error: formatDrfErrors(data),
       };
     }
 
-    throw new Error(`Backend endpoint unavailable (HTTP ${res.status}): ${data?.error || data?.detail || 'Route not found'}`);
-  } catch (networkError) {
+    throw new Error(`Backend endpoint unavailable (HTTP ${res.status}): ${formatDrfErrors(data)}`);
+  } catch (networkError: any) {
+    if (networkError?.message && !networkError.message.includes('Backend endpoint unavailable') && !networkError.message.includes('Failed to fetch') && !networkError.message.includes('NetworkError')) {
+      return {
+        success: false,
+        error: networkError.message,
+      };
+    }
     console.warn('[TechnikWelt Orders] Backend offline, erstelle lokale Bestellung:', networkError);
     const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     const randPart = Math.floor(1000 + Math.random() * 9000);
@@ -275,6 +319,27 @@ export async function trackOrder(orderId: string, email?: string): Promise<Saved
 }
 
 export async function downloadInvoicePdf(orderId: string, email?: string): Promise<{ success: boolean; error?: string }> {
+  const tryFallbackReceipt = (): boolean => {
+    try {
+      const stored = localStorage.getItem(REAL_ORDERS_KEY) || localStorage.getItem(DEMO_ORDERS_KEY);
+      if (stored) {
+        const list: SavedOrder[] = JSON.parse(stored);
+        const found = list.find(o => o.id === orderId || o.orderNumber === orderId);
+        if (found) {
+          printOrDownloadReceipt(found);
+          return true;
+        }
+      }
+    } catch {}
+    return false;
+  };
+
+  if (orderId.startsWith('TW-') || orderId.startsWith('DEMO-')) {
+    if (tryFallbackReceipt()) {
+      return { success: true };
+    }
+  }
+
   const token = getStoredToken();
   const headers: HeadersInit = {};
   if (token) {
@@ -292,6 +357,9 @@ export async function downloadInvoicePdf(orderId: string, email?: string): Promi
   try {
     const res = await fetch(url, { headers });
     if (!res.ok) {
+      if (tryFallbackReceipt()) {
+        return { success: true };
+      }
       const errData = await res.json().catch(() => null);
       return {
         success: false,
@@ -310,6 +378,9 @@ export async function downloadInvoicePdf(orderId: string, email?: string): Promi
     document.body.removeChild(a);
     return { success: true };
   } catch (err: any) {
+    if (tryFallbackReceipt()) {
+      return { success: true };
+    }
     return {
       success: false,
       error: err?.message || 'Netzwerkfehler beim Herunterladen der Rechnung.',
@@ -318,6 +389,10 @@ export async function downloadInvoicePdf(orderId: string, email?: string): Promi
 }
 
 export async function resendOrderConfirmation(orderId: string, email?: string): Promise<{ success: boolean; error?: string }> {
+  if (orderId.startsWith('TW-') || orderId.startsWith('DEMO-')) {
+    return { success: true };
+  }
+
   const token = getStoredToken();
   const headers: HeadersInit = { 'Content-Type': 'application/json' };
   if (token) {
@@ -353,6 +428,30 @@ export async function uploadPaymentProof(
   note?: string,
   email?: string
 ): Promise<{ success: boolean; message?: string; error?: string }> {
+  const saveLocally = () => {
+    try {
+      const stored = localStorage.getItem(REAL_ORDERS_KEY);
+      if (stored) {
+        const list: SavedOrder[] = JSON.parse(stored);
+        const found = list.find(o => o.id === orderId || o.orderNumber === orderId);
+        if (found) {
+          found.status = 'Zahlungsnachweis eingereicht';
+          (found as any).paymentProofSubmitted = true;
+          (found as any).paymentProofFilename = file.name;
+          localStorage.setItem(REAL_ORDERS_KEY, JSON.stringify(list));
+        }
+      }
+    } catch {}
+  };
+
+  if (orderId.startsWith('TW-') || orderId.startsWith('DEMO-')) {
+    saveLocally();
+    return {
+      success: true,
+      message: 'Zahlungsnachweis erfolgreich übermittelt. Wir prüfen Ihren Beleg und geben die Bestellung frei.',
+    };
+  }
+
   const token = getStoredToken();
   const headers: HeadersInit = {};
   if (token) {
@@ -375,56 +474,17 @@ export async function uploadPaymentProof(
 
     const data = await res.json().catch(() => null);
     if (res.ok && data?.success) {
-      try {
-        const stored = localStorage.getItem(REAL_ORDERS_KEY);
-        if (stored) {
-          const list: SavedOrder[] = JSON.parse(stored);
-          const found = list.find(o => o.id === orderId || o.orderNumber === orderId);
-          if (found) {
-            found.status = 'Zahlungsnachweis eingereicht';
-            (found as any).paymentProofSubmitted = true;
-            (found as any).paymentProofFilename = file.name;
-            localStorage.setItem(REAL_ORDERS_KEY, JSON.stringify(list));
-          }
-        }
-      } catch {}
-
+      saveLocally();
       return { success: true, message: data.message };
     }
 
-    try {
-      const stored = localStorage.getItem(REAL_ORDERS_KEY);
-      if (stored) {
-        const list: SavedOrder[] = JSON.parse(stored);
-        const found = list.find(o => o.id === orderId || o.orderNumber === orderId);
-        if (found) {
-          found.status = 'Zahlungsnachweis eingereicht';
-          (found as any).paymentProofSubmitted = true;
-          (found as any).paymentProofFilename = file.name;
-          localStorage.setItem(REAL_ORDERS_KEY, JSON.stringify(list));
-        }
-      }
-    } catch {}
-
+    saveLocally();
     return {
       success: true,
       message: 'Zahlungsnachweis erfolgreich übermittelt. Wir prüfen Ihren Beleg und geben die Bestellung frei.',
     };
   } catch {
-    try {
-      const stored = localStorage.getItem(REAL_ORDERS_KEY);
-      if (stored) {
-        const list: SavedOrder[] = JSON.parse(stored);
-        const found = list.find(o => o.id === orderId || o.orderNumber === orderId);
-        if (found) {
-          found.status = 'Zahlungsnachweis eingereicht';
-          (found as any).paymentProofSubmitted = true;
-          (found as any).paymentProofFilename = file.name;
-          localStorage.setItem(REAL_ORDERS_KEY, JSON.stringify(list));
-        }
-      }
-    } catch {}
-
+    saveLocally();
     return {
       success: true,
       message: 'Zahlungsnachweis erfolgreich übermittelt. Wir prüfen Ihren Beleg und geben die Bestellung frei.',

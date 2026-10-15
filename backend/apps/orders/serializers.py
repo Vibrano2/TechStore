@@ -158,10 +158,10 @@ class CreateOrderSerializer(serializers.Serializer):
     payment_method = serializers.CharField(max_length=50, required=False, default='stripe')
 
     def validate_postal_code(self, value):
-        cleaned = value.strip()
-        # German PLZ is 5 digits
-        if not re.match(r'^\d{5}$', cleaned):
-            raise serializers.ValidationError("Bitte geben Sie eine gültige 5-stellige deutsche Postleitzahl an.")
+        cleaned = re.sub(r'^[Dd][Ee]?-?', '', value.strip()).strip()
+        # Accept standard German 5 digits, as well as 4-8 digits or alphanumeric codes
+        if not re.match(r'^\d{4,8}$', cleaned) and not re.match(r'^[A-Za-z0-9\s\-]{3,10}$', cleaned):
+            raise serializers.ValidationError("Bitte geben Sie eine gültige Postleitzahl an (z. B. 10115).")
         return cleaned
 
     def validate_payment_method(self, value):
