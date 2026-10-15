@@ -11,6 +11,7 @@ import logoSvg from '../../assets/SVG/logo.svg';
 const AuthModal = lazy(() => import('../auth/AuthModal').then(m => ({ default: m.AuthModal })));
 const ChatbotWidget = lazy(() => import('../chat/ChatbotWidget').then(m => ({ default: m.ChatbotWidget })));
 const CookieConsent = lazy(() => import('../common/CookieConsent').then(m => ({ default: m.CookieConsent })));
+const PromoPopup = lazy(() => import('../common/PromoPopup').then(m => ({ default: m.PromoPopup })));
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -393,6 +394,7 @@ export const Layout = () => {
         <ChatbotWidget />
         <AuthModal />
         <CookieConsent />
+        <PromoPopup />
       </Suspense>
     </div>
   );
