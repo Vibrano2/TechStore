@@ -65,7 +65,7 @@ export const AGB: React.FC = () => {
             (2) Der Versand innerhalb Deutschlands ist ab 49 € Bestellwert kostenfrei. Unter 49 € betragen die Standard-Versandkosten 4,90 € mit DHL Paket.
           </p>
           <p>
-            (3) Als Zahlungsmethoden stehen Ihnen Stripe (Kreditkarte Visa/Mastercard, Apple Pay, Google Pay), Manuelle Banküberweisung (Vorkasse), Klarna und SEPA-Lastschrift zur Verfügung.
+            (3) Als Zahlungsmethoden stehen Ihnen Stripe (Kreditkarte Visa/Mastercard, Apple Pay, Google Pay) und Manuelle Banküberweisung (Vorkasse) zur Verfügung.
           </p>
         </section>
 

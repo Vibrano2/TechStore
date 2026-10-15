@@ -410,7 +410,7 @@ export const ReturnModal: React.FC<ReturnModalProps> = ({
                     <div>
                       <div className="font-semibold text-xs text-navy-900">Ursprüngliche Zahlungsart</div>
                       <div className="text-[11px] text-neutral-500 mt-0.5">
-                        Rücküberweisung auf Stripe (Kreditkarte), Bankkonto oder Klarna
+                        Rücküberweisung auf Stripe (Kreditkarte/Wallets) oder Bankkonto
                       </div>
                     </div>
                   </label>

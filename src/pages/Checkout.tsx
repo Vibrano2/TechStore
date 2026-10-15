@@ -793,8 +793,6 @@ export const Checkout = () => {
                   {[
                     { id: 'stripe', label: 'Stripe (Kreditkarte, Apple Pay, Google Pay)', isBank: false, isStripe: true },
                     { id: 'bank_transfer', label: t('bankTransfer'), isBank: true, isStripe: false },
-                    { id: 'Klarna Rechnung', label: 'Klarna Rechnung', isBank: false, isStripe: false },
-                    { id: 'SEPA-Lastschrift', label: 'SEPA-Lastschrift', isBank: false, isStripe: false },
                   ].map((method) => {
                     const isSelected = paymentMethod === method.id || paymentMethod === method.label;
                     return (
