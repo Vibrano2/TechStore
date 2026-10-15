@@ -177,6 +177,11 @@ COMPANY_BANK_BENEFICIARY = os.environ.get('COMPANY_BANK_BENEFICIARY', 'TechnikWe
 COMPANY_BANK_IBAN = os.environ.get('COMPANY_BANK_IBAN', 'DE38 7602 6000 0039 4791 00')
 COMPANY_BANK_BIC = os.environ.get('COMPANY_BANK_BIC', 'NORSDE71XXX')
 
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '').strip()
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', '').strip()
+STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET', '').strip()
+FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://127.0.0.1:5173').rstrip('/')
+
 
 EMAIL_BACKEND = os.environ.get(
     'EMAIL_BACKEND',

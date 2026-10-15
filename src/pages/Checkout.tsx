@@ -1,10 +1,10 @@
 import { formatPrice } from '../utils/formatPrice';
-import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { CheckCircle, Shield, ArrowLeft, Loader2, PackageCheck, FileText, Download, MailCheck, AlertCircle, Building2, Copy, Check, UploadCloud, X, CreditCard } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { CheckCircle, Shield, ArrowLeft, Loader2, PackageCheck, FileText, Download, MailCheck, AlertCircle, Building2, Copy, Check, UploadCloud, X, CreditCard, Lock, ExternalLink } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { useAuth } from '../context/AuthContext';
-import { createOrder, downloadInvoicePdf, resendOrderConfirmation, uploadPaymentProof } from '../services/ordersApi';
+import { createOrder, createStripeSession, verifyStripeSession, downloadInvoicePdf, resendOrderConfirmation, uploadPaymentProof } from '../services/ordersApi';
 import { useSEO } from '../utils/useSEO';
 
 export interface SavedOrder {
@@ -49,6 +49,7 @@ const BANK_DETAILS = {
 export const Checkout = () => {
   const { cart, cartTotal, clearCart, t } = useShop();
   const { user, isAuthenticated, openAuthModal } = useAuth();
+  const [searchParams] = useSearchParams();
 
   useSEO({
     title: 'Kasse & Bestellung abschließen | TechnikWelt',
@@ -59,16 +60,12 @@ export const Checkout = () => {
   const [step, setStep] = useState(1);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isVerifyingStripe, setIsVerifyingStripe] = useState(false);
   const [completedOrderNumber, setCompletedOrderNumber] = useState('');
   const [orderError, setOrderError] = useState('');
 
   const [shippingMethod, setShippingMethod] = useState<'standard' | 'express'>('standard');
   const [paymentMethod, setPaymentMethod] = useState<string>('stripe');
-
-  const [stripeCardNumber, setStripeCardNumber] = useState('');
-  const [stripeCardExpiry, setStripeCardExpiry] = useState('');
-  const [stripeCardCvc, setStripeCardCvc] = useState('');
-  const [stripeCardName, setStripeCardName] = useState('');
 
   const [emailInput, setEmailInput] = useState(user?.email || '');
   const [firstNameInput, setFirstNameInput] = useState(user?.first_name || '');
@@ -90,6 +87,42 @@ export const Checkout = () => {
     }
   }
 
+  // Handle return from Stripe Checkout Session
+  useEffect(() => {
+    const paymentStatusParam = searchParams.get('payment_status');
+    const sessionIdParam = searchParams.get('session_id');
+    const orderIdParam = searchParams.get('order_id');
+
+    if (paymentStatusParam === 'success' && sessionIdParam) {
+      let isMounted = true;
+      const verify = async () => {
+        setIsVerifyingStripe(true);
+        setOrderError('');
+        const res = await verifyStripeSession(sessionIdParam, orderIdParam || undefined);
+        if (!isMounted) return;
+        if (res.success && res.order) {
+          setCompletedOrderNumber(res.order.orderNumber || res.order.id);
+          setPaymentMethod('stripe');
+          if (res.order.customer?.email) {
+            setEmailInput(res.order.customer.email);
+          }
+          setIsCompleted(true);
+          clearCart();
+        } else {
+          setOrderError(res.error || 'Zahlungsverifizierung bei Stripe fehlgeschlagen.');
+        }
+        setIsVerifyingStripe(false);
+      };
+      verify();
+      return () => {
+        isMounted = false;
+      };
+    } else if (paymentStatusParam === 'cancelled') {
+      setOrderError('Die Zahlung über Stripe wurde abgebrochen. Ihre Artikel befinden sich weiterhin im Warenkorb.');
+    }
+  }, [searchParams, clearCart]);
+
+
   const netAmount = Math.round((cartTotal / 1.19) * 100) / 100;
   const vatAmount = Math.round((cartTotal - netAmount) * 100) / 100;
   const standardShipping = cartTotal >= 50 || cartTotal === 0 ? 0 : 4.99;
@@ -107,14 +140,6 @@ export const Checkout = () => {
     setCopiedField(fieldName);
     setTimeout(() => setCopiedField(''), 2500);
   };
-
-  const handleFillStripeTestCard = () => {
-    setStripeCardNumber('4242 4242 4242 4242');
-    setStripeCardExpiry('12/28');
-    setStripeCardCvc('123');
-    setStripeCardName(`${firstNameInput || 'Max'} ${lastNameInput || 'Mustermann'}`);
-  };
-
 
   const handleDownloadInvoice = async () => {
     if (!completedOrderNumber || isDownloadingInvoice) return;
@@ -172,7 +197,7 @@ export const Checkout = () => {
     setIsSubmitting(true);
     setOrderError('');
 
-    const res = await createOrder({
+    const orderPayload = {
       email: emailInput,
       first_name: firstNameInput,
       last_name: lastNameInput,
@@ -191,7 +216,21 @@ export const Checkout = () => {
         price: item.product.price,
         image: item.product.images[0] || '',
       })),
-    });
+    };
+
+    if (paymentMethod === 'stripe') {
+      const res = await createStripeSession(orderPayload);
+      if (res.success && res.checkout_url) {
+        window.location.href = res.checkout_url;
+        return;
+      } else {
+        setOrderError(res.error || 'Fehler beim Starten der Stripe-Zahlung. Bitte versuchen Sie es erneut.');
+        setIsSubmitting(false);
+        return;
+      }
+    }
+
+    const res = await createOrder(orderPayload);
 
     if (res.success && res.order) {
       setCompletedOrderNumber(res.order.orderNumber || res.order.id);
@@ -202,6 +241,20 @@ export const Checkout = () => {
     }
     setIsSubmitting(false);
   };
+
+  if (isVerifyingStripe) {
+    return (
+      <div className="container-custom py-24 text-center max-w-lg mx-auto">
+        <div className="w-16 h-16 bg-electric-50 text-electric-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+          <Loader2 size={36} className="animate-spin" />
+        </div>
+        <h1 className="text-2xl font-bold text-navy-900 mb-2">Zahlung wird verifiziert...</h1>
+        <p className="text-neutral-600 text-sm leading-relaxed">
+          Ihre Zahlung über Stripe wird geprüft. Einen Moment bitte, Sie werden gleich zur offiziellen Bestellbestätigung weitergeleitet.
+        </p>
+      </div>
+    );
+  }
 
   if (isCompleted) {
     return (
@@ -779,89 +832,49 @@ export const Checkout = () => {
                         </div>
 
                         {isSelected && method.isStripe && (
-                          <div className="mt-4 pt-4 border-t border-neutral-200/80 space-y-3.5 bg-neutral-50/70 p-4 rounded-xl border border-neutral-200/60" onClick={(e) => e.stopPropagation()}>
+                          <div className="mt-4 pt-4 border-t border-neutral-200/80 space-y-3 bg-neutral-50/80 p-4 rounded-xl border border-neutral-200/60" onClick={(e) => e.stopPropagation()}>
                             <div className="flex items-center justify-between">
                               <span className="text-xs font-bold text-navy-900 flex items-center gap-1.5">
                                 <CreditCard size={15} className="text-electric-500" />
-                                Kartendetails (Stripe Secure Elements)
+                                Sichere Stripe-Zahlungsabwicklung
                               </span>
-                              <span className="text-[10px] font-semibold text-neutral-500 bg-white border border-neutral-200 px-2 py-0.5 rounded-full flex items-center gap-1">
+                              <span className="text-[10px] font-semibold text-neutral-600 bg-white border border-neutral-200 px-2.5 py-0.5 rounded-full flex items-center gap-1">
                                 <Shield size={11} className="text-status-success" /> 256-Bit SSL
                               </span>
                             </div>
 
-                            <div>
-                              <label className="block text-[11px] font-semibold text-neutral-600 mb-1">Karteninhaber</label>
-                              <input
-                                type="text"
-                                placeholder="Max Mustermann"
-                                value={stripeCardName}
-                                onChange={(e) => setStripeCardName(e.target.value)}
-                                className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-lg text-xs font-medium text-navy-900 focus:outline-none focus:border-electric-500"
-                              />
-                            </div>
+                            <p className="text-xs text-neutral-600 leading-relaxed">
+                              Sie werden nach Klick auf <strong>„Weiter zu Stripe“</strong> direkt zur offiziellen, geschützten Zahlungsseite von Stripe weitergeleitet, um Ihren Einkauf sicher abzuschließen.
+                            </p>
 
-                            <div>
-                              <label className="block text-[11px] font-semibold text-neutral-600 mb-1">Kartennummer</label>
-                              <div className="relative">
-                                <input
-                                  type="text"
-                                  placeholder="4242 •••• •••• 4242"
-                                  maxLength={19}
-                                  value={stripeCardNumber}
-                                  onChange={(e) => {
-                                    const v = e.target.value.replace(/\D/g, '').slice(0, 16);
-                                    const formatted = v.match(/.{1,4}/g)?.join(' ') || v;
-                                    setStripeCardNumber(formatted);
-                                  }}
-                                  className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-lg text-xs font-mono text-navy-900 focus:outline-none focus:border-electric-500"
-                                />
-                                <div className="absolute right-2.5 top-2 flex items-center gap-1 text-[10px] font-bold text-neutral-400">
-                                  <span>VISA</span>
-                                  <span>•</span>
-                                  <span>MC</span>
-                                </div>
+                            <div className="bg-white rounded-lg p-3 border border-neutral-200/80 space-y-2">
+                              <div className="text-[11px] font-semibold text-neutral-500 uppercase tracking-wider">
+                                Unterstützte Zahlungsarten auf Stripe:
+                              </div>
+                              <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                                <span className="inline-flex items-center gap-1 text-xs font-medium bg-neutral-100 text-navy-900 px-2.5 py-1 rounded-md border border-neutral-200">
+                                  💳 Visa & Mastercard
+                                </span>
+                                <span className="inline-flex items-center gap-1 text-xs font-medium bg-neutral-100 text-navy-900 px-2.5 py-1 rounded-md border border-neutral-200">
+                                  💳 American Express
+                                </span>
+                                <span className="inline-flex items-center gap-1 text-xs font-medium bg-neutral-100 text-navy-900 px-2.5 py-1 rounded-md border border-neutral-200">
+                                  🍎 Apple Pay
+                                </span>
+                                <span className="inline-flex items-center gap-1 text-xs font-medium bg-neutral-100 text-navy-900 px-2.5 py-1 rounded-md border border-neutral-200">
+                                  📱 Google Pay
+                                </span>
+                                <span className="inline-flex items-center gap-1 text-xs font-medium bg-neutral-100 text-navy-900 px-2.5 py-1 rounded-md border border-neutral-200">
+                                  🏦 Giropay / Sofort
+                                </span>
                               </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-3">
-                              <div>
-                                <label className="block text-[11px] font-semibold text-neutral-600 mb-1">Gültig bis (MM/YY)</label>
-                                <input
-                                  type="text"
-                                  placeholder="MM/YY"
-                                  maxLength={5}
-                                  value={stripeCardExpiry}
-                                  onChange={(e) => {
-                                    let v = e.target.value.replace(/\D/g, '').slice(0, 4);
-                                    if (v.length >= 2) v = v.slice(0, 2) + '/' + v.slice(2);
-                                    setStripeCardExpiry(v);
-                                  }}
-                                  className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-lg text-xs font-mono text-navy-900 focus:outline-none focus:border-electric-500 text-center"
-                                />
-                              </div>
-                              <div>
-                                <label className="block text-[11px] font-semibold text-neutral-600 mb-1">CVC / CVV</label>
-                                <input
-                                  type="password"
-                                  placeholder="•••"
-                                  maxLength={4}
-                                  value={stripeCardCvc}
-                                  onChange={(e) => setStripeCardCvc(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                                  className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-lg text-xs font-mono text-navy-900 focus:outline-none focus:border-electric-500 text-center"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="flex items-center justify-between pt-1">
-                              <button
-                                type="button"
-                                onClick={handleFillStripeTestCard}
-                                className="text-[11px] text-electric-600 hover:text-electric-700 font-semibold underline cursor-pointer"
-                              >
-                                🧪 Stripe Testkarte einfüllen (4242...)
-                              </button>
-                              <span className="text-[10px] text-neutral-400">Stripe PCI-DSS Level 1</span>
+                            <div className="flex items-center justify-between text-[11px] text-neutral-500 pt-1">
+                              <span className="flex items-center gap-1">
+                                <Lock size={12} className="text-status-success" /> 3D Secure 2.0 Authentifizierung
+                              </span>
+                              <span className="font-semibold text-neutral-600">Stripe PCI-DSS Level 1</span>
                             </div>
                           </div>
                         )}
@@ -913,7 +926,11 @@ export const Checkout = () => {
                   >
                     {isSubmitting ? (
                       <>
-                        <Loader2 size={20} className="animate-spin" /> {t('orderProcessing')}
+                        <Loader2 size={20} className="animate-spin" /> {paymentMethod === 'stripe' ? 'Weiterleitung zu Stripe...' : t('orderProcessing')}
+                      </>
+                    ) : paymentMethod === 'stripe' ? (
+                      <>
+                        <ExternalLink size={20} /> Weiter zu Stripe & sicher bezahlen ({formatPrice(total)})
                       </>
                     ) : (
                       <>

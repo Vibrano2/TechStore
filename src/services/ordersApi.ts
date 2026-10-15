@@ -19,7 +19,7 @@ export interface CreateOrderPayload {
   city: string;
   country?: string;
   phone?: string;
-  payment_method: string;
+  payment_method?: string;
   shipping_method?: 'standard' | 'express';
   items: CreateOrderItemInput[];
 }
@@ -135,7 +135,7 @@ export async function createOrder(payload: CreateOrderPayload): Promise<CreateOr
       vatAmount: vat,
       shipping,
       shippingMethod: payload.shipping_method === 'express' ? 'Expressversand (2-5 Werktage)' : 'Standardversand (3-15 Werktage)',
-      paymentMethod: payload.payment_method,
+      paymentMethod: payload.payment_method || 'stripe',
       total: Math.round((subtotal + shipping) * 100) / 100,
       status: 'In Bearbeitung',
       customer: {
@@ -231,7 +231,7 @@ export async function createOrder(payload: CreateOrderPayload): Promise<CreateOr
       vatAmount: vat,
       shipping,
       shippingMethod: payload.shipping_method === 'express' ? 'Expressversand (2-5 Werktage)' : 'Standardversand (3-15 Werktage)',
-      paymentMethod: payload.payment_method === 'bank_transfer' ? 'Manuelle Banküberweisung (Vorkasse)' : payload.payment_method,
+      paymentMethod: payload.payment_method === 'bank_transfer' ? 'Manuelle Banküberweisung (Vorkasse)' : (payload.payment_method || 'stripe'),
       total: Math.round((subtotal + shipping) * 100) / 100,
       status: 'In Bearbeitung',
       customer: {
@@ -491,4 +491,100 @@ export async function uploadPaymentProof(
     };
   }
 }
+
+export interface StripeSessionResult {
+  success: boolean;
+  checkout_url?: string;
+  session_id?: string;
+  order_id?: string;
+  error?: string;
+}
+
+export interface VerifyStripeResult {
+  success: boolean;
+  order?: SavedOrder;
+  error?: string;
+}
+
+export async function createStripeSession(payload: CreateOrderPayload): Promise<StripeSessionResult> {
+  const token = getStoredToken();
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE}/orders/create-stripe-session/`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json().catch(() => null);
+
+    if (res.ok && data?.checkout_url) {
+      return {
+        success: true,
+        checkout_url: data.checkout_url,
+        session_id: data.session_id,
+        order_id: data.order_id,
+      };
+    }
+
+    return {
+      success: false,
+      error: formatDrfErrors(data) || data?.error || 'Stripe-Sitzung konnte nicht erstellt werden.',
+    };
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err?.message || 'Netzwerkfehler beim Verbindungsaufbau zu Stripe.',
+    };
+  }
+}
+
+export async function verifyStripeSession(sessionId: string, orderId?: string): Promise<VerifyStripeResult> {
+  const token = getStoredToken();
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE}/orders/verify-stripe-session/`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ session_id: sessionId, order_id: orderId }),
+    });
+
+    const data = await res.json().catch(() => null);
+
+    if (res.ok && data?.success && data?.order) {
+      const normalized = normalizeBackendOrder(data.order);
+      try {
+        const existing = localStorage.getItem(REAL_ORDERS_KEY);
+        const list = existing ? JSON.parse(existing) : [];
+        const filtered = list.filter((o: SavedOrder) => o.id !== normalized.id && o.orderNumber !== normalized.orderNumber);
+        filtered.unshift(normalized);
+        localStorage.setItem(REAL_ORDERS_KEY, JSON.stringify(filtered));
+      } catch {}
+      return { success: true, order: normalized };
+    }
+
+    return {
+      success: false,
+      error: data?.error || 'Zahlung konnte noch nicht verifiziert werden.',
+    };
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err?.message || 'Netzwerkfehler beim Bestätigen der Zahlung.',
+    };
+  }
+}
+
 

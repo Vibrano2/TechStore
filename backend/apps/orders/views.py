@@ -1,5 +1,7 @@
 from decimal import Decimal
 import secrets
+import requests
+from django.conf import settings
 from django.db import transaction, models
 from django.http import HttpResponse
 from django.utils import timezone
@@ -294,6 +296,251 @@ class OrderViewSet(viewsets.GenericViewSet):
             pass
 
         return Response(OrderSerializer(created_order).data, status=status.HTTP_201_CREATED)
+
+    @action(detail=False, methods=['post'], url_path='create-stripe-session')
+    def create_stripe_session(self, request):
+        """
+        Creates an Order in pending_payment state and initializes a real Stripe Checkout Session
+        using the server's configured STRIPE_SECRET_KEY.
+        """
+        stripe_secret = getattr(settings, 'STRIPE_SECRET_KEY', '') or ''
+        if not stripe_secret:
+            return Response({
+                "success": False,
+                "error": "Stripe-Zahlungsgateway ist auf dem Server noch nicht konfiguriert."
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        serializer = CreateOrderSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        cart_id = data.get('cart_id')
+        raw_items = data.get('items')
+        shipping_method = data.get('shipping_method', 'standard')
+
+        order_items_data = []
+
+        if cart_id:
+            cart = Cart.objects.filter(id=cart_id).first()
+            if not cart or cart.items.count() == 0:
+                return Response(
+                    {"error": "Der Warenkorb ist leer oder nicht vorhanden."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            for ci in cart.items.all():
+                order_items_data.append({
+                    'product': ci.product,
+                    'variant': ci.variant,
+                    'product_name': ci.product.name,
+                    'quantity': ci.quantity,
+                    'unit_price': ci.unit_price,
+                })
+        elif raw_items:
+            for item in raw_items:
+                product_id = item.get('product_id')
+                product = Product.objects.filter(id=product_id).first()
+                if not product and product_id:
+                    product = Product.objects.filter(slug=product_id).first()
+                if not product and item.get('name'):
+                    product = Product.objects.filter(name__iexact=item.get('name')).first()
+                if not product:
+                    product = Product.objects.first()
+                if not product:
+                    continue
+
+                variant_id = item.get('variant_id')
+                variant = ProductVariant.objects.filter(id=variant_id).first() if variant_id else None
+                passed_price = item.get('price')
+                if passed_price is not None:
+                    try:
+                        unit_price = Decimal(str(passed_price))
+                    except Exception:
+                        unit_price = variant.price if (variant and variant.price is not None) else product.price
+                else:
+                    unit_price = variant.price if (variant and variant.price is not None) else product.price
+
+                qty = int(item.get('quantity', 1))
+                item_name = item.get('name') or product.name
+
+                order_items_data.append({
+                    'product': product,
+                    'variant': variant,
+                    'product_name': item_name,
+                    'quantity': qty,
+                    'unit_price': unit_price,
+                })
+
+        if not order_items_data:
+            return Response({"error": "Keine gültigen Positionen für die Bestellung."}, status=status.HTTP_400_BAD_REQUEST)
+
+        subtotal = sum(Decimal(str(item['unit_price'])) * item['quantity'] for item in order_items_data)
+
+        if shipping_method == 'express':
+            shipping_total = Decimal('9.99')
+        else:
+            shipping_total = Decimal('0.00') if subtotal >= Decimal('50.00') else Decimal('4.90')
+
+        grand_total = subtotal + shipping_total
+        tax_total = (grand_total - (grand_total / Decimal('1.19'))).quantize(Decimal('0.01'))
+
+        today_str = timezone.now().strftime('%Y%m%d')
+        random_suffix = secrets.token_hex(2).upper()
+        order_id = f"TS-{today_str}-{random_suffix}"
+
+        user = request.user if request.user and request.user.is_authenticated else None
+
+        with transaction.atomic():
+            order = Order.objects.create(
+                id=order_id,
+                user=user,
+                email=data['email'],
+                first_name=data['first_name'],
+                last_name=data['last_name'],
+                street=data['street'],
+                postal_code=data['postal_code'],
+                city=data['city'],
+                country=data.get('country', 'Deutschland'),
+                phone=data.get('phone', ''),
+                payment_method='stripe',
+                payment_status='pending',
+                status='pending_payment',
+                subtotal=subtotal,
+                shipping_total=shipping_total,
+                tax_total=tax_total,
+                grand_total=grand_total,
+                currency='EUR',
+                tracking_number=f"DHL-DE-{secrets.token_hex(4).upper()}"
+            )
+
+            for oi in order_items_data:
+                item_total = Decimal(str(oi['unit_price'])) * oi['quantity']
+                item_tax = (item_total - (item_total / Decimal('1.19'))).quantize(Decimal('0.01'))
+                OrderItem.objects.create(
+                    order=order,
+                    product=oi['product'],
+                    variant=oi['variant'],
+                    product_name=oi['product_name'],
+                    quantity=oi['quantity'],
+                    unit_price=oi['unit_price'],
+                    tax_amount=item_tax
+                )
+
+            if cart_id and 'cart' in locals() and cart:
+                cart.items.all().delete()
+
+        # Build Stripe Checkout Session
+        origin = request.headers.get('Origin') or request.META.get('HTTP_ORIGIN') or getattr(settings, 'FRONTEND_URL', 'http://127.0.0.1:5173')
+        origin = origin.rstrip('/')
+
+        success_url = f"{origin}/checkout?payment_status=success&session_id={{CHECKOUT_SESSION_ID}}&order_id={order.id}"
+        cancel_url = f"{origin}/checkout?payment_status=cancelled&order_id={order.id}"
+
+        stripe_data = {
+            'mode': 'payment',
+            'customer_email': order.email,
+            'client_reference_id': order.id,
+            'metadata[order_id]': order.id,
+            'metadata[customer_email]': order.email,
+            'success_url': success_url,
+            'cancel_url': cancel_url,
+            'locale': 'de',
+        }
+
+        for idx, oi in enumerate(order_items_data):
+            unit_cents = int(round(float(oi['unit_price']) * 100))
+            stripe_data[f'line_items[{idx}][price_data][currency]'] = 'eur'
+            stripe_data[f'line_items[{idx}][price_data][product_data][name]'] = oi['product_name']
+            stripe_data[f'line_items[{idx}][price_data][unit_amount]'] = str(unit_cents)
+            stripe_data[f'line_items[{idx}][quantity]'] = str(oi['quantity'])
+
+        if shipping_total > 0:
+            ship_idx = len(order_items_data)
+            ship_cents = int(round(float(shipping_total) * 100))
+            ship_label = 'DHL Expressversand (2-5 Werktage)' if shipping_method == 'express' else 'DHL Standardversand (3-15 Werktage)'
+            stripe_data[f'line_items[{ship_idx}][price_data][currency]'] = 'eur'
+            stripe_data[f'line_items[{ship_idx}][price_data][product_data][name]'] = ship_label
+            stripe_data[f'line_items[{ship_idx}][price_data][unit_amount]'] = str(ship_cents)
+            stripe_data[f'line_items[{ship_idx}][quantity]'] = '1'
+
+        try:
+            stripe_res = requests.post(
+                'https://api.stripe.com/v1/checkout/sessions',
+                headers={'Authorization': f'Bearer {stripe_secret}'},
+                data=stripe_data,
+                timeout=15
+            )
+            stripe_json = stripe_res.json()
+            if stripe_res.status_code != 200 or 'error' in stripe_json:
+                error_msg = stripe_json.get('error', {}).get('message', 'Fehler beim Erstellen der Stripe-Sitzung.')
+                return Response({"success": False, "error": error_msg}, status=status.HTTP_400_BAD_REQUEST)
+
+            return Response({
+                "success": True,
+                "checkout_url": stripe_json.get('url'),
+                "session_id": stripe_json.get('id'),
+                "order_id": order.id,
+            }, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({
+                "success": False,
+                "error": f"Verbindungsfehler zu Stripe: {str(e)}"
+            }, status=status.HTTP_502_BAD_GATEWAY)
+
+    @action(detail=False, methods=['post'], url_path='verify-stripe-session')
+    def verify_stripe_session(self, request):
+        """
+        Verify Stripe session payment status with Stripe API, mark order as paid and confirmed,
+        and send confirmation email with invoice.
+        """
+        session_id = request.data.get('session_id') or request.query_params.get('session_id')
+        order_id = request.data.get('order_id') or request.query_params.get('order_id')
+
+        if not session_id or not order_id:
+            return Response({"success": False, "error": "session_id und order_id sind erforderlich."}, status=status.HTTP_400_BAD_REQUEST)
+
+        order = Order.objects.filter(id__iexact=order_id).prefetch_related('items__product__images', 'items__product__brand').first()
+        if not order:
+            return Response({"success": False, "error": "Bestellung nicht gefunden."}, status=status.HTTP_404_NOT_FOUND)
+
+        stripe_secret = getattr(settings, 'STRIPE_SECRET_KEY', '') or ''
+        if not stripe_secret:
+            return Response({"success": False, "error": "Stripe nicht konfiguriert."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        try:
+            stripe_res = requests.get(
+                f'https://api.stripe.com/v1/checkout/sessions/{session_id}',
+                headers={'Authorization': f'Bearer {stripe_secret}'},
+                timeout=15
+            )
+            session_data = stripe_res.json()
+            if stripe_res.status_code != 200 or 'error' in session_data:
+                return Response({"success": False, "error": session_data.get('error', {}).get('message', 'Sitzung ungültig.')}, status=status.HTTP_400_BAD_REQUEST)
+
+            payment_status = session_data.get('payment_status')
+            if payment_status == 'paid':
+                order.payment_status = 'paid'
+                order.status = 'confirmed'
+                order.payment_method = 'stripe'
+                order.save()
+
+                try:
+                    send_order_confirmation_email(order)
+                except Exception:
+                    pass
+
+                return Response({
+                    "success": True,
+                    "order": OrderSerializer(order).data,
+                    "payment_status": "paid"
+                }, status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    "success": False,
+                    "payment_status": payment_status,
+                    "error": "Die Zahlung wurde von Stripe noch nicht bestätigt."
+                }, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"success": False, "error": f"Fehler bei der Überprüfung der Stripe-Zahlung: {str(e)}"}, status=status.HTTP_502_BAD_GATEWAY)
 
     @action(detail=True, methods=['get'])
     def invoice(self, request, pk=None):
