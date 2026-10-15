@@ -43,7 +43,7 @@ class OrdersAndCartAPITests(TestCase):
             'postal_code': '10115',
             'city': 'Berlin',
             'country': 'Deutschland',
-            'payment_method': 'paypal',
+            'payment_method': 'stripe',
             'items': [
                 {
                     'product_id': 'prod-audio-1',
@@ -144,7 +144,7 @@ class OrdersAndCartAPITests(TestCase):
             'street': 'Bayerstraße 12',
             'postal_code': '80335',
             'city': 'München',
-            'payment_method': 'paypal',
+            'payment_method': 'stripe',
             'items': [{'product_id': 'prod-audio-1', 'quantity': 1}]
         }, format='json')
         self.assertEqual(order_res.status_code, 201)

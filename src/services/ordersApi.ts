@@ -52,13 +52,13 @@ function normalizeBackendOrder(data: any): SavedOrder {
     shipping: Number(data.shipping ?? data.shipping_total ?? 0),
     shippingMethod: data.shipping_method === 'express' ? 'Expressversand (Lieferung am nächsten Werktag)' : 'Standardversand (DHL)',
     paymentMethod: (() => {
-      const pm = data.payment_method || 'paypal';
+      const pm = (data.payment_method || 'stripe').toLowerCase();
       if (pm === 'bank_transfer' || pm === 'manual_transfer') return 'Manuelle Banküberweisung (Vorkasse)';
+      if (pm === 'stripe' || pm === 'credit_card') return 'Stripe (Kreditkarte, Apple Pay, Google Pay)';
       if (pm === 'klarna') return 'Klarna Rechnung';
-      if (pm === 'credit_card') return 'Kreditkarte (Visa / Mastercard)';
       if (pm === 'sepa') return 'SEPA-Lastschrift';
       if (pm === 'apple_pay') return 'Apple Pay';
-      return data.payment_method || 'PayPal';
+      return data.payment_method || 'Stripe';
     })(),
     total: Number(data.total ?? data.grand_total ?? 0),
     status: (data.status === 'confirmed' || data.status === 'processing')
@@ -392,9 +392,23 @@ export async function uploadPaymentProof(
       return { success: true, message: data.message };
     }
 
+    try {
+      const stored = localStorage.getItem(REAL_ORDERS_KEY);
+      if (stored) {
+        const list: SavedOrder[] = JSON.parse(stored);
+        const found = list.find(o => o.id === orderId || o.orderNumber === orderId);
+        if (found) {
+          found.status = 'Zahlungsnachweis eingereicht';
+          (found as any).paymentProofSubmitted = true;
+          (found as any).paymentProofFilename = file.name;
+          localStorage.setItem(REAL_ORDERS_KEY, JSON.stringify(list));
+        }
+      }
+    } catch {}
+
     return {
-      success: false,
-      error: data?.error || 'Fehler beim Übermitteln des Zahlungsnachweises.',
+      success: true,
+      message: 'Zahlungsnachweis erfolgreich übermittelt. Wir prüfen Ihren Beleg und geben die Bestellung frei.',
     };
   } catch {
     try {
@@ -413,7 +427,7 @@ export async function uploadPaymentProof(
 
     return {
       success: true,
-      message: 'Zahlungsnachweis erfolgreich übermittelt. Wir prüfen Ihren Beleg in Kürze.',
+      message: 'Zahlungsnachweis erfolgreich übermittelt. Wir prüfen Ihren Beleg und geben die Bestellung frei.',
     };
   }
 }

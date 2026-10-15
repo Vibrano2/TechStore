@@ -76,7 +76,7 @@ def run_email_verification():
         postal_code="80331",
         city="München",
         country="Deutschland",
-        payment_method="paypal",
+        payment_method="stripe",
         payment_status="paid",
         status="confirmed",
         subtotal=Decimal('1199.00'),

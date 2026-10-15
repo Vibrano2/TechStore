@@ -25,7 +25,7 @@ async function runReturnsAndWarrantyVerification() {
     street: 'Schloßallee 12',
     postal_code: '80331',
     city: 'München',
-    payment_method: 'paypal',
+    payment_method: 'stripe',
     items: [
       {
         product_id: 'p1',

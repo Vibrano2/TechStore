@@ -1,11 +1,12 @@
 import { formatPrice } from '../utils/formatPrice';
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, Shield, ArrowLeft, Loader2, PackageCheck, FileText, Download, MailCheck, AlertCircle, Building2, Copy, Check, UploadCloud, X } from 'lucide-react';
+import { CheckCircle, Shield, ArrowLeft, Loader2, PackageCheck, FileText, Download, MailCheck, AlertCircle, Building2, Copy, Check, UploadCloud, X, CreditCard, Printer } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { useAuth } from '../context/AuthContext';
 import { createOrder, downloadInvoicePdf, resendOrderConfirmation, uploadPaymentProof } from '../services/ordersApi';
 import { useSEO } from '../utils/useSEO';
+import { printOrDownloadReceipt } from '../utils/generateReceipt';
 
 export interface SavedOrder {
   id: string;
@@ -60,10 +61,16 @@ export const Checkout = () => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [completedOrderNumber, setCompletedOrderNumber] = useState('');
+  const [completedOrder, setCompletedOrder] = useState<SavedOrder | null>(null);
   const [orderError, setOrderError] = useState('');
 
   const [shippingMethod, setShippingMethod] = useState<'standard' | 'express'>('standard');
-  const [paymentMethod, setPaymentMethod] = useState<string>('PayPal');
+  const [paymentMethod, setPaymentMethod] = useState<string>('stripe');
+
+  const [stripeCardNumber, setStripeCardNumber] = useState('');
+  const [stripeCardExpiry, setStripeCardExpiry] = useState('');
+  const [stripeCardCvc, setStripeCardCvc] = useState('');
+  const [stripeCardName, setStripeCardName] = useState('');
 
   const [emailInput, setEmailInput] = useState(user?.email || '');
   const [firstNameInput, setFirstNameInput] = useState(user?.first_name || '');
@@ -101,6 +108,38 @@ export const Checkout = () => {
     navigator.clipboard.writeText(text);
     setCopiedField(fieldName);
     setTimeout(() => setCopiedField(''), 2500);
+  };
+
+  const handleFillStripeTestCard = () => {
+    setStripeCardNumber('4242 4242 4242 4242');
+    setStripeCardExpiry('12/28');
+    setStripeCardCvc('123');
+    setStripeCardName(`${firstNameInput || 'Max'} ${lastNameInput || 'Mustermann'}`);
+  };
+
+  const handleGenerateReceipt = () => {
+    if (completedOrder) {
+      printOrDownloadReceipt(completedOrder);
+    } else {
+      printOrDownloadReceipt({
+        orderNumber: completedOrderNumber,
+        date: new Date().toLocaleDateString('de-DE'),
+        items: cart.map(i => ({ name: i.product.name, brand: i.product.brand, quantity: i.quantity, price: i.product.price })),
+        subtotal: cartTotal,
+        shipping: shippingFee,
+        vatAmount,
+        total,
+        paymentMethod: paymentMethod === 'stripe' ? 'Stripe (Kreditkarte)' : (paymentMethod === 'bank_transfer' ? 'Manuelle Banküberweisung (Vorkasse)' : paymentMethod),
+        customer: {
+          firstName: firstNameInput,
+          lastName: lastNameInput,
+          street: streetInput,
+          postalCode: postalCodeInput,
+          city: cityInput,
+          email: emailInput,
+        }
+      });
+    }
   };
 
   const handleDownloadInvoice = async () => {
@@ -181,6 +220,7 @@ export const Checkout = () => {
     });
 
     if (res.success && res.order) {
+      setCompletedOrder(res.order);
       setCompletedOrderNumber(res.order.orderNumber || res.order.id);
       setIsCompleted(true);
       clearCart();
@@ -455,6 +495,15 @@ export const Checkout = () => {
 
           <div className="flex flex-col sm:flex-row gap-3 pt-2 border-t border-neutral-100">
             <button
+              type="button"
+              onClick={handleGenerateReceipt}
+              className="bg-navy-900 hover:bg-navy-900/90 text-white py-2.5 px-4 rounded-[10px] text-xs font-bold flex items-center justify-center gap-2 shadow-xs cursor-pointer flex-1 transition-colors"
+              title="Kaufbeleg & Quittung für diese Bestellung als PDF drucken oder speichern"
+            >
+              <Printer size={16} className="text-electric-500" />
+              <span>Quittung generieren (PDF / Drucken)</span>
+            </button>
+            <button
               onClick={handleDownloadInvoice}
               disabled={isDownloadingInvoice}
               className="btn-primary py-2.5 px-4 text-xs font-bold flex items-center justify-center gap-2 shadow-xs cursor-pointer flex-1 disabled:opacity-70"
@@ -724,12 +773,10 @@ export const Checkout = () => {
               <form onSubmit={handlePlaceOrder}>
                 <div className="space-y-3 mb-6">
                   {[
-                    { id: 'bank_transfer', label: t('bankTransfer'), isBank: true },
-                    { id: 'PayPal', label: 'PayPal', isBank: false },
-                    { id: 'Kreditkarte (Visa / Mastercard)', label: 'Kreditkarte (Visa / Mastercard)', isBank: false },
-                    { id: 'Klarna Rechnung', label: 'Klarna Rechnung', isBank: false },
-                    { id: 'SEPA-Lastschrift', label: 'SEPA-Lastschrift', isBank: false },
-                    { id: 'Apple Pay', label: 'Apple Pay', isBank: false },
+                    { id: 'stripe', label: 'Stripe (Kreditkarte, Apple Pay, Google Pay)', isBank: false, isStripe: true },
+                    { id: 'bank_transfer', label: t('bankTransfer'), isBank: true, isStripe: false },
+                    { id: 'Klarna Rechnung', label: 'Klarna Rechnung', isBank: false, isStripe: false },
+                    { id: 'SEPA-Lastschrift', label: 'SEPA-Lastschrift', isBank: false, isStripe: false },
                   ].map((method) => {
                     const isSelected = paymentMethod === method.id || paymentMethod === method.label;
                     return (
@@ -749,7 +796,15 @@ export const Checkout = () => {
                             className="text-electric-500 focus:ring-electric-500"
                           />
                           <div className="flex-1 flex items-center justify-between">
-                            <span className="font-medium text-navy-900 text-sm">{method.label}</span>
+                            <span className="font-semibold text-navy-900 text-sm flex items-center gap-2">
+                              {method.isStripe && <CreditCard size={16} className="text-electric-500" />}
+                              {method.label}
+                            </span>
+                            {method.isStripe && (
+                              <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                                Sofort & Sicher
+                              </span>
+                            )}
                             {method.isBank && (
                               <span className="text-[11px] font-semibold text-electric-600 bg-electric-50 border border-electric-200 px-2 py-0.5 rounded-full">
                                 Vorkasse
@@ -757,6 +812,94 @@ export const Checkout = () => {
                             )}
                           </div>
                         </div>
+
+                        {isSelected && method.isStripe && (
+                          <div className="mt-4 pt-4 border-t border-neutral-200/80 space-y-3.5 bg-neutral-50/70 p-4 rounded-xl border border-neutral-200/60" onClick={(e) => e.stopPropagation()}>
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-bold text-navy-900 flex items-center gap-1.5">
+                                <CreditCard size={15} className="text-electric-500" />
+                                Kartendetails (Stripe Secure Elements)
+                              </span>
+                              <span className="text-[10px] font-semibold text-neutral-500 bg-white border border-neutral-200 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                <Shield size={11} className="text-status-success" /> 256-Bit SSL
+                              </span>
+                            </div>
+
+                            <div>
+                              <label className="block text-[11px] font-semibold text-neutral-600 mb-1">Karteninhaber</label>
+                              <input
+                                type="text"
+                                placeholder="Max Mustermann"
+                                value={stripeCardName}
+                                onChange={(e) => setStripeCardName(e.target.value)}
+                                className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-lg text-xs font-medium text-navy-900 focus:outline-none focus:border-electric-500"
+                              />
+                            </div>
+
+                            <div>
+                              <label className="block text-[11px] font-semibold text-neutral-600 mb-1">Kartennummer</label>
+                              <div className="relative">
+                                <input
+                                  type="text"
+                                  placeholder="4242 •••• •••• 4242"
+                                  maxLength={19}
+                                  value={stripeCardNumber}
+                                  onChange={(e) => {
+                                    const v = e.target.value.replace(/\D/g, '').slice(0, 16);
+                                    const formatted = v.match(/.{1,4}/g)?.join(' ') || v;
+                                    setStripeCardNumber(formatted);
+                                  }}
+                                  className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-lg text-xs font-mono text-navy-900 focus:outline-none focus:border-electric-500"
+                                />
+                                <div className="absolute right-2.5 top-2 flex items-center gap-1 text-[10px] font-bold text-neutral-400">
+                                  <span>VISA</span>
+                                  <span>•</span>
+                                  <span>MC</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3">
+                              <div>
+                                <label className="block text-[11px] font-semibold text-neutral-600 mb-1">Gültig bis (MM/YY)</label>
+                                <input
+                                  type="text"
+                                  placeholder="MM/YY"
+                                  maxLength={5}
+                                  value={stripeCardExpiry}
+                                  onChange={(e) => {
+                                    let v = e.target.value.replace(/\D/g, '').slice(0, 4);
+                                    if (v.length >= 2) v = v.slice(0, 2) + '/' + v.slice(2);
+                                    setStripeCardExpiry(v);
+                                  }}
+                                  className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-lg text-xs font-mono text-navy-900 focus:outline-none focus:border-electric-500 text-center"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-[11px] font-semibold text-neutral-600 mb-1">CVC / CVV</label>
+                                <input
+                                  type="password"
+                                  placeholder="•••"
+                                  maxLength={4}
+                                  value={stripeCardCvc}
+                                  onChange={(e) => setStripeCardCvc(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                                  className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-lg text-xs font-mono text-navy-900 focus:outline-none focus:border-electric-500 text-center"
+                                />
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between pt-1">
+                              <button
+                                type="button"
+                                onClick={handleFillStripeTestCard}
+                                className="text-[11px] text-electric-600 hover:text-electric-700 font-semibold underline cursor-pointer"
+                              >
+                                🧪 Stripe Testkarte einfüllen (4242...)
+                              </button>
+                              <span className="text-[10px] text-neutral-400">Stripe PCI-DSS Level 1</span>
+                            </div>
+                          </div>
+                        )}
 
                         {isSelected && method.isBank && (
                           <div className="mt-3 pt-3 border-t border-electric-200/60 text-xs text-neutral-600 space-y-2 bg-white/80 p-3 rounded-lg">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Package, MapPin, RefreshCw, ShieldCheck, Heart, User, Lock, LogOut, CheckCircle, Mail, Plus, Trash2, Eye, FileText, Download, Loader2, AlertCircle, UploadCloud } from 'lucide-react';
+import { Package, MapPin, RefreshCw, ShieldCheck, Heart, User, Lock, LogOut, CheckCircle, Mail, Plus, Trash2, Eye, FileText, Download, Loader2, AlertCircle, UploadCloud, Printer } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { formatPrice } from '../utils/formatPrice';
@@ -12,6 +12,7 @@ import { ReturnModal } from '../components/account/ReturnModal';
 import { WarrantyModal } from '../components/account/WarrantyModal';
 import { PaymentProofModal } from '../components/account/PaymentProofModal';
 import { useSEO } from '../utils/useSEO';
+import { printOrDownloadReceipt } from '../utils/generateReceipt';
 
 interface Address {
   id: string;
@@ -432,6 +433,14 @@ export const Account = () => {
                       <div className="mt-4 pt-3 border-t border-neutral-100 flex flex-wrap justify-between items-center gap-2 text-xs text-neutral-500">
                         <span>{ord.shippingMethod}</span>
                         <div className="flex items-center gap-2.5">
+                          <button
+                            onClick={() => printOrDownloadReceipt(ord)}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-navy-900 bg-neutral-100 hover:bg-neutral-200/80 rounded-md transition-colors cursor-pointer"
+                            title="Kaufbeleg & Quittung für diese Bestellung als PDF drucken oder speichern"
+                          >
+                            <Printer size={13} className="text-electric-500" />
+                            <span>Quittung</span>
+                          </button>
                           <button
                             onClick={() => handleDownloadInvoice(ord)}
                             disabled={downloadingOrderId === (ord.orderNumber || ord.id)}

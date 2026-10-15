@@ -29,12 +29,12 @@ def send_order_confirmation_email(order) -> dict:
         invoice_filename = f"Rechnung_{order.id.replace('TS-', 'RE-')}.pdf"
 
         payment_labels = {
-            'paypal': 'PayPal (Online-Zahlung)',
+            'stripe': 'Stripe (Kreditkarte, Apple Pay, Google Pay)',
+            'bank_transfer': 'Manuelle Banküberweisung (Vorkasse)',
             'klarna': 'Klarna (Rechnung / Sofort)',
             'credit_card': 'Kreditkarte (Visa / Mastercard)',
             'sepa': 'SEPA-Lastschrift',
             'apple_pay': 'Apple Pay / Google Pay',
-            'bank_transfer': 'Manuelle Banküberweisung (Vorkasse)',
         }
         payment_str = payment_labels.get(order.payment_method, order.payment_method.capitalize())
         shipping_str = "DHL Expressversand (1-2 Werktage)" if order.shipping_total > Decimal('5.00') else "DHL Standardversand (2-4 Werktage)"

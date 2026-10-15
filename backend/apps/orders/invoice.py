@@ -262,12 +262,12 @@ def generate_invoice_pdf(order) -> bytes:
     order_date_str = format_de_date(order.created_at)
 
     payment_labels = {
-        'paypal': 'PayPal (Sofort bezahlt)',
+        'stripe': 'Stripe (Kreditkarte / Apple Pay / Google Pay - Sofort bezahlt)',
+        'bank_transfer': 'Manuelle Banküberweisung (Vorkasse)',
         'klarna': 'Klarna (Rechnung / Sofort)',
         'credit_card': 'Kreditkarte (Visa / Mastercard)',
         'sepa': 'SEPA-Lastschrift',
         'apple_pay': 'Apple Pay / Google Pay',
-        'bank_transfer': 'Manuelle Banküberweisung (Vorkasse)',
     }
     payment_display = payment_labels.get(order.payment_method, order.payment_method.capitalize())
 

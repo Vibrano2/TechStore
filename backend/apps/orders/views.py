@@ -173,7 +173,7 @@ class OrderViewSet(viewsets.GenericViewSet):
         cart_id = data.get('cart_id')
         raw_items = data.get('items')
         shipping_method = data.get('shipping_method', 'standard')
-        payment_method = data.get('payment_method', 'paypal')
+        payment_method = data.get('payment_method', 'stripe')
 
         order_items_data = []
 
@@ -260,7 +260,7 @@ class OrderViewSet(viewsets.GenericViewSet):
                 country=data.get('country', 'Deutschland'),
                 phone=data.get('phone', ''),
                 payment_method=payment_method,
-                payment_status='paid' if payment_method in ('paypal', 'credit_card', 'klarna') else 'pending',
+                payment_status='paid' if payment_method in ('stripe', 'credit_card', 'klarna', 'apple_pay') else 'pending',
                 status='confirmed',
                 subtotal=subtotal,
                 shipping_total=shipping_total,

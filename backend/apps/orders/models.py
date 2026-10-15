@@ -79,12 +79,12 @@ class Order(models.Model):
     ]
 
     PAYMENT_METHOD_CHOICES = [
-        ('paypal', 'PayPal'),
+        ('stripe', 'Stripe (Kreditkarte / Apple Pay / Google Pay)'),
+        ('bank_transfer', 'Manuelle Banküberweisung (Vorkasse)'),
         ('klarna', 'Klarna (Rechnung / Sofort)'),
         ('credit_card', 'Kreditkarte (Visa/Mastercard)'),
         ('sepa', 'SEPA Lastschrift'),
         ('apple_pay', 'Apple Pay / Google Pay'),
-        ('bank_transfer', 'Manuelle Banküberweisung (Vorkasse)'),
     ]
 
     id = models.CharField(max_length=64, primary_key=True)
@@ -98,7 +98,7 @@ class Order(models.Model):
     email = models.EmailField()
     status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='pending')
     payment_status = models.CharField(max_length=20, choices=PAYMENT_STATUS_CHOICES, default='pending')
-    payment_method = models.CharField(max_length=30, choices=PAYMENT_METHOD_CHOICES, default='paypal')
+    payment_method = models.CharField(max_length=30, choices=PAYMENT_METHOD_CHOICES, default='stripe')
 
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
     shipping_total = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))

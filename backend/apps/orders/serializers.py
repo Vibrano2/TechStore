@@ -155,7 +155,7 @@ class CreateOrderSerializer(serializers.Serializer):
     country = serializers.CharField(max_length=50, default='Deutschland')
     phone = serializers.CharField(max_length=50, required=False, allow_blank=True, default='')
     shipping_method = serializers.CharField(max_length=50, required=False, default='standard')
-    payment_method = serializers.CharField(max_length=50, required=False, default='paypal')
+    payment_method = serializers.CharField(max_length=50, required=False, default='stripe')
 
     def validate_postal_code(self, value):
         cleaned = value.strip()
@@ -167,16 +167,18 @@ class CreateOrderSerializer(serializers.Serializer):
     def validate_payment_method(self, value):
         val = value.strip().lower().replace(' ', '_').replace('-', '_')
         mapping = {
-            'paypal': 'paypal',
+            'stripe': 'stripe',
+            'stripe_card': 'stripe',
+            'stripe_(kreditkarte,_apple_pay,_google_pay)': 'stripe',
             'klarna': 'klarna',
-            'kreditkarte': 'credit_card',
-            'credit_card': 'credit_card',
-            'creditcard': 'credit_card',
+            'kreditkarte': 'stripe',
+            'credit_card': 'stripe',
+            'creditcard': 'stripe',
             'sepa': 'sepa',
             'sepa_lastschrift': 'sepa',
-            'apple_pay': 'apple_pay',
-            'google_pay': 'apple_pay',
-            'apple_pay_/_google_pay': 'apple_pay',
+            'apple_pay': 'stripe',
+            'google_pay': 'stripe',
+            'apple_pay_/_google_pay': 'stripe',
             'bank_transfer': 'bank_transfer',
             'vorkasse': 'bank_transfer',
             'manuelle_banküberweisung': 'bank_transfer',
@@ -193,7 +195,9 @@ class CreateOrderSerializer(serializers.Serializer):
             return mapping[val]
         if 'transfer' in val or 'bank' in val or 'vorkasse' in val or 'überweis' in val or 'ueberweis' in val:
             return 'bank_transfer'
-        return 'paypal'
+        if 'stripe' in val or 'kredit' in val or 'card' in val or 'apple' in val or 'google' in val:
+            return 'stripe'
+        return 'stripe'
 
     def validate(self, attrs):
         cart_id = attrs.get('cart_id')

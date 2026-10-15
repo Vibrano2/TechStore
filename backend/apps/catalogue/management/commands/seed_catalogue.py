@@ -178,7 +178,7 @@ class Command(BaseCommand):
                 'Versand- und Zahlungsbedingungen',
                 'Wir liefern innerhalb Deutschlands mit DHL und DPD. Die Standardlieferzeit beträgt 2-3 Werktage. '
                 'Kostenloser Versand ab einem Bestellwert von 50,00 EUR. Darunter betragen die Versandkosten 4,90 EUR. '
-                'Akzeptierte Zahlungsarten: PayPal, Klarna (Rechnung / Sofort), Kreditkarte, SEPA-Lastschrift, Apple Pay.'
+                'Akzeptierte Zahlungsarten: Stripe (Kreditkarte, Apple Pay, Google Pay), Klarna (Rechnung / Sofort), Kreditkarte, SEPA-Lastschrift, Vorkasse (Banküberweisung).'
             ),
             (
                 'elektrog',

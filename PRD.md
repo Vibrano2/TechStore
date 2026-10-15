@@ -204,7 +204,7 @@ Guest checkout must be supported.
 Potential payment methods:
 - Visa
 - Mastercard
-- PayPal
+- Stripe (Visa, Mastercard, Apple Pay, Google Pay)
 - Apple Pay
 - Google Pay
 - SEPA
