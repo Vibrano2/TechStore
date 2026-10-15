@@ -20,7 +20,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p2',
@@ -41,7 +41,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p3',
@@ -62,7 +62,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p4',
@@ -83,7 +83,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p5',
@@ -104,7 +104,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p6',
@@ -125,7 +125,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p7',
@@ -146,7 +146,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p8',
@@ -167,7 +167,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p9',
@@ -188,7 +188,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p10',
@@ -209,7 +209,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p11',
@@ -230,7 +230,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p12',
@@ -251,7 +251,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p13',
@@ -272,7 +272,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p14',
@@ -293,7 +293,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p15',
@@ -314,7 +314,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p16',
@@ -335,7 +335,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p17',
@@ -356,7 +356,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p18',
@@ -377,7 +377,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p19',
@@ -398,7 +398,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p20',
@@ -419,7 +419,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p21',
@@ -440,7 +440,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p22',
@@ -461,7 +461,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p23',
@@ -482,7 +482,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p24',
@@ -503,7 +503,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p25',
@@ -524,7 +524,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p26',
@@ -545,7 +545,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p27',
@@ -566,7 +566,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p28',
@@ -587,7 +587,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p29',
@@ -608,7 +608,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p30',
@@ -629,7 +629,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p31',
@@ -650,7 +650,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p32',
@@ -671,7 +671,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p33',
@@ -692,7 +692,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p34',
@@ -713,7 +713,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p35',
@@ -734,7 +734,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p36',
@@ -755,7 +755,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p37',
@@ -776,7 +776,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p38',
@@ -797,7 +797,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p39',
@@ -818,7 +818,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p40',
@@ -839,7 +839,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p41',
@@ -860,7 +860,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p42',
@@ -881,7 +881,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p43',
@@ -902,7 +902,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p44',
@@ -923,7 +923,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p45',
@@ -944,7 +944,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p46',
@@ -965,7 +965,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p47',
@@ -986,7 +986,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p48',
@@ -1007,7 +1007,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p49',
@@ -1028,7 +1028,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p50',
@@ -1049,7 +1049,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p51',
@@ -1070,7 +1070,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p52',
@@ -1091,7 +1091,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p53',
@@ -1112,7 +1112,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p54',
@@ -1133,7 +1133,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p55',
@@ -1154,7 +1154,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p56',
@@ -1175,7 +1175,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p57',
@@ -1196,7 +1196,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p58',
@@ -1217,7 +1217,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p59',
@@ -1238,7 +1238,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p60',
@@ -1259,7 +1259,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p61',
@@ -1280,7 +1280,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p62',
@@ -1301,7 +1301,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p63',
@@ -1322,7 +1322,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p64',
@@ -1343,7 +1343,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p65',
@@ -1364,7 +1364,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p66',
@@ -1385,7 +1385,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p67',
@@ -1406,7 +1406,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p68',
@@ -1427,7 +1427,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p69',
@@ -1448,7 +1448,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p70',
@@ -1469,7 +1469,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p71',
@@ -1490,7 +1490,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p72',
@@ -1511,7 +1511,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p73',
@@ -1532,7 +1532,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p74',
@@ -1553,7 +1553,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p75',
@@ -1574,7 +1574,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p76',
@@ -1595,7 +1595,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p77',
@@ -1616,7 +1616,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p78',
@@ -1637,7 +1637,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p79',
@@ -1658,7 +1658,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p80',
@@ -1679,7 +1679,7 @@ export const mockProducts: Product[] = [
       'Zustand': 'Neu'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 2-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p81',
@@ -1707,7 +1707,7 @@ export const mockProducts: Product[] = [
       'Akku': '4.500 mAh'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p82',
@@ -1735,7 +1735,7 @@ export const mockProducts: Product[] = [
       'Gewicht': '239g'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p83',
@@ -1763,7 +1763,7 @@ export const mockProducts: Product[] = [
       'Kamera': '50 MP Dual-Kamera'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p84',
@@ -1790,7 +1790,7 @@ export const mockProducts: Product[] = [
       'Material': 'Grade 5 Titan-Gehäuse'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p85',
@@ -1817,7 +1817,7 @@ export const mockProducts: Product[] = [
       'Anschluss': 'Thunderbolt / USB 4'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p86',
@@ -1845,7 +1845,7 @@ export const mockProducts: Product[] = [
       'Schutz': 'IP68 wasser- & staubgeschützt'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p87',
@@ -1870,7 +1870,7 @@ export const mockProducts: Product[] = [
       'Audio': 'JBL Quad-Lautsprecher Dolby Atmos'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p88',
@@ -1896,7 +1896,7 @@ export const mockProducts: Product[] = [
       'Software': 'Kindersicherung & Lern-Apps vorinstalliert'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p89',
@@ -1921,7 +1921,7 @@ export const mockProducts: Product[] = [
       'Stylus': 'Wacom Stylus inklusive'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p90',
@@ -1948,7 +1948,7 @@ export const mockProducts: Product[] = [
       'Akkulaufzeit': 'Bis zu 24 Stunden'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p91',
@@ -1973,7 +1973,7 @@ export const mockProducts: Product[] = [
       'KI': 'Integrierte Windows Copilot+ Features'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p92',
@@ -2000,7 +2000,7 @@ export const mockProducts: Product[] = [
       'Gewicht': '1.19 kg'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p93',
@@ -2027,7 +2027,7 @@ export const mockProducts: Product[] = [
       'SSD': '2 TB PCIe Gen4'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p94',
@@ -2052,7 +2052,7 @@ export const mockProducts: Product[] = [
       'SSD': '1 TB'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p95',
@@ -2078,7 +2078,7 @@ export const mockProducts: Product[] = [
       'Dicke': '14.9 mm CNC Aluminium'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p96',
@@ -2105,7 +2105,7 @@ export const mockProducts: Product[] = [
       'SSD': '1 TB'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p97',
@@ -2130,7 +2130,7 @@ export const mockProducts: Product[] = [
       'Formfaktor': '0.5 Liter Ultrakompakt'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p98',
@@ -2155,7 +2155,7 @@ export const mockProducts: Product[] = [
       'Betriebssystem': 'Windows 11 Pro vorinstalliert'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p99',
@@ -2181,7 +2181,7 @@ export const mockProducts: Product[] = [
       'Ergonomie': 'Höhenverstellbar, Pivot, Swivel'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p100',
@@ -2207,7 +2207,7 @@ export const mockProducts: Product[] = [
       'HDR': 'VESA DisplayHDR True Black 400'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p101',
@@ -2231,7 +2231,7 @@ export const mockProducts: Product[] = [
       'Besonderheit': 'Integrierter Klappständer & Blaulichtfilter'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p102',
@@ -2255,7 +2255,7 @@ export const mockProducts: Product[] = [
       'Netzwerk': '2.5 Gbps Ethernet'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p103',
@@ -2359,7 +2359,7 @@ export const mockProducts: Product[] = [
       'Audio': 'Dolby Atmos Soundsystem integriert'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p107',
@@ -2386,7 +2386,7 @@ export const mockProducts: Product[] = [
       'Gewicht': '950 Gramm'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p108',
@@ -2410,7 +2410,7 @@ export const mockProducts: Product[] = [
       'Steuerung': 'Funk-Fernbedienung & Wandschalter'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p109',
@@ -2434,7 +2434,7 @@ export const mockProducts: Product[] = [
       'Kabelführung': 'Integriertes Kabelmanagement'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p110',
@@ -2458,7 +2458,7 @@ export const mockProducts: Product[] = [
       'Fernbedienung': 'Beleuchtete Bluetooth Fernbedienung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p111',
@@ -2484,7 +2484,7 @@ export const mockProducts: Product[] = [
       'Akkulaufzeit': 'Bis zu 30 Stunden mit Case'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p112',
@@ -2510,7 +2510,7 @@ export const mockProducts: Product[] = [
       'Features': 'SpaceFit Sound Pro, Q-Symphony, HDMI 2.1 4K120Hz'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p113',
@@ -2536,7 +2536,7 @@ export const mockProducts: Product[] = [
       'Mikrofone': 'Knochenschallsensoren für kristallklare Telefonate'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p114',
@@ -2560,7 +2560,7 @@ export const mockProducts: Product[] = [
       'Latenz': 'Nur 0.5 Sekunden Reaktionszeit'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p115',
@@ -2584,7 +2584,7 @@ export const mockProducts: Product[] = [
       'Akkulaufzeit': '12 Stunden Spielzeit mit Quick Charge'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p116',
@@ -2610,7 +2610,7 @@ export const mockProducts: Product[] = [
       'Konnektivität': 'Multi-System Station (PC & Konsole gleichzeitig)'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p117',
@@ -2634,7 +2634,7 @@ export const mockProducts: Product[] = [
       'Zubehör': 'Inklusive Popfilter und Tischstativ'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p118',
@@ -2660,7 +2660,7 @@ export const mockProducts: Product[] = [
       'Eingänge': 'Gitarren- und Mikrofoneingang'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p119',
@@ -2684,7 +2684,7 @@ export const mockProducts: Product[] = [
       'Eingänge': 'Optisch, Koaxial, Cinch & Bluetooth'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p120',
@@ -2708,7 +2708,7 @@ export const mockProducts: Product[] = [
       'Bremsen': 'Doppelscheibenbremsen vorne und hinten'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen',
+    delivery: 'Lieferung in 3-15 Werktagen',
     eMobilityCompliance: {
       roadLegal: false,
       abeAvailable: false,
@@ -2836,7 +2836,7 @@ export const mockProducts: Product[] = [
       'Speicher': 'Lokaler Speicher ohne monatliche Gebühren'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p125',
@@ -2860,7 +2860,7 @@ export const mockProducts: Product[] = [
       'Sirene': 'Integrierte Alarmsirene & 2-Wege-Audio'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p126',
@@ -2884,7 +2884,7 @@ export const mockProducts: Product[] = [
       'Display': 'Minimalistisches LED-Matrix Display'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p127',
@@ -2908,7 +2908,7 @@ export const mockProducts: Product[] = [
       'Batterielaufzeit': 'Mehrere Heizperioden'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p128',
@@ -2932,7 +2932,7 @@ export const mockProducts: Product[] = [
       'Batterie': '10 Jahre Batterielebensdauer'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p129',
@@ -2956,7 +2956,7 @@ export const mockProducts: Product[] = [
       'Batterie': '2x AAA für bis zu 2 Jahre Laufzeit'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p130',
@@ -2979,7 +2979,7 @@ export const mockProducts: Product[] = [
       'Apps': 'Über 1.000 Hersteller-Integrationen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p131',
@@ -3005,7 +3005,7 @@ export const mockProducts: Product[] = [
       'Smarthome': 'Integrierter Zigbee & Matter Hub'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p132',
@@ -3029,7 +3029,7 @@ export const mockProducts: Product[] = [
       'Kompatibilität': 'U-Schiene, I-Schiene und Gardinenstange'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p133',
@@ -3055,7 +3055,7 @@ export const mockProducts: Product[] = [
       'WLAN': 'Dual-Band 2.4 & 5 GHz'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p134',
@@ -3078,7 +3078,7 @@ export const mockProducts: Product[] = [
       'Sicherheit': 'Schließ-Erinnerung und Torstatus-Historie'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p135',
@@ -3128,7 +3128,7 @@ export const mockProducts: Product[] = [
       'Aufstellung': 'Verstellbare Stützen für optimalen Sonnenwinkel'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p137',
@@ -3154,7 +3154,7 @@ export const mockProducts: Product[] = [
       'Zertifizierung': 'VDE-AR-N 4105 konform für Deutschland'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p138',
@@ -3180,7 +3180,7 @@ export const mockProducts: Product[] = [
       'Garantie': '10 Jahre Herstellergarantie auf Akku'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p139',
@@ -3203,7 +3203,7 @@ export const mockProducts: Product[] = [
       'Erweiterbar': 'Bis zu 4 Akkus auf 3.840 Wh stapelbar'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p140',
@@ -3251,7 +3251,7 @@ export const mockProducts: Product[] = [
       'Genauigkeit': 'Klasse B (IEC 62053-21)'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p142',
@@ -3277,7 +3277,7 @@ export const mockProducts: Product[] = [
       'Anschlüsse': '2x USB-C, 1x USB-A'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p143',
@@ -3303,7 +3303,7 @@ export const mockProducts: Product[] = [
       'Kabel': 'Inklusive 100W USB-C Ladekabel'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p144',
@@ -3327,7 +3327,7 @@ export const mockProducts: Product[] = [
       'Schutz': 'Integrierter FI-Schutz Typ A mit DC-Erkennung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p145',
@@ -3351,7 +3351,7 @@ export const mockProducts: Product[] = [
       'Display': 'LCD-Anzeige für Ladeleistung und kWh'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p146',
@@ -3375,7 +3375,7 @@ export const mockProducts: Product[] = [
       'Prüfung': 'TÜV Rheinland zertifiziert'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p147',
@@ -3399,7 +3399,7 @@ export const mockProducts: Product[] = [
       'Sicherheit': 'Überlast-, Überhitzungs- und Kurzschlussschutz'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p148',
@@ -3425,7 +3425,7 @@ export const mockProducts: Product[] = [
       'Sensor': 'Andruckkontrollsensor schützt das Zahnfleisch'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p149',
@@ -3449,7 +3449,7 @@ export const mockProducts: Product[] = [
       'Hitzecheck': 'Prüft Temperatur 100-mal pro Sekunde'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p150',
@@ -3473,7 +3473,7 @@ export const mockProducts: Product[] = [
       'Konnektivität': 'Bluetooth App-Verbindung mit geführten Routinen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p151',
@@ -3497,7 +3497,7 @@ export const mockProducts: Product[] = [
       'Wasserdicht': '100% wasserdicht für die Dusche'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p152',
@@ -3521,7 +3521,7 @@ export const mockProducts: Product[] = [
       'Messzeit': 'Messung in nur wenigen Sekunden'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p153',
@@ -3545,7 +3545,7 @@ export const mockProducts: Product[] = [
       'Stufen': '3 Intensitätsstufen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p154',
@@ -3568,7 +3568,7 @@ export const mockProducts: Product[] = [
       'Kabel': '1.5m geflochtenes USB-C Kabel integriert'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p155',
@@ -3593,7 +3593,7 @@ export const mockProducts: Product[] = [
       'Zertifizierung': 'Offiziell Apple MagSafe und Watch Fast-Charge zertifiziert'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p156',
@@ -3619,7 +3619,7 @@ export const mockProducts: Product[] = [
       'Switches': 'Optisch-mechanische Lightforce Hybridschalter'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p157',
@@ -3645,7 +3645,7 @@ export const mockProducts: Product[] = [
       'Layout': 'Deutsches QWERTZ Layout'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p158',
@@ -3667,7 +3667,7 @@ export const mockProducts: Product[] = [
       'Gehäuse': 'Kompaktes Aluminiumgehäuse'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p159',
@@ -3690,7 +3690,7 @@ export const mockProducts: Product[] = [
       'Schnittstelle': 'USB 3.0 Plug & Play'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p160',
@@ -3713,7 +3713,7 @@ export const mockProducts: Product[] = [
       'Montage': 'Werkzeuglose Installation mit Wärmeleitpad'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p161',
@@ -3736,7 +3736,7 @@ export const mockProducts: Product[] = [
       'Fernbedienung': 'Kabelloser Bluetooth Fernauslöser bis 10m'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p162',
@@ -3759,7 +3759,7 @@ export const mockProducts: Product[] = [
       'Besonderheit': 'Aufklappbare Dreibein-Stativfüße mit Bluetooth Drücker'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p163',
@@ -3781,7 +3781,7 @@ export const mockProducts: Product[] = [
       'Sicherheit': 'Streifenfrei, antistatisch und schonend zu Beschichtungen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p164',
@@ -3803,7 +3803,7 @@ export const mockProducts: Product[] = [
       'Halterung': 'Magnetische Klemmen halten Kabel fest an Ort und Stelle'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p165',
@@ -3828,7 +3828,7 @@ export const mockProducts: Product[] = [
       'Controller': 'Inklusive DualSense Wireless Controller mit haptischem Feedback'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p166',
@@ -3854,7 +3854,7 @@ export const mockProducts: Product[] = [
       'Dock': '4K TV-Ausgabe im TV-Modus'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p167',
@@ -3877,7 +3877,7 @@ export const mockProducts: Product[] = [
       'Akku': 'Bis zu 40 Stunden Spielzeit mit einer Ladung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p168',
@@ -3899,7 +3899,7 @@ export const mockProducts: Product[] = [
       'Befestigung': 'Sicherer Klemmverschluss für Konsole oder Fernseher'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p169',
@@ -3921,7 +3921,7 @@ export const mockProducts: Product[] = [
       'Kühlung': 'Integrierter Lüftungsschacht für verbesserte Kühlung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p170',
@@ -3943,7 +3943,7 @@ export const mockProducts: Product[] = [
       'Fächer': 'Aufbewahrung für 12 Spielekarten, Kabel und Zubehör'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p171',
@@ -3965,7 +3965,7 @@ export const mockProducts: Product[] = [
       'Geschwindigkeit': 'Bis zu 880 MB/s Lesegeschwindigkeit (microSD Express Standard)'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p172',
@@ -3990,7 +3990,7 @@ export const mockProducts: Product[] = [
       'Display': '7 Zoll FHD 120Hz VRR Touchscreen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p173',
@@ -4016,7 +4016,7 @@ export const mockProducts: Product[] = [
       'Speicher': '512 GB SSD'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p174',
@@ -4040,7 +4040,7 @@ export const mockProducts: Product[] = [
       'OS': 'SteamOS mit voller Steam-Bibliotheksintegration'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p175',
@@ -4065,7 +4065,7 @@ export const mockProducts: Product[] = [
       'Akku': 'Bis zu 40 Stunden Akkulaufzeit wiederaufladbar'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p176',
@@ -4091,7 +4091,7 @@ export const mockProducts: Product[] = [
       'Akkulaufzeit': 'Bis zu 70 Stunden'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p177',
@@ -4115,7 +4115,7 @@ export const mockProducts: Product[] = [
       'Layout': 'Deutsches QWERTZ Layout'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p178',
@@ -4139,7 +4139,7 @@ export const mockProducts: Product[] = [
       'Betrieb': 'Komplett kabellos ohne PC nutzbar'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p179',
@@ -4161,7 +4161,7 @@ export const mockProducts: Product[] = [
       'Sicherheit': 'Verhindert versehentliches Wegwerfen der Controller'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p180',
@@ -4186,7 +4186,7 @@ export const mockProducts: Product[] = [
       'Material': 'Handgenähtes Echtleder und Edelstahl-Pedale'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p181',
@@ -4209,7 +4209,7 @@ export const mockProducts: Product[] = [
       'Anschluss': 'USB 3.2 Gen 2 (10 Gbit/s)'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p182',
@@ -4235,7 +4235,7 @@ export const mockProducts: Product[] = [
       'Gehäuse': 'Poliertes Aluminiumgehäuse IP6X'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p183',
@@ -4261,7 +4261,7 @@ export const mockProducts: Product[] = [
       'Akkulaufzeit': 'Bis zu 72 Stunden im Stromsparmodus'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p184',
@@ -4285,7 +4285,7 @@ export const mockProducts: Product[] = [
       'KI': 'Galaxy AI Energy Score und Fitness-Tracking'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p185',
@@ -4311,7 +4311,7 @@ export const mockProducts: Product[] = [
       'Akkulaufzeit': 'Bis zu 16 Tage im Smartwatch-Modus'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p186',
@@ -4335,7 +4335,7 @@ export const mockProducts: Product[] = [
       'Wasserdicht': '5 ATM wasserdicht zum Schwimmen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p187',
@@ -4359,7 +4359,7 @@ export const mockProducts: Product[] = [
       'Wasserdicht': 'Bis zu 100 Meter wasserdicht'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p188',
@@ -4383,7 +4383,7 @@ export const mockProducts: Product[] = [
       'Funktionen': 'Galaxy AI Schlafanalyse, Herzfrequenz & Zyklustracking'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p189',
@@ -4406,7 +4406,7 @@ export const mockProducts: Product[] = [
       'Gewicht': 'Nur 2.4 Gramm'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p190',
@@ -4429,7 +4429,7 @@ export const mockProducts: Product[] = [
       'Gläser': 'Polarisierende Gläser mit 100% UV-Schutz'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p191',
@@ -4453,7 +4453,7 @@ export const mockProducts: Product[] = [
       'Gewicht': 'Nur 75 Gramm'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p192',
@@ -4477,7 +4477,7 @@ export const mockProducts: Product[] = [
       'Akkulaufzeit': '10h + 20h über Powerbank-Stand'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p193',
@@ -4500,7 +4500,7 @@ export const mockProducts: Product[] = [
       'Datenschutz': 'DSGVO-konform ohne offenes Internet oder Social Media'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p194',
@@ -4525,7 +4525,7 @@ export const mockProducts: Product[] = [
       'Station': '2.5L Staubbeutel für bis zu 45 Tage ohne Entleeren'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p195',
@@ -4550,7 +4550,7 @@ export const mockProducts: Product[] = [
       'Station': 'Automatische Moppwäsche und Heißlufttrocknung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p196',
@@ -4576,7 +4576,7 @@ export const mockProducts: Product[] = [
       'Anti-Haar': 'ZeroTangle Technologie verhindert Haarverwicklungen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p197',
@@ -4601,7 +4601,7 @@ export const mockProducts: Product[] = [
       'Vibration': 'VibraRise 2.0 Schallwischsystem mit 3.000 Zyklen/Min'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p198',
@@ -4627,7 +4627,7 @@ export const mockProducts: Product[] = [
       'Matter': 'Matter Smarthome-Unterstützung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p199',
@@ -4653,7 +4653,7 @@ export const mockProducts: Product[] = [
       'Laufzeit': 'Bis zu 60 Minuten'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p200',
@@ -4679,7 +4679,7 @@ export const mockProducts: Product[] = [
       'Selbstreinigung': 'Elektrolytische Wasserdesinfektion'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p201',
@@ -4702,7 +4702,7 @@ export const mockProducts: Product[] = [
       'Sicherheit': '5.500 Pa Ansaugkraft und 12-stufiges Absturzsicherungssystem'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p202',
@@ -4727,7 +4727,7 @@ export const mockProducts: Product[] = [
       'Programme': '16 voreingestellte Kochprogramme & App-Konnektivität'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p203',
@@ -4752,7 +4752,7 @@ export const mockProducts: Product[] = [
       'Leistung': '2470 Watt'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p204',
@@ -4776,7 +4776,7 @@ export const mockProducts: Product[] = [
       'Lautstärke': 'Nur 24 dB im Schlafmodus'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p205',
@@ -4800,7 +4800,7 @@ export const mockProducts: Product[] = [
       'WLAN': 'App-Steuerung und Zielfeuchtigkeits-Einstellung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p206',
@@ -4824,7 +4824,7 @@ export const mockProducts: Product[] = [
       'Steuerung': 'Mi Home App, Google Assistant & Alexa'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p207',
@@ -4847,7 +4847,7 @@ export const mockProducts: Product[] = [
       'Sicherheit': 'Kippschutz, Überhitzungsschutz und Kindersicherung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p208',
@@ -4872,7 +4872,7 @@ export const mockProducts: Product[] = [
       'Wartung': 'Herausnehmbare Brühgruppe für einfache Reinigung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p209',
@@ -4895,7 +4895,7 @@ export const mockProducts: Product[] = [
       'Gehäuse': 'Doppelwandiges Edelstahlgehäuse isoliert gegen Verbrennungen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p210',
@@ -4918,7 +4918,7 @@ export const mockProducts: Product[] = [
       'Bluetooth': 'Synchronisiert Nährwerte und Kalorien mit Fitness-Apps'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p211',
@@ -4944,7 +4944,7 @@ export const mockProducts: Product[] = [
       'Telefonie': 'Integrierte Telefonanlage mit DECT-Basis'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p212',
@@ -4969,7 +4969,7 @@ export const mockProducts: Product[] = [
       'Abdeckung': 'Bis zu 650 m² nahtlose WLAN-Abdeckung im ganzen Haus'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p213',
@@ -4992,7 +4992,7 @@ export const mockProducts: Product[] = [
       'SIM': 'Frei für alle deutschen Netze (Telekom, Vodafone, o2, 1&1)'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p214',
@@ -5016,7 +5016,7 @@ export const mockProducts: Product[] = [
       'LAN': '2.5G Ethernet Port'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p215',
@@ -5039,7 +5039,7 @@ export const mockProducts: Product[] = [
       'Kabel': 'Funktioniert mit bestehender Cat.5e Verkabelung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p216',
@@ -5062,7 +5062,7 @@ export const mockProducts: Product[] = [
       'Verarbeitung': 'Kompaktes Desktop- und Rack-Design'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p217',
@@ -5086,7 +5086,7 @@ export const mockProducts: Product[] = [
       'OS': 'Synology DiskStation Manager (DSM)'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p218',
@@ -5110,7 +5110,7 @@ export const mockProducts: Product[] = [
       'Erweiterung': '10GbE Netzwerk-Upgradekarte optional'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p219',
@@ -5133,7 +5133,7 @@ export const mockProducts: Product[] = [
       'Dauerbetrieb': 'Für 24/7 Dauerbetrieb in NAS-Systemen konzipiert'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p220',
@@ -5159,7 +5159,7 @@ export const mockProducts: Product[] = [
       'Kompatibilität': 'Perfekt für PC und PlayStation 5'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p221',
@@ -5182,7 +5182,7 @@ export const mockProducts: Product[] = [
       'Kühlkörper': 'Inklusive Premium-Kühlkörper aus Aluminium'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p222',
@@ -5205,7 +5205,7 @@ export const mockProducts: Product[] = [
       'Verschlüsselung': 'Hardwarebasierte 256-Bit AES-Verschlüsselung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p223',
@@ -5228,7 +5228,7 @@ export const mockProducts: Product[] = [
       'Sicherheit': 'Passwortschutz und automatisches Backup-Tool inklusive'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p224',
@@ -5251,7 +5251,7 @@ export const mockProducts: Product[] = [
       'Gehäuse': 'Vollaluminium CNC gefräst'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p225',
@@ -5273,7 +5273,7 @@ export const mockProducts: Product[] = [
       'Ladeleistung': '98 Watt Ladeleistung für Mac und PC'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p226',
@@ -5299,7 +5299,7 @@ export const mockProducts: Product[] = [
       'Wasserdicht': 'Bis 18 Meter ohne Gehäuse'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p227',
@@ -5325,7 +5325,7 @@ export const mockProducts: Product[] = [
       'Akku': 'Bis zu 135 Minuten Laufzeit'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p228',
@@ -5351,7 +5351,7 @@ export const mockProducts: Product[] = [
       'Bildstabilisator': 'Integrierter 5-Achsen optischer Bildstabilisator'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p229',
@@ -5375,7 +5375,7 @@ export const mockProducts: Product[] = [
       'Features': 'Produktpräsentations-Modus & Bokeh-Taste'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p230',
@@ -5399,7 +5399,7 @@ export const mockProducts: Product[] = [
       'Manuelle Kontrolle': 'Volle Kontrolle über ISO, Verschlusszeit und Weißabgleich'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p231',
@@ -5422,7 +5422,7 @@ export const mockProducts: Product[] = [
       'Sensor': 'Großer 1/1.5" CMOS Sensor für lichtstarke Aufnahmen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p232',
@@ -5448,7 +5448,7 @@ export const mockProducts: Product[] = [
       'Befestigung': 'Magnetische Handyklemme'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p233',
@@ -5471,7 +5471,7 @@ export const mockProducts: Product[] = [
       'Aufnahme': 'Natives horizontales und vertikales Filmen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p234',
@@ -5495,7 +5495,7 @@ export const mockProducts: Product[] = [
       'Akkucase': 'Praktisches Ladecase für bis zu 18h Gesamtzeit'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p235',
@@ -5518,7 +5518,7 @@ export const mockProducts: Product[] = [
       'LED': 'Konfigurierbare LED-Touch-Leiste'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p236',
@@ -5544,7 +5544,7 @@ export const mockProducts: Product[] = [
       'Steuerung': 'WLAN-Steuerung per PC, Mac und Smartphone'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p237',
@@ -5567,7 +5567,7 @@ export const mockProducts: Product[] = [
       'Konnektivität': 'Bluetooth Verbindung zum Smartphone mit Effekten in der App'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p238',
@@ -5593,7 +5593,7 @@ export const mockProducts: Product[] = [
       'Reichweite': 'DJI O4 Videoübertragung bis zu 20 km'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p239',
@@ -5617,7 +5617,7 @@ export const mockProducts: Product[] = [
       'Video': '4K Ultra HD stabilisiert'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p240',
@@ -5640,7 +5640,7 @@ export const mockProducts: Product[] = [
       'Funktionen': '24/7 Parküberwachung mit Bewegungserkennung & GPS'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p241',
@@ -5663,7 +5663,7 @@ export const mockProducts: Product[] = [
       'Grip': 'Rutschfeste Silikon-Wabenstruktur auf der Handfläche'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p242',
@@ -5686,7 +5686,7 @@ export const mockProducts: Product[] = [
       'Reflektoren': 'Reflektierende Streifen für bessere Sichtbarkeit'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p243',
@@ -5709,7 +5709,7 @@ export const mockProducts: Product[] = [
       'Kompatibilität': 'Für Lenkerdurchmesser von 22 bis 31.8 mm'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p244',
@@ -5732,7 +5732,7 @@ export const mockProducts: Product[] = [
       'Montage': '4 verstellbare Klettbänder für stabilen Halt'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p245',
@@ -5755,7 +5755,7 @@ export const mockProducts: Product[] = [
       'Transport': 'Gepolsterte Schulter- und Tragegurte'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p246',
@@ -5778,7 +5778,7 @@ export const mockProducts: Product[] = [
       'Sicherheit': 'Schlüsselschloss mit Zylinder gegen Picking'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p247',
@@ -5803,7 +5803,7 @@ export const mockProducts: Product[] = [
       'Zylinder': 'ABUS XPlus Zylinder für höchsten Schutz gegen Manipulationen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p248',
@@ -5826,7 +5826,7 @@ export const mockProducts: Product[] = [
       'Wetterfest': 'IP67 geschützt mit USB-C Ladeanschluss'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p249',
@@ -5849,7 +5849,7 @@ export const mockProducts: Product[] = [
       'Zertifizierung': 'CPSC und EN 1078 zertifizierte Sicherheit'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p250',
@@ -5872,7 +5872,7 @@ export const mockProducts: Product[] = [
       'Größe': 'Verstellbare elastische Gurte für Sommer- und Winterjacken'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p251',
@@ -5895,7 +5895,7 @@ export const mockProducts: Product[] = [
       'Zertifikat': 'CE EN 14120 zertifiziert'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p252',
@@ -5919,7 +5919,7 @@ export const mockProducts: Product[] = [
       'Akku': 'Wiederaufladbar per USB-C'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p253',
@@ -5941,7 +5941,7 @@ export const mockProducts: Product[] = [
       'Tasche': 'Kompakte wasserabweisende Satteltasche'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p254',
@@ -5963,7 +5963,7 @@ export const mockProducts: Product[] = [
       'Ventil': 'Abgewinkeltes Autoventil für einfaches Aufpumpen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p255',
@@ -5986,7 +5986,7 @@ export const mockProducts: Product[] = [
       'Vorteil': '100% pannensicher – nie wieder aufpumpen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p256',
@@ -6008,7 +6008,7 @@ export const mockProducts: Product[] = [
       'Vorteil': 'Leises Bremsen ohne Quietschen und geringer Scheibenverschleiß'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p257',
@@ -6031,7 +6031,7 @@ export const mockProducts: Product[] = [
       'Montage': 'Einfache Klemmschraube für Lenkerenden'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p258',
@@ -6055,7 +6055,7 @@ export const mockProducts: Product[] = [
       'Akku': 'USB-C wiederaufladbar'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p259',
@@ -6078,7 +6078,7 @@ export const mockProducts: Product[] = [
       'Montage': 'Wird unauffällig unter dem Flaschenhalter montiert mit Spezialschrauben'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p260',
@@ -6101,7 +6101,7 @@ export const mockProducts: Product[] = [
       'Anzeige': 'LED-Statusanzeige (Rot = lädt, Grün = voll)'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p261',
@@ -6124,7 +6124,7 @@ export const mockProducts: Product[] = [
       'Leveling': 'LeviQ 2.0 automatisches Druckbett-Leveling'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p262',
@@ -6149,7 +6149,7 @@ export const mockProducts: Product[] = [
       'Multi-Color': 'Kompatibel mit Bambu Lab AMS für bis zu 16 Farben'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p263',
@@ -6172,7 +6172,7 @@ export const mockProducts: Product[] = [
       'Besonderheit': 'Neigbare Druckbett-Technologie für blitzschnelle Schichtwechsel'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p264',
@@ -6195,7 +6195,7 @@ export const mockProducts: Product[] = [
       'Funktion': 'Trocknen während des laufenden Druckvorgangs möglich'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p265',
@@ -6217,7 +6217,7 @@ export const mockProducts: Product[] = [
       'Eigenschaften': 'Bis zu 2x zäher als Standard-PLA, minimale Schrumpfung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p266',
@@ -6242,7 +6242,7 @@ export const mockProducts: Product[] = [
       'Materialien': 'Schneidet bis 10mm Holz & graviert Edelstahl, Leder, Acryl'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p267',
@@ -6265,7 +6265,7 @@ export const mockProducts: Product[] = [
       'Sicherheit': 'ESD-sicheres Gehäuse und ergonomischer Kolben'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p268',
@@ -6288,7 +6288,7 @@ export const mockProducts: Product[] = [
       'Gehäuse': 'Elegantes Aluminium-Schiebeetui'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p269',
@@ -6311,7 +6311,7 @@ export const mockProducts: Product[] = [
       'Zubehör': 'Inklusive aktivem Kühler, 27W Netzteil und 64GB MicroSD'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p270',
@@ -6334,7 +6334,7 @@ export const mockProducts: Product[] = [
       'Schnittstellen': 'DisplayPort, 4x USB 3.2, 2x MIPI CSI Kamera-Ports'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p271',
@@ -6357,7 +6357,7 @@ export const mockProducts: Product[] = [
       'Datenschutz': '100% lokale Datenkontrolle ohne Cloud'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p272',
@@ -6380,7 +6380,7 @@ export const mockProducts: Product[] = [
       'Anwendung': 'Gesichtskonturen, Hals und Dekolleté'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p273',
@@ -6403,7 +6403,7 @@ export const mockProducts: Product[] = [
       'Kühlsystem': 'Integriertes Peltier-Kühlelement'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p274',
@@ -6426,7 +6426,7 @@ export const mockProducts: Product[] = [
       'Stufen': '9 Energiestufen und verschiedene Impulsfrequenzen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p275',
@@ -6449,7 +6449,7 @@ export const mockProducts: Product[] = [
       'Applikatoren': 'Inklusive mehrerer Handstücke für Bauch und Beine'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p276',
@@ -6472,7 +6472,7 @@ export const mockProducts: Product[] = [
       'Sicherheit': 'Integrierte Hautkontakterkennung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p277',
@@ -6495,7 +6495,7 @@ export const mockProducts: Product[] = [
       'Impulse': 'Bis zu 20 Millionen Lichtimpulse'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p278',
@@ -6518,7 +6518,7 @@ export const mockProducts: Product[] = [
       'Patronen': 'Sterile Einweg-Aufsätze im Lieferumfang'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p279',
@@ -6540,7 +6540,7 @@ export const mockProducts: Product[] = [
       'Einsatz': 'Tiefenwirksame Hautbildverbesserung und Faltenglättung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p280',
@@ -6562,7 +6562,7 @@ export const mockProducts: Product[] = [
       'Tanks': 'Separate Lösungs- und Schmutzwassertanks'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p281',
@@ -6584,7 +6584,7 @@ export const mockProducts: Product[] = [
       'Zusatz': 'Integrierte Sauerstoff-Kuppelmaske für belebende Behandlungen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p282',
@@ -6607,7 +6607,7 @@ export const mockProducts: Product[] = [
       'Einsatz': 'Entfernt sanft abgestorbene Hautschüppchen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p283',
@@ -6629,7 +6629,7 @@ export const mockProducts: Product[] = [
       'Bauform': 'Bogenförmiges Panel für gleichmäßige Gesichts- und Halsabdeckung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p284',
@@ -6651,7 +6651,7 @@ export const mockProducts: Product[] = [
       'Analyse': 'Misst Feuchtigkeit, Talg, Poren, Falten, UV-Flecken und Aknebakterien'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p285',
@@ -6674,7 +6674,7 @@ export const mockProducts: Product[] = [
       'Pads': '2 Behandlungsgriffe für Bauch, Gesäß und Arme'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p286',
@@ -6697,7 +6697,7 @@ export const mockProducts: Product[] = [
       'Vakuum': 'Integrierte Vakuum-Lymphmassage'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p287',
@@ -6720,7 +6720,7 @@ export const mockProducts: Product[] = [
       'Programme': 'Verschiedene Druckwellen-Modi'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p288',
@@ -6742,7 +6742,7 @@ export const mockProducts: Product[] = [
       'Kühlung': 'Dauerhafte Halbleiter-Wasserkühlung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p289',
@@ -6764,7 +6764,7 @@ export const mockProducts: Product[] = [
       'Wirkung': 'Antibakteriell gegen Aknekeime, fördert die Wundheilung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p290',
@@ -6787,7 +6787,7 @@ export const mockProducts: Product[] = [
       'Wärme': '42°C konstante Wärmefunktion'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p291',
@@ -6810,7 +6810,7 @@ export const mockProducts: Product[] = [
       'Aromafach': 'Integriertes Fach für ätherische Öle'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p292',
@@ -6835,7 +6835,7 @@ export const mockProducts: Product[] = [
       'Geschwindigkeit': 'Bis zu 125 Blitze pro Minute'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p293',
@@ -6858,7 +6858,7 @@ export const mockProducts: Product[] = [
       'Anwendung': 'Nur 10 Minuten täglich, kabellos akkubetrieben'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p294',
@@ -6881,7 +6881,7 @@ export const mockProducts: Product[] = [
       'Kühlung': 'Leiser integrierter Lüfter'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p295',
@@ -6904,7 +6904,7 @@ export const mockProducts: Product[] = [
       'Aufsätze': 'Austauschbare Aufsätze für Augen und Lippen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p296',
@@ -6927,7 +6927,7 @@ export const mockProducts: Product[] = [
       'Kopf': 'Hautfreundliche vergoldete Elektroden'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p297',
@@ -6950,7 +6950,7 @@ export const mockProducts: Product[] = [
       'Klinge': 'Edelstahlspatel für empfindliche Haut'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p298',
@@ -6975,7 +6975,7 @@ export const mockProducts: Product[] = [
       'Rückseite': 'Gezielte Anti-Aging Straffungsmassage-Rillen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p299',
@@ -6998,7 +6998,7 @@ export const mockProducts: Product[] = [
       'Akku': 'USB-C wiederaufladbar'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p300',
@@ -7021,7 +7021,7 @@ export const mockProducts: Product[] = [
       'Audio': 'Integrierte Entspannungsmusik oder Bluetooth-Audio'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p301',
@@ -7044,7 +7044,7 @@ export const mockProducts: Product[] = [
       'Funktion': 'Fördert die Durchblutung der Haarwurzeln'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p302',
@@ -7067,7 +7067,7 @@ export const mockProducts: Product[] = [
       'Timer': 'Automatische Abschaltung nach 20 Minuten Behandlung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p303',
@@ -7089,7 +7089,7 @@ export const mockProducts: Product[] = [
       'Aufsätze': '4 Aufsätze inklusive Diamant-Peelingkopf und Präzisionsdüse'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p304',
@@ -7112,7 +7112,7 @@ export const mockProducts: Product[] = [
       'Zubehör': 'Inklusive 6 Fräser-Aufsätzen und Schleifbändern'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p305',
@@ -7135,7 +7135,7 @@ export const mockProducts: Product[] = [
       'Timer': '4 Timer-Einstellungen (10s, 30s, 60s, 99s Schmerzlos-Modus)'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p306',
@@ -7157,7 +7157,7 @@ export const mockProducts: Product[] = [
       'Display': 'LCD-Bildschirm mit Hintergrundbeleuchtung zeigt % Feuchtigkeit und Fett'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p307',
@@ -7182,7 +7182,7 @@ export const mockProducts: Product[] = [
       'Druck': 'Präzise einstellbar von 20 bis 100 mmHg'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p308',
@@ -7205,7 +7205,7 @@ export const mockProducts: Product[] = [
       'Einsatz': 'Ideal auf Reisen, im Flugzeug und nach dem Joggen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p309',
@@ -7228,7 +7228,7 @@ export const mockProducts: Product[] = [
       'Reißverschluss': 'Robuste Industriereißverschlüsse'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p310',
@@ -7251,7 +7251,7 @@ export const mockProducts: Product[] = [
       'Akku': 'Betrieb über handelsübliche Powerbank'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p311',
@@ -7274,7 +7274,7 @@ export const mockProducts: Product[] = [
       'Lautstärke': 'Flüsterleise im Hemdkragen tragbar'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p312',
@@ -7297,7 +7297,7 @@ export const mockProducts: Product[] = [
       'Isolierung': 'Hält Eiswasser stundenlang eiskalt'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p313',
@@ -7345,7 +7345,7 @@ export const mockProducts: Product[] = [
       'Akku': 'Wiederaufladbar für kabellose Anwendung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p315',
@@ -7368,7 +7368,7 @@ export const mockProducts: Product[] = [
       'Programme': '64 vorprogrammierte Anwendungen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p316',
@@ -7391,7 +7391,7 @@ export const mockProducts: Product[] = [
       'Strahlung': 'Niedrige EMF-Werte zertifiziert'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p317',
@@ -7414,7 +7414,7 @@ export const mockProducts: Product[] = [
       'Aufbewahrung': 'Faltbar für platzsparende Lagerung'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p318',
@@ -7437,7 +7437,7 @@ export const mockProducts: Product[] = [
       'Display': 'Digitale Gradanzeige in Echtzeit'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p319',
@@ -7460,7 +7460,7 @@ export const mockProducts: Product[] = [
       'Kompatibilität': 'Passend für Steuergeräte mit Standard-Luftschlauch'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p320',
@@ -7482,7 +7482,7 @@ export const mockProducts: Product[] = [
       'Material': 'Hygienisches, schweißresistentes Innenmaterial'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   },
   {
     id: 'p321',
@@ -7505,6 +7505,6 @@ export const mockProducts: Product[] = [
       'Display': 'Kratzfester Farb-Touchscreen mit 6 voreingestellten Zyklen'
     },
     warranty: '2 Jahre Herstellergarantie',
-    delivery: 'Lieferung in 1-3 Werktagen'
+    delivery: 'Lieferung in 3-15 Werktagen'
   }
 ];

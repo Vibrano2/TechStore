@@ -60,7 +60,6 @@ export const Checkout = () => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [completedOrderNumber, setCompletedOrderNumber] = useState('');
-  const [completedOrder, setCompletedOrder] = useState<SavedOrder | null>(null);
   const [orderError, setOrderError] = useState('');
 
   const [shippingMethod, setShippingMethod] = useState<'standard' | 'express'>('standard');
@@ -195,7 +194,6 @@ export const Checkout = () => {
     });
 
     if (res.success && res.order) {
-      setCompletedOrder(res.order);
       setCompletedOrderNumber(res.order.orderNumber || res.order.id);
       setIsCompleted(true);
       clearCart();

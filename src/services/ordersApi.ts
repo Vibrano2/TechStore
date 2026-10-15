@@ -51,7 +51,7 @@ function normalizeBackendOrder(data: any): SavedOrder {
     subtotal: Number(data.subtotal || 0),
     vatAmount: Number(data.vatAmount ?? data.tax_total ?? 0),
     shipping: Number(data.shipping ?? data.shipping_total ?? 0),
-    shippingMethod: data.shipping_method === 'express' ? 'Expressversand (Lieferung am nächsten Werktag)' : 'Standardversand (DHL)',
+    shippingMethod: data.shipping_method === 'express' ? 'Expressversand (2-5 Werktage)' : 'Standardversand (3-15 Werktage)',
     paymentMethod: (() => {
       const pm = (data.payment_method || 'stripe').toLowerCase();
       if (pm === 'bank_transfer' || pm === 'manual_transfer') return 'Manuelle Banküberweisung (Vorkasse)';
@@ -134,7 +134,7 @@ export async function createOrder(payload: CreateOrderPayload): Promise<CreateOr
       subtotal,
       vatAmount: vat,
       shipping,
-      shippingMethod: payload.shipping_method === 'express' ? 'Expressversand (Lieferung am nächsten Werktag)' : 'Standardversand (DHL)',
+      shippingMethod: payload.shipping_method === 'express' ? 'Expressversand (2-5 Werktage)' : 'Standardversand (3-15 Werktage)',
       paymentMethod: payload.payment_method,
       total: Math.round((subtotal + shipping) * 100) / 100,
       status: 'In Bearbeitung',
@@ -230,7 +230,7 @@ export async function createOrder(payload: CreateOrderPayload): Promise<CreateOr
       subtotal,
       vatAmount: vat,
       shipping,
-      shippingMethod: payload.shipping_method === 'express' ? 'Expressversand (Lieferung am nächsten Werktag)' : 'Standardversand (DHL)',
+      shippingMethod: payload.shipping_method === 'express' ? 'Expressversand (2-5 Werktage)' : 'Standardversand (3-15 Werktage)',
       paymentMethod: payload.payment_method === 'bank_transfer' ? 'Manuelle Banküberweisung (Vorkasse)' : payload.payment_method,
       total: Math.round((subtotal + shipping) * 100) / 100,
       status: 'In Bearbeitung',

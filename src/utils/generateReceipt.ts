@@ -274,7 +274,7 @@ export function printOrDownloadReceipt(order: SavedOrder | ReceiptData): void {
       <div>Bestellnummer: <strong style="font-family: monospace;">#${orderNum}</strong></div>
       <div style="margin-top: 4px;">Bestelldatum: ${dateStr}</div>
       <div style="margin-top: 4px;">Zahlungsart: <strong>${order.paymentMethod}</strong></div>
-      <div style="margin-top: 4px;">Versandart: <strong>DHL Standardversand (1-3 Werktage)</strong></div>
+      <div style="margin-top: 4px;">Versandart: <strong>${(order as any).shippingMethod || (order.shipping > 5 ? 'DHL Expressversand (2-5 Werktage)' : 'DHL Standardversand (3-15 Werktage)')}</strong></div>
     </div>
   </div>
 

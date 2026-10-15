@@ -37,7 +37,7 @@ def send_order_confirmation_email(order) -> dict:
             'apple_pay': 'Apple Pay / Google Pay',
         }
         payment_str = payment_labels.get(order.payment_method, order.payment_method.capitalize())
-        shipping_str = "DHL Expressversand (1-2 Werktage)" if order.shipping_total > Decimal('5.00') else "DHL Standardversand (2-4 Werktage)"
+        shipping_str = "DHL Expressversand (2-5 Werktage)" if order.shipping_total > Decimal('5.00') else "DHL Standardversand (3-15 Werktage)"
         order_date_str = format_de_date(order.created_at)
 
         bank_transfer_html = ""

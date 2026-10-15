@@ -72,7 +72,7 @@ Deine Aufgabe ist es, Kunden freundlich, kompetent und präzise bei der Produkta
 WICHTIGE GESCHÄFTS- & RECHTLICHE REGELN FÜR DEN DEUTSCHEN MARKT:
 1. Sprache: Antworte standardmäßig auf Deutsch (professionell, zuvorkommend, "Sie"-Form). Falls der Kunde auf Englisch schreibt, antworte auf Englisch.
 2. Währung: Ausschließlich Euro (EUR, z. B. 499,00 €). Alle Preise verstehen sich inkl. 19 % gesetzlicher MwSt.
-3. Versand: Schneller DHL GoGreen Versand innerhalb Deutschlands (1-2 Werktage). Versandkostenfrei ab 49 € Bestellwert.
+3. Versand: Schneller DHL GoGreen Versand innerhalb Deutschlands (Standard: 3-15 Werktage, Express: 2-5 Werktage). Versandkostenfrei ab 50 € Bestellwert.
 4. Rückgaberecht: 30 Tage freiwilliges Rückgaberecht mit kostenloser DHL Retoure. Retouren können im Kundenkonto unter /account oder direkt unter /account/returns gestartet werden.
 5. Gewährleistung & Garantie: 24 Monate gesetzliche Gewährleistung nach § 439 BGB mit kostenfreier Reparatur oder Austausch bei Mängeln. Zusätzlich bieten viele Hersteller 2 Jahre Garantie. Garantie-Tracking unter /warranty.
 6. E-Mobilität: Betone bei E-Scootern stets die deutsche Straßenzulassung (StVZO / eKFV, max. 20 km/h, Versicherungskennzeichen erforderlich).
@@ -97,7 +97,7 @@ const generateLocalFallbackResponse = (userPrompt: string): { text: string; prod
   // 1. Order tracking
   if (lower.includes('bestellung') || lower.includes('wo ist mein') || lower.includes('tracking') || lower.includes('paket') || lower.includes('status')) {
     return {
-      text: `Sie können den Status Ihrer Bestellung jederzeit transparent einsehen:\n\n• **Im Kundenkonto:** Gehen Sie zu [Ihre Bestellungen](/account/orders), um den aktuellen Lieferstatus und die Sendungsverfolgung via DHL aufzurufen.\n• **Direkte Sendungsverfolgung:** Besuchen Sie unsere Seite [Bestellstatus](/account/orders) mit Ihrer Bestellnummer.\n\nDer Versand erfolgt standardmäßig in **1–2 Werktagen mit DHL GoGreen**.`,
+      text: `Sie können den Status Ihrer Bestellung jederzeit transparent einsehen:\n\n• **Im Kundenkonto:** Gehen Sie zu [Ihre Bestellungen](/account/orders), um den aktuellen Lieferstatus und die Sendungsverfolgung via DHL aufzurufen.\n• **Direkte Sendungsverfolgung:** Besuchen Sie unsere Seite [Bestellstatus](/account/orders) mit Ihrer Bestellnummer.\n\nDer Versand erfolgt standardmäßig in **3–15 Werktagen mit DHL GoGreen** (bzw. **2–5 Werktage per Express**).`,
     };
   }
 
@@ -151,7 +151,7 @@ const generateLocalFallbackResponse = (userPrompt: string): { text: string; prod
   if (lower.includes('gaming') || lower.includes('playstation') || lower.includes('nintendo') || lower.includes('xbox') || lower.includes('konsole') || lower.includes('switch')) {
     const gamingProducts = mockProducts.filter((p) => p.category.includes('Gaming')).slice(0, 3);
     return {
-      text: `Für Gamer bieten wir die neuesten Konsolen und Zubehör mit offizieller Herstellergarantie:\n\n• Sofort lieferbar in 1–2 Werktagen.\n• Besuchen Sie unsere komplette Kategorie [Gaming & Konsolen](/category/gaming):\n`,
+      text: `Für Gamer bieten wir die neuesten Konsolen und Zubehör mit offizieller Herstellergarantie:\n\n• Sofort lieferbar in 3–15 Werktagen (Express: 2–5 Werktage).\n• Besuchen Sie unsere komplette Kategorie [Gaming & Konsolen](/category/gaming):\n`,
       products: gamingProducts.map((p) => ({
         id: p.id,
         slug: p.slug,

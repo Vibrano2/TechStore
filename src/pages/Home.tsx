@@ -125,7 +125,7 @@ export const Home = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Zap size={16} className="text-status-success flex-shrink-0" />
-                <span>1-3 Tage Lieferzeit</span>
+                <span>3-15 Tage Lieferzeit</span>
               </div>
               <div className="flex items-center gap-2">
                 <RefreshCw size={16} className="text-status-success flex-shrink-0" />
@@ -340,7 +340,7 @@ export const Home = () => {
                     </div>
                     <span className="text-xs text-status-success font-medium flex items-center gap-1.5 mt-0.5">
                       <span className="w-2 h-2 rounded-full bg-status-success inline-block"></span>
-                      Auf Lager • 1-3 Werktage
+                      Auf Lager • 3-15 Werktage
                     </span>
                   </div>
                 </Link>
