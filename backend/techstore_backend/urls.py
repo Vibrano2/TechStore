@@ -37,6 +37,14 @@ def api_root_view(request):
 urlpatterns = [
     path('', api_root_view, name='root-health'),
     path('admin/', admin.site.urls),
+
+    # Routes when mounted under /api in cPanel Passenger (path passed to Django is v1/...)
+    path('v1/', include('apps.catalogue.urls')),
+    path('v1/', include('apps.orders.urls')),
+    path('v1/', include('apps.compliance.urls')),
+    path('v1/', include('apps.authentication.urls')),
+
+    # Routes when accessed with full /api/v1/ prefix (local dev, direct proxy)
     path('api/v1/', include('apps.catalogue.urls')),
     path('api/v1/', include('apps.orders.urls')),
     path('api/v1/', include('apps.compliance.urls')),

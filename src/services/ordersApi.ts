@@ -149,10 +149,14 @@ export async function createOrder(payload: CreateOrderPayload): Promise<CreateOr
       return { success: true, order: normalized };
     }
 
-    return {
-      success: false,
-      error: data?.error || data?.detail || 'Fehler beim Erstellen der Bestellung.',
-    };
+    if (res.status === 400 && data && (data.error || data.detail)) {
+      return {
+        success: false,
+        error: data.error || data.detail,
+      };
+    }
+
+    throw new Error(`Backend endpoint unavailable (HTTP ${res.status}): ${data?.error || data?.detail || 'Route not found'}`);
   } catch (networkError) {
     console.warn('[TechnikWelt Orders] Backend offline, erstelle lokale Bestellung:', networkError);
     const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
