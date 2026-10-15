@@ -11,7 +11,7 @@ export const NotFound: React.FC = () => {
 
   return (
     <div className="container-custom py-16 sm:py-24 text-center max-w-2xl mx-auto">
-      <div className="w-16 h-16 bg-blue-50 text-electric-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xs border border-blue-100">
+      <div className="w-16 h-16 bg-amber-50 text-electric-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xs border border-amber-200/60">
         <HelpCircle size={36} />
       </div>
 

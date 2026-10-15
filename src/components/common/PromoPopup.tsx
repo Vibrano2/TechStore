@@ -87,8 +87,10 @@ export const PromoPopup: React.FC = () => {
           className="fixed bottom-6 left-6 z-40 bg-navy-900 text-white px-4 py-2.5 rounded-full shadow-lg hover:bg-electric-500 hover:shadow-xl transition-all duration-300 flex items-center gap-2.5 text-xs sm:text-sm font-semibold border border-white/20 group cursor-pointer"
           aria-label="Aktionsgutschein und Empfehlungen ansehen"
         >
-          <span className="flex items-center justify-center w-6 h-6 rounded-full bg-electric-500 text-white text-xs group-hover:scale-110 transition-transform">
-            <Tag size={13} />
+          <span className="flex h-3 w-4 rounded-xs overflow-hidden border border-white/30">
+            <span className="h-full w-1/3 bg-[#111827]"></span>
+            <span className="h-full w-1/3 bg-[#DC2626]"></span>
+            <span className="h-full w-1/3 bg-[#F59E0B]"></span>
           </span>
           <span>10% Gutschein & Deal-Tipps</span>
         </button>
@@ -107,8 +109,15 @@ export const PromoPopup: React.FC = () => {
             className="bg-white rounded-2xl md:rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-[#E3E8EF] relative animate-scale-up"
             onClick={e => e.stopPropagation()}
           >
+            {/* German Flag Tricolor Ribbon on Popup */}
+            <div className="h-1.5 w-full flex shrink-0" aria-hidden="true">
+              <div className="h-full flex-1 bg-[#111827]"></div>
+              <div className="h-full flex-1 bg-[#DC2626]"></div>
+              <div className="h-full flex-1 bg-[#F59E0B]"></div>
+            </div>
+
             {/* Header Banner */}
-            <div className="bg-gradient-to-r from-navy-900 to-electric-600 text-white p-6 relative">
+            <div className="bg-gradient-to-r from-navy-900 via-neutral-900 to-amber-700 text-white p-6 relative">
               <button
                 onClick={handleClose}
                 className="absolute top-4 right-4 text-white/80 hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors"
@@ -117,8 +126,8 @@ export const PromoPopup: React.FC = () => {
                 <X size={20} />
               </button>
 
-              <div className="inline-flex items-center gap-1.5 bg-electric-500/40 text-electric-100 text-xs font-semibold px-3 py-1 rounded-full mb-3 border border-electric-400/30">
-                <Sparkles size={13} />
+              <div className="inline-flex items-center gap-1.5 bg-amber-500/20 text-amber-200 text-xs font-semibold px-3 py-1 rounded-full mb-3 border border-amber-400/40">
+                <Sparkles size={13} className="text-amber-300" />
                 <span>Exklusives Willkommens-Angebot</span>
               </div>
 
@@ -133,14 +142,14 @@ export const PromoPopup: React.FC = () => {
               <div className="mt-4 flex items-center justify-between bg-white/10 backdrop-blur-md border border-white/25 rounded-xl p-2.5 sm:p-3">
                 <div className="flex flex-col">
                   <span className="text-[11px] uppercase tracking-wider text-white/70 font-semibold">Ihr Gutscheincode</span>
-                  <span className="font-mono text-base sm:text-lg font-bold tracking-widest text-white">{PROMO_CODE}</span>
+                  <span className="font-mono text-base sm:text-lg font-bold tracking-widest text-amber-300">{PROMO_CODE}</span>
                 </div>
                 <button
                   onClick={handleCopyCode}
                   className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                     copied 
                       ? 'bg-status-success text-white' 
-                      : 'bg-white text-navy-900 hover:bg-neutral-100'
+                      : 'bg-electric-500 text-white hover:bg-electric-600'
                   }`}
                 >
                   {copied ? <Check size={14} /> : <Copy size={14} />}
@@ -213,7 +222,7 @@ export const PromoPopup: React.FC = () => {
                         className={`p-2.5 rounded-xl font-semibold text-xs flex items-center justify-center transition-all cursor-pointer ${
                           addedIds[product.id]
                             ? 'bg-status-success text-white'
-                            : 'bg-electric-500 hover:bg-blue-700 text-white shadow-xs'
+                            : 'bg-electric-500 hover:bg-electric-600 text-white shadow-xs'
                         }`}
                         title="In den Warenkorb"
                         aria-label={`${product.name} in den Warenkorb legen`}

@@ -8,10 +8,22 @@ export default {
     extend: {
       colors: {
         navy: {
-          900: '#0B1F33', // Deep Navy
+          900: '#0B1F33', // Deep Black/Navy (Germany Flag Black)
         },
         electric: {
-          500: '#0F5BD8', // Electric Blue
+          500: '#D97706', // German Flag Warm Gold (Primary Brand Color)
+          600: '#B45309', // Deep Gold (Hover/Active)
+        },
+        gold: {
+          400: '#FBBF24',
+          500: '#F59E0B', // German Flag Gold
+          600: '#D97706', // Primary Brand Gold
+          700: '#B45309', // High Contrast Gold
+        },
+        germany: {
+          black: '#111827',
+          red: '#DC2626',
+          gold: '#F59E0B',
         },
         neutral: {
           50: '#F6F8FB', // Background

@@ -190,7 +190,7 @@ export const ChatbotWidget: React.FC = () => {
               href={linkUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-electric-500 font-semibold underline hover:text-blue-700 inline-flex items-center gap-0.5"
+              className="text-electric-500 font-semibold underline hover:text-electric-600 inline-flex items-center gap-0.5"
             >
               {linkText} <ExternalLink size={11} className="inline" />
             </a>
@@ -203,7 +203,7 @@ export const ChatbotWidget: React.FC = () => {
               onClick={() => {
                 if (window.innerWidth < 768) setIsOpen(false);
               }}
-              className="text-electric-500 font-semibold underline hover:text-blue-700"
+              className="text-electric-500 font-semibold underline hover:text-electric-600"
             >
               {linkText}
             </Link>
@@ -237,7 +237,7 @@ export const ChatbotWidget: React.FC = () => {
             <p className="text-neutral-500 mt-0.5">Unser KI-Berater hilft Ihnen bei Produkten, Retouren & Garantie.</p>
             <button
               onClick={handleOpenWidget}
-              className="mt-2 text-electric-500 hover:text-blue-700 font-bold inline-flex items-center gap-1 text-[11px]"
+              className="mt-2 text-electric-500 hover:text-electric-600 font-bold inline-flex items-center gap-1 text-[11px]"
             >
               Jetzt Chat starten <ArrowRight size={12} />
             </button>
@@ -292,7 +292,7 @@ export const ChatbotWidget: React.FC = () => {
               <div>
                 <div className="flex items-center gap-1.5">
                   <h3 className="font-bold text-sm tracking-tight">TechnikWelt KI-Berater</h3>
-                  <span className="inline-flex items-center gap-1 bg-electric-500/20 text-blue-200 border border-electric-500/30 text-[10px] font-semibold px-1.5 py-0.2 rounded-full">
+                  <span className="inline-flex items-center gap-1 bg-electric-500/20 text-gold-400 border border-electric-500/30 text-[10px] font-semibold px-1.5 py-0.2 rounded-full">
                     <Sparkles size={9} /> AI
                   </span>
                 </div>
@@ -360,7 +360,7 @@ export const ChatbotWidget: React.FC = () => {
                 />
                 <button
                   type="submit"
-                  className="bg-electric-500 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg font-bold text-xs transition-colors flex items-center gap-1"
+                  className="bg-electric-500 hover:bg-electric-600 text-white px-3 py-1.5 rounded-lg font-bold text-xs transition-colors flex items-center gap-1 shadow-xs"
                 >
                   {apiKeySavedNotice ? <Check size={14} /> : 'Speichern'}
                 </button>
@@ -514,7 +514,7 @@ export const ChatbotWidget: React.FC = () => {
               type="submit"
               disabled={!inputText.trim() || isLoading}
               aria-label="Nachricht absenden"
-              className="w-9 h-9 bg-electric-500 hover:bg-blue-700 disabled:opacity-40 text-white rounded-full flex items-center justify-center transition-all shrink-0 shadow-sm"
+              className="w-9 h-9 bg-electric-500 hover:bg-electric-600 disabled:opacity-40 text-white rounded-full flex items-center justify-center transition-all shrink-0 shadow-sm"
             >
               <Send size={15} />
             </button>

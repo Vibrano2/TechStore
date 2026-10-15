@@ -153,7 +153,7 @@ export const Contact: React.FC = () => {
 
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 bg-electric-500 text-white font-semibold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors shadow-sm text-sm"
+                className="inline-flex items-center gap-2 bg-electric-500 text-white font-semibold px-6 py-3 rounded-xl hover:bg-electric-600 transition-colors shadow-sm text-sm"
               >
                 <Send size={15} /> Nachricht absenden
               </button>

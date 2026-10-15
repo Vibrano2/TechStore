@@ -54,14 +54,29 @@ export const Layout = () => {
 
   return (
     <div className="min-h-screen flex flex-col font-sans">
+      {/* German Flag Tricolor Ribbon */}
+      <div className="h-1.5 w-full flex shrink-0 shadow-xs" aria-hidden="true">
+        <div className="h-full flex-1 bg-[#111827]"></div>
+        <div className="h-full flex-1 bg-[#DC2626]"></div>
+        <div className="h-full flex-1 bg-[#F59E0B]"></div>
+      </div>
+
       {/* Top Announcement Bar */}
       <div className="bg-white border-b border-neutral-200 text-neutral-600 text-xs py-2">
         <div className="container-custom flex justify-between items-center">
           <div className="hidden md:flex items-center gap-6">
-            <span className="flex items-center gap-2"><Truck size={14} /> {t('shippingNotice')}</span>
-            <span className="flex items-center gap-2"><ShieldCheck size={14} /> {t('warrantyNotice')}</span>
-            <span className="flex items-center gap-2"><CreditCard size={14} /> {t('securePayment')}</span>
-            <span className="flex items-center gap-2"><RefreshCw size={14} /> {t('returnPolicy')}</span>
+            <span className="flex items-center gap-2 font-medium text-navy-900">
+              <span className="inline-flex items-center justify-center w-4 h-3 rounded-xs overflow-hidden border border-neutral-300">
+                <span className="h-full w-1/3 bg-[#111827]"></span>
+                <span className="h-full w-1/3 bg-[#DC2626]"></span>
+                <span className="h-full w-1/3 bg-[#F59E0B]"></span>
+              </span>
+              Deutscher Fachhandel
+            </span>
+            <span className="flex items-center gap-2"><Truck size={14} className="text-electric-500" /> {t('shippingNotice')}</span>
+            <span className="flex items-center gap-2"><ShieldCheck size={14} className="text-electric-500" /> {t('warrantyNotice')}</span>
+            <span className="flex items-center gap-2"><CreditCard size={14} className="text-electric-500" /> {t('securePayment')}</span>
+            <span className="flex items-center gap-2"><RefreshCw size={14} className="text-electric-500" /> {t('returnPolicy')}</span>
           </div>
           <div className="flex items-center gap-4 ml-auto">
             <div className="flex items-center gap-1.5 cursor-pointer hover:text-electric-500">
@@ -109,6 +124,14 @@ export const Layout = () => {
                 height="36" 
               />
               <span>TechnikWelt<span className="text-electric-500">.</span></span>
+              <span className="hidden sm:inline-flex items-center gap-1.5 bg-[#F6F8FB] text-navy-900 text-[11px] font-bold px-2 py-0.5 rounded-full border border-neutral-200/90 tracking-wide">
+                <span className="inline-flex h-2 w-3 rounded-xs overflow-hidden border border-neutral-300/80">
+                  <span className="h-full w-1/3 bg-[#111827]"></span>
+                  <span className="h-full w-1/3 bg-[#DC2626]"></span>
+                  <span className="h-full w-1/3 bg-[#F59E0B]"></span>
+                </span>
+                DE
+              </span>
             </Link>
           </div>
 
@@ -137,7 +160,7 @@ export const Layout = () => {
               )}
               <button 
                 type="submit" 
-                className="absolute right-1.5 top-1.5 bottom-1.5 bg-electric-500 text-white w-10 rounded-full hover:bg-blue-700 transition-colors flex items-center justify-center shadow-sm"
+                className="absolute right-1.5 top-1.5 bottom-1.5 bg-electric-500 text-white w-10 rounded-full hover:bg-electric-600 transition-colors flex items-center justify-center shadow-sm"
               >
                 <Search size={18} />
               </button>
@@ -180,7 +203,7 @@ export const Layout = () => {
                 <div className="p-3 bg-neutral-50 border-t border-neutral-100 text-center">
                   <button
                     onClick={handleSearchSubmit}
-                    className="text-xs font-semibold text-electric-500 hover:text-blue-700 transition-colors"
+                    className="text-xs font-semibold text-electric-500 hover:text-electric-600 transition-colors"
                   >
                     {t('viewAllResults')} ({searchTerm}) →
                   </button>
@@ -337,6 +360,23 @@ export const Layout = () => {
               </ul>
             </div>
           </div>
+
+          {/* German Quality Assurance Strip */}
+          <div className="my-8 pt-6 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-400">
+            <div className="flex items-center gap-3">
+              <span className="flex h-3 w-5 rounded-xs overflow-hidden border border-neutral-700">
+                <span className="h-full w-1/3 bg-[#111827]"></span>
+                <span className="h-full w-1/3 bg-[#DC2626]"></span>
+                <span className="h-full w-1/3 bg-[#F59E0B]"></span>
+              </span>
+              <span className="font-medium text-neutral-300">Deutscher Fachhandel • Geprüfte Originalprodukte mit 24 Monaten Gewährleistung</span>
+            </div>
+            <div className="flex items-center gap-5 text-neutral-400">
+              <span className="flex items-center gap-1.5"><Truck size={14} className="text-electric-500" /> Versand ab deutschem Lager mit DHL & DPD</span>
+              <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-electric-500" /> Sichere SSL-Zahlung</span>
+            </div>
+          </div>
+
           <div className="flex flex-col md:flex-row justify-between items-center text-xs text-neutral-500 font-medium">
             <p>&copy; {CURRENT_YEAR} {t('copyright')}</p>
             <div className="flex items-center gap-4 mt-4 md:mt-0">

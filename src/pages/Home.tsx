@@ -2,7 +2,7 @@ import { formatPrice } from '../utils/formatPrice';
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { mockProducts } from '../data/mockProducts';
-import { ShoppingCart, Star, Heart, ArrowRight, ShieldCheck, Truck, RefreshCw, Zap, Award } from 'lucide-react';
+import { ShoppingCart, Star, Heart, ArrowRight, ShieldCheck, Truck, RefreshCw, Zap } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { useSEO } from '../utils/useSEO';
 
@@ -88,9 +88,13 @@ export const Home = () => {
       <section className="bg-[#F6F8FB] relative overflow-hidden">
         <div className="container-custom py-10 md:py-16 grid md:grid-cols-2 gap-8 items-center relative z-10">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 bg-electric-500/10 text-electric-600 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-4 border border-electric-500/20">
-              <Zap size={14} className="fill-electric-500 text-electric-500" />
-              <span>Die neuesten Technik-Trends 2026</span>
+            <div className="inline-flex items-center gap-2 bg-amber-500/15 text-amber-900 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-4 border border-amber-500/30">
+              <span className="flex h-2.5 w-3.5 rounded-xs overflow-hidden border border-neutral-300">
+                <span className="h-full w-1/3 bg-[#111827]"></span>
+                <span className="h-full w-1/3 bg-[#DC2626]"></span>
+                <span className="h-full w-1/3 bg-[#F59E0B]"></span>
+              </span>
+              <span>Technik-Fachhandel für Deutschland</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-navy-900 leading-[1.15] mb-6 tracking-tight">
@@ -101,7 +105,7 @@ export const Home = () => {
             </p>
 
             <div className="flex flex-wrap gap-4 items-center">
-              <Link to="/category/all" className="bg-electric-500 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-sm">
+              <Link to="/category/all" className="bg-electric-500 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-electric-600 transition-colors shadow-sm">
                 {t('exploreNow')}
               </Link>
               <Link to="/angebote" className="bg-white text-navy-900 border border-neutral-300 px-8 py-3.5 rounded-xl font-semibold hover:bg-neutral-50 transition-colors shadow-sm">
@@ -220,9 +224,13 @@ export const Home = () => {
         <div className="container-custom">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-electric-600 bg-electric-50 px-3 py-1 rounded-full mb-2">
-                <Award size={14} />
-                <span>Kundenlieblinge & Redaktionsempfehlungen</span>
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-amber-900 bg-amber-100/90 px-3.5 py-1 rounded-full mb-2 border border-amber-300/80">
+                <span className="flex h-2 w-3 rounded-xs overflow-hidden border border-neutral-300/80">
+                  <span className="h-full w-1/3 bg-[#111827]"></span>
+                  <span className="h-full w-1/3 bg-[#DC2626]"></span>
+                  <span className="h-full w-1/3 bg-[#F59E0B]"></span>
+                </span>
+                <span>Geprüfte Qualität & Redaktionsempfehlungen</span>
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-navy-900">
                 Top-Bestseller & Technik-Highlights
@@ -344,7 +352,7 @@ export const Home = () => {
                       e.preventDefault();
                       addToCart(product, 1);
                     }}
-                    className="w-full bg-electric-500 hover:bg-blue-700 text-white py-2.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-xs"
+                    className="w-full bg-electric-500 hover:bg-electric-600 text-white py-2.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-xs"
                   >
                     <ShoppingCart size={16} />
                     <span>{t('addToCart')}</span>

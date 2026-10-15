@@ -399,7 +399,7 @@ export const AuthModal: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-electric-500 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center gap-2 transition-colors shadow-sm disabled:opacity-50 focus:ring-2 focus:ring-electric-500"
+                className="w-full bg-electric-500 hover:bg-electric-600 text-white py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center gap-2 transition-colors shadow-sm disabled:opacity-50 focus:ring-2 focus:ring-electric-500"
               >
                 {isSubmitting ? (
                   <>
@@ -450,7 +450,7 @@ export const AuthModal: React.FC = () => {
                 type="button"
                 onClick={() => handleVerifyCode()}
                 disabled={isSubmitting || otpDigits.some((d) => !d)}
-                className="w-full bg-electric-500 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center gap-2 transition-colors shadow-sm disabled:opacity-50 focus:ring-2 focus:ring-electric-500 cursor-pointer"
+                className="w-full bg-electric-500 hover:bg-electric-600 text-white py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center gap-2 transition-colors shadow-sm disabled:opacity-50 focus:ring-2 focus:ring-electric-500 cursor-pointer"
               >
                 {isSubmitting ? (
                   <>

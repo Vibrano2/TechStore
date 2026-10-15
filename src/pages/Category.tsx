@@ -564,7 +564,7 @@ export const Category = () => {
                           </div>
                           <button 
                             type="button"
-                            className="bg-electric-500 text-white p-2 sm:p-2.5 rounded-lg hover:bg-blue-700 active:scale-95 transition-all shadow-xs flex items-center justify-center cursor-pointer shrink-0 ml-2" 
+                            className="bg-electric-500 text-white p-2 sm:p-2.5 rounded-lg hover:bg-electric-600 active:scale-95 transition-all shadow-xs flex items-center justify-center cursor-pointer shrink-0 ml-2" 
                             onClick={(e) => { 
                               e.preventDefault(); 
                               addToCart(product, 1);

@@ -48,11 +48,11 @@ export const CookieConsent: React.FC = () => {
             </p>
             <p>
               Wir nutzen technisch notwendige Cookies, um grundlegende Funktionen unseres Online-Shops (wie den Warenkorb und Ihre Merkliste) zu gewährleisten. Sie können entscheiden, ob Sie der Nutzung zustimmen oder nur technisch notwendige Cookies zulassen möchten. Weitere Details finden Sie in unserer{' '}
-              <Link to="/datenschutz" className="text-electric-600 font-semibold underline hover:text-blue-700">
+              <Link to="/datenschutz" className="text-electric-600 font-semibold underline hover:text-electric-700">
                 Datenschutzerklärung
               </Link>{' '}
               und im{' '}
-              <Link to="/impressum" className="text-electric-600 font-semibold underline hover:text-blue-700">
+              <Link to="/impressum" className="text-electric-600 font-semibold underline hover:text-electric-700">
                 Impressum
               </Link>.
             </p>

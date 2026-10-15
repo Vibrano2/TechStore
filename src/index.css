@@ -2,7 +2,15 @@
 
 @theme {
   --color-navy-900: #0B1F33;
-  --color-electric-500: #0F5BD8;
+  --color-electric-500: #D97706;
+  --color-electric-600: #B45309;
+  --color-gold-400: #FBBF24;
+  --color-gold-500: #F59E0B;
+  --color-gold-600: #D97706;
+  --color-gold-700: #B45309;
+  --color-germany-black: #111827;
+  --color-germany-red: #DC2626;
+  --color-germany-gold: #F59E0B;
   --color-neutral-50: #F6F8FB;
   --color-neutral-200: #E3E8EF;
   --color-neutral-500: #667085;
@@ -25,7 +33,7 @@
   }
   
   .btn-primary {
-    @apply bg-electric-500 text-white font-medium rounded-[10px] hover:bg-blue-700 transition-colors px-6 py-2.5 flex items-center justify-center;
+    @apply bg-electric-500 text-white font-semibold rounded-[10px] hover:bg-electric-600 transition-colors px-6 py-2.5 flex items-center justify-center shadow-xs;
   }
   
   .btn-secondary {
