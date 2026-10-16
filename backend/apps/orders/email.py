@@ -332,7 +332,7 @@ TechnikWelt GmbH | Maximilianstraße 35, 80539 München | HRB 284910
 """
 
         subject = f"Bestellbestätigung: Ihre TechnikWelt Bestellung {order.id}"
-        from_email = os.environ.get('RESEND_FROM_EMAIL', getattr(settings, 'RESEND_FROM_EMAIL', 'TechnikWelt Germany <onboarding@resend.dev>'))
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', None) or os.environ.get('DEFAULT_FROM_EMAIL', 'TechnikWelt Germany <dadvic03@gmail.com>')
         resend_api_key = os.environ.get('RESEND_API_KEY', getattr(settings, 'RESEND_API_KEY', ''))
 
         delivery_method = 'django'
@@ -340,6 +340,7 @@ TechnikWelt GmbH | Maximilianstraße 35, 80539 München | HRB 284910
 
         if resend_api_key and not resend_api_key.startswith('your_') and len(resend_api_key) > 10:
             try:
+                resend_from = os.environ.get('RESEND_FROM_EMAIL', getattr(settings, 'RESEND_FROM_EMAIL', 'onboarding@resend.dev'))
                 encoded_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
                 res = requests.post(
                     "https://api.resend.com/emails",
@@ -348,7 +349,7 @@ TechnikWelt GmbH | Maximilianstraße 35, 80539 München | HRB 284910
                         "Content-Type": "application/json"
                     },
                     json={
-                        "from": from_email,
+                        "from": resend_from,
                         "to": [order.email],
                         "subject": subject,
                         "html": html_content,
@@ -381,10 +382,15 @@ TechnikWelt GmbH | Maximilianstraße 35, 80539 München | HRB 284910
             msg.attach_alternative(html_content, "text/html")
             msg.attach(invoice_filename, pdf_bytes, "application/pdf")
             try:
-                msg.send(fail_silently=True)
-                logger.info(f"Order confirmation email dispatched via Django mail for {order.id}")
+                sent_count = msg.send(fail_silently=False)
+                logger.info(f"Order confirmation email dispatched via Django mail for {order.id} (sent: {sent_count})")
             except Exception as mail_err:
                 logger.error(f"Failed to send email via Django mail: {mail_err}")
+                return {
+                    "success": False,
+                    "error": f"Fehler beim E-Mail-Versand: {mail_err}",
+                    "order_id": order.id,
+                }
 
         return {
             "success": True,
@@ -632,7 +638,7 @@ Amtsgericht München HRB 284910 | USt-IdNr.: DE 362 891 042
 """
 
         subject = f"Ihr DHL-Retourenschein für Rücksendung {order_return.id} (Bestellung {order_id})"
-        from_email = os.environ.get('RESEND_FROM_EMAIL', getattr(settings, 'RESEND_FROM_EMAIL', 'TechnikWelt Germany <onboarding@resend.dev>'))
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', None) or os.environ.get('DEFAULT_FROM_EMAIL', 'TechnikWelt Germany <dadvic03@gmail.com>')
         resend_api_key = os.environ.get('RESEND_API_KEY', getattr(settings, 'RESEND_API_KEY', ''))
 
         delivery_method = 'django'
@@ -640,6 +646,7 @@ Amtsgericht München HRB 284910 | USt-IdNr.: DE 362 891 042
 
         if resend_api_key and not resend_api_key.startswith('your_') and len(resend_api_key) > 10:
             try:
+                resend_from = os.environ.get('RESEND_FROM_EMAIL', getattr(settings, 'RESEND_FROM_EMAIL', 'onboarding@resend.dev'))
                 encoded_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
                 res = requests.post(
                     "https://api.resend.com/emails",
@@ -648,7 +655,7 @@ Amtsgericht München HRB 284910 | USt-IdNr.: DE 362 891 042
                         "Content-Type": "application/json"
                     },
                     json={
-                        "from": from_email,
+                        "from": resend_from,
                         "to": [customer_email],
                         "subject": subject,
                         "html": html_content,
@@ -681,10 +688,15 @@ Amtsgericht München HRB 284910 | USt-IdNr.: DE 362 891 042
             msg.attach_alternative(html_content, "text/html")
             msg.attach(label_filename, pdf_bytes, "application/pdf")
             try:
-                msg.send(fail_silently=True)
-                logger.info(f"DHL Return label email dispatched via Django mail for {order_return.id} to {customer_email}")
+                sent_count = msg.send(fail_silently=False)
+                logger.info(f"DHL Return label email dispatched via Django mail for {order_return.id} to {customer_email} (sent: {sent_count})")
             except Exception as mail_err:
                 logger.error(f"Failed to send DHL return email via Django mail: {mail_err}")
+                return {
+                    "success": False,
+                    "error": f"Fehler beim E-Mail-Versand: {mail_err}",
+                    "return_id": order_return.id,
+                }
 
         return {
             "success": True,
