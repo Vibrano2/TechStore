@@ -10,11 +10,16 @@ import logging
 import os
 from decimal import Decimal
 import requests
+from email import charset as email_charset
 from django.conf import settings
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, message as django_mail_message
 from django.utils import timezone
 from .invoice import generate_invoice_pdf, format_de_currency, format_de_date
 from .return_label import generate_return_label_pdf
+
+# Enforce Quoted-Printable transfer encoding for UTF-8 to prevent 'ascii' codec errors
+# when sending emails with German umlauts (ä, ö, ü, ß) across legacy/cPanel SMTP transports.
+django_mail_message.utf8_charset.body_encoding = email_charset.QP
 
 logger = logging.getLogger('techstore.orders.email')
 
@@ -380,6 +385,7 @@ TechnikWelt GmbH | Maximilianstraße 35, 80539 München | HRB 284910
                 to=[order.email],
                 reply_to=['info@technikwelt.shop']
             )
+            msg.encoding = 'utf-8'
             msg.attach_alternative(html_content, "text/html")
             msg.attach(invoice_filename, pdf_bytes, "application/pdf")
             try:
@@ -687,6 +693,7 @@ Amtsgericht München HRB 284910 | USt-IdNr.: DE 362 891 042
                 to=[customer_email],
                 reply_to=['info@technikwelt.shop']
             )
+            msg.encoding = 'utf-8'
             msg.attach_alternative(html_content, "text/html")
             msg.attach(label_filename, pdf_bytes, "application/pdf")
             try:

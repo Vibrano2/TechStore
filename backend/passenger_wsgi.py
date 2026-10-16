@@ -6,6 +6,11 @@ Placed in the application root directory for cPanel "Setup Python App".
 import sys
 import os
 
+# Enforce UTF-8 locale and I/O encoding in cPanel Phusion Passenger environment
+os.environ['LC_ALL'] = 'en_US.UTF-8'
+os.environ['LANG'] = 'en_US.UTF-8'
+os.environ['PYTHONIOENCODING'] = 'utf-8'
+
 # Add the project root to sys.path
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 if SCRIPT_DIR not in sys.path:
