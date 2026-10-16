@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
 import { Home } from './pages/Home';
 import { ShopProvider } from './context/ShopProvider';
@@ -19,6 +19,8 @@ const Widerruf = lazy(() => import('./pages/Widerruf').then(m => ({ default: m.W
 const Warranty = lazy(() => import('./pages/Warranty').then(m => ({ default: m.Warranty })));
 const Contact = lazy(() => import('./pages/Contact').then(m => ({ default: m.Contact })));
 const NotFound = lazy(() => import('./pages/NotFound').then(m => ({ default: m.NotFound })));
+const AdminLogin = lazy(() => import('./pages/admin/AdminLogin').then(m => ({ default: m.AdminLogin })));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard').then(m => ({ default: m.AdminDashboard })));
 
 const RouteLoadingFallback = () => (
   <div className="container-custom py-24 flex flex-col items-center justify-center text-center">
@@ -35,6 +37,11 @@ function App() {
         <ScrollToTop />
         <Suspense fallback={<RouteLoadingFallback />}>
           <Routes>
+            {/* Secret Internal Control & Admin Suite */}
+            <Route path="intern/login" element={<AdminLogin />} />
+            <Route path="intern/dashboard" element={<AdminDashboard />} />
+            <Route path="intern" element={<Navigate to="/intern/dashboard" replace />} />
+
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="category/:slug" element={<Category />} />

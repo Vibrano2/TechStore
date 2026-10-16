@@ -144,3 +144,43 @@ class AuthenticationTests(TestCase):
         self.assertEqual(get_res.data['street'], 'Friedrichstraße 43')
         self.assertEqual(get_res.data['city'], 'Berlin')
 
+    def test_admin_api_suite(self):
+        """
+        Verify internal admin authentication, statistics, and orders API.
+        """
+        # 1. Unauthenticated request to stats must be blocked
+        anon_res = self.client.get('/api/v1/intern/stats/')
+        self.assertIn(anon_res.status_code, (401, 403))
+
+        # 2. Login with bad credentials fails
+        bad_login = self.client.post('/api/v1/intern/login/', {
+            'username': 'admin',
+            'password': 'WrongPassword123'
+        })
+        self.assertEqual(bad_login.status_code, 401)
+
+        # 3. Login with configured admin credentials succeeds
+        login_res = self.client.post('/api/v1/intern/login/', {
+            'username': 'admin',
+            'password': 'TechnikWelt2026!Admin'
+        })
+        self.assertEqual(login_res.status_code, 200)
+        self.assertTrue(login_res.data['success'])
+        admin_token = login_res.data['token']
+        self.assertTrue(login_res.data['user']['is_staff'])
+
+        # 4. Authenticated stats request succeeds
+        admin_client = APIClient()
+        admin_client.credentials(HTTP_AUTHORIZATION=f'Bearer {admin_token}')
+        stats_res = admin_client.get('/api/v1/intern/stats/')
+        self.assertEqual(stats_res.status_code, 200)
+        self.assertIn('metrics', stats_res.data)
+        self.assertIn('total_revenue', stats_res.data['metrics'])
+        self.assertIn('total_orders', stats_res.data['metrics'])
+
+        # 5. Authenticated orders list succeeds
+        orders_res = admin_client.get('/api/v1/intern/orders/')
+        self.assertEqual(orders_res.status_code, 200)
+        self.assertIn('orders', orders_res.data)
+
+
