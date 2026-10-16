@@ -73,6 +73,9 @@ export const Datenschutz: React.FC = () => {
             <p>
               Zur Zustellung Ihrer Pakete übermitteln wir Ihre Anschrift an unseren Versandpartner <strong>DHL Paket GmbH</strong> (Sträßchensweg 10, 53113 Bonn).
             </p>
+            <p>
+              Bei Zahlung via Stripe werden Ihre Zahlungsdaten über eine verschlüsselte SSL/TLS-Verbindung direkt an den Zahlungsdienstleister <strong>Stripe Payments Europe, Ltd.</strong> (1 Grand Canal Street Lower, Grand Canal Dock, Dublin, D02 H210, Irland) übermittelt. Stripe ist nach dem höchsten Sicherheitsstandard PCI-DSS Level 1 zertifiziert. Die Übermittlung erfolgt ausschließlich zur Zahlungs- und Vertragsabwicklung gemäß <strong>Art. 6 Abs. 1 lit. b DSGVO</strong>.
+            </p>
           </div>
         </section>
 
