@@ -198,6 +198,13 @@ EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'True').lower() in ('true', '1',
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'TechnikWelt <info@technikwelt.shop>')
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
+# RFC 2821 compliant FQDN for HELO/EHLO handshake (prevents '550 Access denied - Invalid HELO name')
+try:
+    from django.core.mail.backends import smtp as django_smtp
+    django_smtp.DNS_NAME._fqdn = 'technikwelt.shop'
+except Exception:
+    pass
+
 
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 CORS_ALLOWED_ORIGINS = [

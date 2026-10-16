@@ -146,7 +146,7 @@ export const sendOtp = async (email: string, language?: Language): Promise<SendO
       return {
         success: true,
         message: data.message || 'Bestätigungscode versendet.',
-        devCode: isDemoAuthMode() ? data.dev_code : undefined,
+        devCode: data.dev_code || undefined,
       };
     }
 

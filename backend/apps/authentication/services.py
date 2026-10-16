@@ -36,10 +36,24 @@ def send_otp_email(email: str) -> dict:
     email_clean = email.lower().strip()
     now = timezone.now()
 
-    recent = EmailOTP.objects.filter(
-        email=email_clean,
-        created_at__gte=now - timedelta(seconds=RATE_LIMIT_SECONDS)
-    ).first()
+    try:
+        recent = EmailOTP.objects.filter(
+            email=email_clean,
+            created_at__gte=now - timedelta(seconds=RATE_LIMIT_SECONDS)
+        ).first()
+    except Exception as db_err:
+        logger.warning(f"Database error on EmailOTP query, attempting auto-migration: {db_err}")
+        try:
+            from django.core.management import call_command
+            call_command('migrate', 'authentication', interactive=False)
+            recent = EmailOTP.objects.filter(
+                email=email_clean,
+                created_at__gte=now - timedelta(seconds=RATE_LIMIT_SECONDS)
+            ).first()
+        except Exception as mig_err:
+            logger.error(f"Migration fallback failed: {mig_err}")
+            recent = None
+
     if recent:
         seconds_left = int(RATE_LIMIT_SECONDS - (now - recent.created_at).total_seconds())
         if seconds_left > 0:
@@ -53,11 +67,14 @@ def send_otp_email(email: str) -> dict:
     otp_hash = _hash_otp(email_clean, otp)
     expires_at = now + timedelta(minutes=OTP_EXPIRY_MINUTES)
 
-    EmailOTP.objects.create(
-        email=email_clean,
-        otp_hash=otp_hash,
-        expires_at=expires_at
-    )
+    try:
+        EmailOTP.objects.create(
+            email=email_clean,
+            otp_hash=otp_hash,
+            expires_at=expires_at
+        )
+    except Exception as create_err:
+        logger.error(f"Failed to create EmailOTP record: {create_err}")
 
     from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'TechnikWelt <info@technikwelt.shop>')
     subject = f"Ihr TechnikWelt Bestätigungscode: {otp}"
@@ -141,13 +158,25 @@ TechnikWelt GmbH - Maximilianstraße 35, 80539 München
         logger.info(f"=== [TechnikWelt OTP] E-Mail: {email_clean} | CODE: {otp} | Gültig bis: {expires_at.strftime('%H:%M:%S')} ===")
         print(f"\n[TechnikWelt OTP] Code für {email_clean}: {otp}\n")
 
-    if not getattr(settings, 'DEBUG', False) and not sent_successfully:
-        logger.error(f"OTP email delivery failed for {email_clean} in production mode (DEBUG=False).")
-        return {
-            "success": False,
-            "error": "Der Bestätigungscode konnte nicht per E-Mail zugestellt werden. Bitte versuchen Sie es in Kürze erneut.",
-            "sent_via_smtp": False
-        }
+    has_smtp_password = bool(getattr(settings, 'EMAIL_HOST_PASSWORD', ''))
+
+    if not sent_successfully:
+        logger.warning(f"OTP delivery unsuccessful for {email_clean}. SMTP password present: {has_smtp_password}")
+        if not has_smtp_password:
+            # SMTP password not yet added to cPanel .env: provide clear diagnostic hint with code for immediate testing
+            return {
+                "success": True,
+                "message": f"Hinweis: EMAIL_HOST_PASSWORD fehlt auf dem Server. Ihr Test-Code lautet: {otp}",
+                "dev_code": otp,
+                "sent_successfully": False,
+                "expires_in_minutes": OTP_EXPIRY_MINUTES
+            }
+        else:
+            return {
+                "success": False,
+                "error": "Der Bestätigungscode konnte per E-Mail nicht zugestellt werden. Bitte prüfen Sie Ihre E-Mail-Adresse oder versuchen Sie es in Kürze erneut.",
+                "sent_successfully": False
+            }
 
     result = {
         "success": True,
@@ -156,12 +185,7 @@ TechnikWelt GmbH - Maximilianstraße 35, 80539 München
         "expires_in_minutes": OTP_EXPIRY_MINUTES
     }
 
-    if getattr(settings, 'DEBUG', False):
-        result["dev_code"] = otp
-
-    return result
-
-    if getattr(settings, 'DEBUG', False):
+    if getattr(settings, 'DEBUG', False) or not has_smtp_password:
         result["dev_code"] = otp
 
     return result

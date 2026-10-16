@@ -36,8 +36,8 @@ class SendOTPView(APIView):
             logger.exception(f"Unexpected error in SendOTPView: {e}")
             return Response({
                 "success": False,
-                "error": "Ein interner Serverfehler ist aufgetreten. Bitte versuchen Sie es in Kürze erneut."
-            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                "error": f"Serverfehler beim Anfordern des Codes: {str(e)}"
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 
 class VerifyOTPView(APIView):

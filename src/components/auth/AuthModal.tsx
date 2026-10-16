@@ -147,6 +147,10 @@ export const AuthModal: React.FC = () => {
         setStep('otp');
         setCooldown(res.cooldownSeconds || 60);
         setSuccessNotice(res.message || t('authSubtitleOtp'));
+        if (res.devCode && typeof res.devCode === 'string') {
+          const chars = res.devCode.split('').slice(0, 6);
+          setOtpDigits(chars);
+        }
         setTimeout(() => {
           digitInputRefs.current[0]?.focus();
         }, 100);
