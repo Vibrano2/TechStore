@@ -352,3 +352,17 @@ export async function fetchAdminCustomers(params: { search?: string } = {}): Pro
   const queryStr = q.toString() ? `?${q.toString()}` : '';
   return await adminFetch(`/intern/customers/${queryStr}`);
 }
+
+export async function purgeAdminTestData(): Promise<{
+  success: boolean;
+  message: string;
+  deleted_orders: number;
+  deleted_returns: number;
+  deleted_warranties: number;
+  deleted_users: number;
+}> {
+  return await adminFetch(`/intern/purge-test-data/`, {
+    method: 'POST',
+    body: JSON.stringify({}),
+  });
+}

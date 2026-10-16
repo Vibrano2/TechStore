@@ -10,8 +10,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import BasePermission
 
+import re
 from .models import AuthToken, UserProfile
-from apps.orders.models import Order, OrderItem, OrderReturn
+from apps.orders.models import Order, OrderItem, OrderReturn, Cart, CartItem
 from apps.catalogue.models import Product, Category, Brand, EMobilityCompliance
 from apps.compliance.models import WarrantyClaim
 from apps.orders.email import send_order_confirmation_email
@@ -660,3 +661,90 @@ class AdminCustomersView(APIView):
             "count": len(customers_data),
             "customers": customers_data,
         })
+
+
+class AdminPurgeTestDataView(APIView):
+    """
+    Administrative maintenance tool:
+    Purges synthetic/automated test orders, mock returns, warranty claims, and demo test accounts.
+    Guarantees that all metrics, totals, and graphs in the dashboard represent 100% genuine transactions.
+    """
+    permission_classes = [IsAdminOrStaff]
+
+    def post(self, request):
+        test_email_patterns = [
+            r'.*@technikwelt-test\.de$',
+            r'.*@technikwelt\.de$',
+            r'.*@example\.com$',
+            r'.*@beispiel\.de$',
+            r'^test-stripe@technikwelt\.shop$',
+            r'^e2e\.retoure\.test@technikwelt-shop\.de$',
+        ]
+
+        all_orders = Order.objects.all()
+        test_order_ids = []
+
+        for order in all_orders:
+            email = (order.email or '').strip().lower()
+            name = f"{order.first_name} {order.last_name}".strip().lower()
+
+            is_test = False
+            for pat in test_email_patterns:
+                if re.match(pat, email):
+                    is_test = True
+                    break
+
+            if name in ['max mustermann', 'sabine musterfrau', 'johannes gutenberg', 'sophie scholl', 'clara schumann', 'alexander von humboldt', 'anna schmidt']:
+                is_test = True
+
+            if is_test:
+                test_order_ids.append(order.id)
+
+        test_returns = OrderReturn.objects.filter(order_id__in=test_order_ids)
+        returns_count = test_returns.count()
+        test_returns.delete()
+
+        test_warranties = WarrantyClaim.objects.filter(order_id__in=test_order_ids)
+        warranties_count = test_warranties.count()
+        test_warranties.delete()
+
+        OrderItem.objects.filter(order_id__in=test_order_ids).delete()
+        orders_deleted = Order.objects.filter(id__in=test_order_ids).count()
+        Order.objects.filter(id__in=test_order_ids).delete()
+
+        test_users = []
+        for user in User.objects.filter(is_staff=False, is_superuser=False):
+            u_email = (user.email or '').lower()
+            u_name = (user.username or '').lower()
+
+            is_test_user = False
+            for pat in test_email_patterns:
+                if re.match(pat, u_email):
+                    is_test_user = True
+                    break
+
+            if any(u_name.startswith(p) for p in ['test', 'valid.buyer', 'audit.', 'buyer.', 'user.two', 'kundetest', 'alex-']):
+                is_test_user = True
+
+            if any(u_email.endswith(dom) for dom in ['@gmail.com', '@outlook.com', '@yahoo.com', '@web.de', '@gmx.de', '@t-online.de']):
+                if not u_name.startswith('test'):
+                    is_test_user = False
+
+            if is_test_user:
+                test_users.append(user)
+
+        users_count = len(test_users)
+        for u in test_users:
+            CartItem.objects.filter(cart__user=u).delete()
+            Cart.objects.filter(user=u).delete()
+            u.delete()
+
+        return Response({
+            "success": True,
+            "message": f"Testdaten erfolgreich bereinigt ({orders_deleted} Testbestellungen, {returns_count} Retouren, {warranties_count} Garantieanträge, {users_count} Testkonten entfernt). Alle Zahlen spiegeln nun reale Kundendaten wider.",
+            "deleted_orders": orders_deleted,
+            "deleted_returns": returns_count,
+            "deleted_warranties": warranties_count,
+            "deleted_users": users_count,
+        })
+

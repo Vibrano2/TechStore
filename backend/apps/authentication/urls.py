@@ -17,6 +17,7 @@ from .internal_views import (
     AdminWarrantyClaimsView,
     AdminWarrantyClaimStatusView,
     AdminCustomersView,
+    AdminPurgeTestDataView,
 )
 
 urlpatterns = [
@@ -44,4 +45,5 @@ urlpatterns = [
     path('intern/warranty-claims/', AdminWarrantyClaimsView.as_view(), name='admin-warranty-claims'),
     path('intern/warranty-claims/<str:claim_id>/update-status/', AdminWarrantyClaimStatusView.as_view(), name='admin-warranty-claim-update-status'),
     path('intern/customers/', AdminCustomersView.as_view(), name='admin-customers'),
+    path('intern/purge-test-data/', AdminPurgeTestDataView.as_view(), name='admin-purge-test-data'),
 ]

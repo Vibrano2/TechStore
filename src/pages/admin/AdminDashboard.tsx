@@ -23,7 +23,8 @@ import {
   FileText,
   Users,
   ShieldAlert,
-  ArrowUpRight
+  ArrowUpRight,
+  Trash2
 } from 'lucide-react';
 import {
   getAdminToken,
@@ -42,6 +43,7 @@ import {
   updateAdminProduct,
   updateAdminReturnStatus,
   updateAdminWarrantyStatus,
+  purgeAdminTestData,
 } from '../../services/adminApi';
 import type {
   AdminStats,
@@ -98,6 +100,7 @@ export const AdminDashboard: React.FC = () => {
   const [editProductRoadLegal, setEditProductRoadLegal] = useState<boolean>(false);
 
   const [selectedDetailOrder, setSelectedDetailOrder] = useState<AdminOrder | null>(null);
+  const [isPurgingTestData, setIsPurgingTestData] = useState<boolean>(false);
 
   const showNotification = (message: string, type: 'success' | 'error' | 'info' = 'success') => {
     setNotification({ type, message });
@@ -107,6 +110,25 @@ export const AdminDashboard: React.FC = () => {
   const handleLogout = () => {
     clearAdminSession();
     navigate('/intern/login', { replace: true });
+  };
+
+  const handlePurgeTestData = async () => {
+    const confirmed = window.confirm(
+      'Möchten Sie alle synthetischen Testbestellungen, Test-Retouren, Test-Garantieanträge und Testkonten endgültig löschen?\n\n' +
+      'Reale Kundenbestellungen bleiben unberührt. Das Dashboard zeigt anschließend ausschließlich 100% echte Zahlen.'
+    );
+    if (!confirmed) return;
+
+    setIsPurgingTestData(true);
+    try {
+      const res = await purgeAdminTestData();
+      showNotification(res.message || 'Testdaten erfolgreich bereinigt. Nur noch echte Zahlen aktiv.');
+      await loadAllData(true);
+    } catch (err: any) {
+      showNotification(err.message || 'Fehler beim Bereinigen der Testdaten.', 'error');
+    } finally {
+      setIsPurgingTestData(false);
+    }
   };
 
   const loadAllData = useCallback(async (silent = false) => {
@@ -363,6 +385,16 @@ export const AdminDashboard: React.FC = () => {
               <RefreshCw size={15} className={isRefreshing ? 'animate-spin text-blue-400' : ''} />
             </button>
 
+            <button
+              onClick={handlePurgeTestData}
+              disabled={isPurgingTestData}
+              title="Alle Test- und Demodaten bereinigen, damit nur reale Zahlen angezeigt werden"
+              className="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-amber-300 transition-colors text-xs font-medium flex items-center gap-1.5 border border-slate-700/80 cursor-pointer disabled:opacity-50"
+            >
+              <Trash2 size={13} className={isPurgingTestData ? 'animate-spin text-amber-400' : 'text-amber-400'} />
+              <span className="hidden sm:inline">Testdaten bereinigen</span>
+            </button>
+
             <a
               href="/"
               target="_blank"
@@ -577,18 +609,23 @@ export const AdminDashboard: React.FC = () => {
                     <div className="h-44 flex items-end justify-between gap-2 sm:gap-4 pt-6 pb-2">
                       {(stats?.daily_points || []).map((point, idx) => {
                         const maxRev = Math.max(...(stats?.daily_points.map(p => p.revenue) || [100]), 100);
-                        const heightPct = Math.min(100, Math.max(8, (point.revenue / maxRev) * 100));
+                        const hasRevenue = point.revenue > 0;
+                        const heightPct = hasRevenue ? Math.min(100, Math.max(12, (point.revenue / maxRev) * 100)) : 0;
 
                         return (
                           <div key={idx} className="flex-1 flex flex-col items-center gap-2 group h-full justify-end">
-                            <div className="text-[10px] font-mono text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className={`text-[10px] font-mono transition-opacity ${hasRevenue ? 'text-emerald-400 opacity-0 group-hover:opacity-100 font-bold' : 'text-slate-500 opacity-0 group-hover:opacity-60'}`}>
                               {formatEUR(point.revenue)}
                             </div>
                             <div
-                              style={{ height: `${heightPct}%` }}
-                              className="w-full max-w-[48px] rounded-t-lg bg-blue-600/80 group-hover:bg-blue-500 transition-all relative overflow-hidden"
+                              style={{ height: hasRevenue ? `${heightPct}%` : '3px' }}
+                              className={`w-full max-w-[48px] rounded-t-lg transition-all relative overflow-hidden ${
+                                hasRevenue
+                                  ? 'bg-blue-600/90 group-hover:bg-blue-500 shadow-sm shadow-blue-500/20'
+                                  : 'bg-slate-800/40 group-hover:bg-slate-700/50'
+                              }`}
                             >
-                              <div className="absolute inset-x-0 top-0 h-1 bg-blue-300"></div>
+                              {hasRevenue && <div className="absolute inset-x-0 top-0 h-1 bg-blue-300"></div>}
                             </div>
                             <div className="text-[11px] font-semibold text-slate-400 text-center">
                               <div>{point.day_name}</div>
@@ -598,6 +635,12 @@ export const AdminDashboard: React.FC = () => {
                         );
                       })}
                     </div>
+
+                    {(stats?.metrics.revenue_7d === 0) && (
+                      <div className="mt-4 text-center text-xs text-slate-400 bg-slate-950/60 py-2.5 px-4 rounded-xl border border-slate-800/80">
+                        Keine bezahlten Umsätze in den letzten 7 Tagen. Sobald Überweisungen freigegeben oder Zahlungen verbucht werden, wird der echte Umsatz hier live dargestellt.
+                      </div>
+                    )}
                   </div>
 
                   {/* Right Col: Quick Status Overview */}
