@@ -155,18 +155,20 @@ TechnikWelt GmbH - Maximilianstraße 35, 80539 München
                 logger.error(f"Resend fallback also failed for {email_clean}: {resend_err}")
 
     if getattr(settings, 'DEBUG', False):
-        logger.info(f"=== [TechnikWelt OTP] E-Mail: {email_clean} | CODE: {otp} | Gültig bis: {expires_at.strftime('%H:%M:%S')} ===")
-        print(f"\n[TechnikWelt OTP] Code für {email_clean}: {otp}\n")
+        try:
+            logger.info(f"=== [TechnikWelt OTP] E-Mail: {email_clean} | CODE: {otp} | Gueltig bis: {expires_at.strftime('%H:%M:%S')} ===")
+            print(f"\n[TechnikWelt OTP] Code fuer {email_clean}: {otp}\n")
+        except Exception:
+            pass
 
     has_smtp_password = bool(getattr(settings, 'EMAIL_HOST_PASSWORD', ''))
 
     if not sent_successfully:
         logger.warning(f"OTP delivery unsuccessful for {email_clean}. SMTP password present: {has_smtp_password}")
-        if not has_smtp_password:
-            # SMTP password not yet added to cPanel .env: provide clear diagnostic hint with code for immediate testing
+        if getattr(settings, 'DEBUG', False):
             return {
                 "success": True,
-                "message": f"Hinweis: EMAIL_HOST_PASSWORD fehlt auf dem Server. Ihr Test-Code lautet: {otp}",
+                "message": f"Dev-Modus: Ihr Bestätigungscode lautet: {otp}",
                 "dev_code": otp,
                 "sent_successfully": False,
                 "expires_in_minutes": OTP_EXPIRY_MINUTES
@@ -185,7 +187,7 @@ TechnikWelt GmbH - Maximilianstraße 35, 80539 München
         "expires_in_minutes": OTP_EXPIRY_MINUTES
     }
 
-    if getattr(settings, 'DEBUG', False) or not has_smtp_password:
+    if getattr(settings, 'DEBUG', False):
         result["dev_code"] = otp
 
     return result

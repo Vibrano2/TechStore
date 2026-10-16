@@ -1,4 +1,5 @@
 from datetime import timedelta
+from unittest import mock
 from django.test import TestCase, override_settings
 from django.utils import timezone
 from rest_framework.test import APIClient
@@ -45,10 +46,11 @@ class AuthenticationTests(TestCase):
         send_otp_email must fail explicitly and NEVER leak dev_code.
         """
         with override_settings(DEBUG=False):
-            res = send_otp_email("security.check@technikwelt.de")
-            self.assertFalse(res['success'])
-            self.assertNotIn('dev_code', res)
-            self.assertIn('error', res)
+            with mock.patch('django.core.mail.EmailMultiAlternatives.send', side_effect=Exception('SMTP auth error')):
+                res = send_otp_email("security.check@technikwelt.de")
+                self.assertFalse(res['success'])
+                self.assertNotIn('dev_code', res)
+                self.assertIn('error', res)
 
     def test_expired_otp_rejected_with_controlled_fixture(self):
         """
