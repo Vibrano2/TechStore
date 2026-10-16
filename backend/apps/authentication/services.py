@@ -9,6 +9,12 @@ from django.conf import settings
 from django.utils import timezone
 from .models import EmailOTP, UserProfile, AuthToken, User
 
+from email import charset as email_charset
+from django.core.mail import EmailMultiAlternatives, message as django_mail_message
+
+# Enforce Quoted-Printable transfer encoding for UTF-8 to prevent 'ascii' codec errors
+django_mail_message.utf8_charset.body_encoding = email_charset.QP
+
 logger = logging.getLogger('techstore.auth')
 
 OTP_EXPIRY_MINUTES = 10
@@ -53,84 +59,107 @@ def send_otp_email(email: str) -> dict:
         expires_at=expires_at
     )
 
-    resend_api_key = os.environ.get('RESEND_API_KEY', getattr(settings, 'RESEND_API_KEY', ''))
-    from_email = os.environ.get('RESEND_FROM_EMAIL', getattr(settings, 'RESEND_FROM_EMAIL', 'TechStore Germany <onboarding@resend.dev>'))
+    from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'TechnikWelt <info@technikwelt.shop>')
+    subject = f"Ihr TechnikWelt Bestätigungscode: {otp}"
 
-    sent_via_resend = False
+    html_content = f"""
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 560px; margin: 0 auto; background-color: #ffffff; border: 1px solid #E3E8EF; border-radius: 12px; overflow: hidden;">
+        <div style="background-color: #0B1F33; padding: 24px 32px; text-align: left;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">
+                TechnikWelt<span style="color: #0F5BD8;">.</span>
+            </h1>
+            <p style="color: #94A3B8; margin: 4px 0 0 0; font-size: 13px;">Sicherer Einmal-Login & Registrierung</p>
+        </div>
+        <div style="padding: 32px; color: #111827;">
+            <h2 style="font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 12px; color: #0B1F33;">
+                Ihr Bestätigungscode (OTP)
+            </h2>
+            <p style="font-size: 15px; line-height: 1.5; color: #4B5563; margin-bottom: 24px;">
+                Verwenden Sie den folgenden 6-stelligen Code, um sich sicher bei TechnikWelt anzumelden oder Ihr Konto zu erstellen:
+            </p>
+            <div style="background-color: #F6F8FB; border: 2px dashed #0F5BD8; border-radius: 10px; padding: 18px 24px; text-align: center; margin-bottom: 24px;">
+                <span style="font-size: 34px; font-weight: 800; letter-spacing: 8px; color: #0B1F33; font-family: monospace;">{otp}</span>
+            </div>
+            <p style="font-size: 13px; color: #6B7280; line-height: 1.5;">
+                Dieser Code ist <strong>10 Minuten</strong> gültig. Falls Sie diesen Code nicht angefordert haben, können Sie diese Nachricht ignorieren.
+            </p>
+        </div>
+        <div style="background-color: #F6F8FB; border-top: 1px solid #E3E8EF; padding: 16px 32px; text-align: center; font-size: 12px; color: #64748B;">
+            TechnikWelt GmbH • Maximilianstraße 35, 80539 München • Sicherer E-Commerce nach DSGVO
+        </div>
+    </div>
+    """
+
+    text_content = f"""TechnikWelt - Ihr Bestätigungscode (OTP)
+
+Ihr 6-stelliger Bestätigungscode lautet: {otp}
+
+Dieser Code ist 10 Minuten gültig.
+
+Falls Sie diesen Code nicht angefordert haben, können Sie diese Nachricht ignorieren.
+
+TechnikWelt GmbH - Maximilianstraße 35, 80539 München
+"""
+
+    sent_successfully = False
     delivery_note = ""
 
-    if resend_api_key and not resend_api_key.startswith('your_'):
-        try:
-            html_content = f"""
-            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 560px; margin: 0 auto; background-color: #ffffff; border: 1px solid #E3E8EF; border-radius: 12px; overflow: hidden;">
-                <div style="background-color: #0B1F33; padding: 24px 32px; text-align: left;">
-                    <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">
-                        TechStore<span style="color: #0F5BD8;">.</span>
-                    </h1>
-                    <p style="color: #94A3B8; margin: 4px 0 0 0; font-size: 13px;">Sicherer Einmal-Login & Registrierung</p>
-                </div>
-                <div style="padding: 32px; color: #111827;">
-                    <h2 style="font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 12px; color: #0B1F33;">
-                        Ihr Bestätigungscode (OTP)
-                    </h2>
-                    <p style="font-size: 15px; line-height: 1.5; color: #4B5563; margin-bottom: 24px;">
-                        Verwenden Sie den folgenden 6-stelligen Code, um sich sicher bei TechStore Germany anzumelden oder Ihr Konto zu erstellen:
-                    </p>
-                    <div style="background-color: #F6F8FB; border: 2px dashed #0F5BD8; border-radius: 10px; padding: 18px 24px; text-align: center; margin-bottom: 24px;">
-                        <span style="font-size: 34px; font-weight: 800; letter-spacing: 8px; color: #0B1F33; font-family: monospace;">{otp}</span>
-                    </div>
-                    <p style="font-size: 13px; color: #6B7280; line-height: 1.5;">
-                        Dieser Code ist <strong>10 Minuten</strong> gültig. Falls Sie diesen Code nicht angefordert haben, können Sie diese Nachricht ignorieren.
-                    </p>
-                </div>
-                <div style="background-color: #F6F8FB; border-top: 1px solid #E3E8EF; padding: 16px 32px; text-align: center; font-size: 12px; color: #64748B;">
-                    TechStore Germany GmbH • Sicherer E-Commerce nach DSGVO
-                </div>
-            </div>
-            """
-
-            response = requests.post(
-                "https://api.resend.com/emails",
-                headers={
-                    "Authorization": f"Bearer {resend_api_key}",
-                    "Content-Type": "application/json"
-                },
-                json={
-                    "from": from_email,
-                    "to": [email_clean],
-                    "subject": f"Ihr TechStore Einmal-Code: {otp}",
-                    "html": html_content
-                },
-                timeout=8
-            )
-            if response.status_code in (200, 201):
-                sent_via_resend = True
-                delivery_note = "Code wurde erfolgreich an Ihre E-Mail gesendet."
-            else:
-                logger.warning(f"Resend API returned status {response.status_code}: {response.text}")
-                delivery_note = "Code wurde an Ihre E-Mail gesendet."
-        except Exception as e:
-            logger.error(f"Error calling Resend API: {e}")
-            delivery_note = "Code wurde an Ihre E-Mail gesendet."
+    # 1. Primary: Send via Django configured SMTP (info@technikwelt.shop)
+    try:
+        msg = EmailMultiAlternatives(
+            subject=subject,
+            body=text_content,
+            from_email=from_email,
+            to=[email_clean]
+        )
+        msg.encoding = 'utf-8'
+        msg.attach_alternative(html_content, "text/html")
+        msg.send(fail_silently=False)
+        sent_successfully = True
+        delivery_note = "Code wurde erfolgreich an Ihre E-Mail gesendet."
+        logger.info(f"OTP successfully delivered via SMTP to {email_clean}")
+    except Exception as smtp_err:
+        logger.warning(f"SMTP delivery failed for {email_clean}: {smtp_err}")
+        # 2. Secondary fallback: Resend API if configured
+        resend_api_key = os.environ.get('RESEND_API_KEY', getattr(settings, 'RESEND_API_KEY', ''))
+        if resend_api_key and not resend_api_key.startswith('your_'):
+            try:
+                res = requests.post(
+                    "https://api.resend.com/emails",
+                    headers={"Authorization": f"Bearer {resend_api_key}", "Content-Type": "application/json"},
+                    json={"from": from_email, "to": [email_clean], "subject": subject, "html": html_content},
+                    timeout=8
+                )
+                if res.status_code in (200, 201):
+                    sent_successfully = True
+                    delivery_note = "Code wurde erfolgreich an Ihre E-Mail gesendet."
+                    logger.info(f"OTP delivered via Resend API fallback to {email_clean}")
+            except Exception as resend_err:
+                logger.error(f"Resend fallback also failed for {email_clean}: {resend_err}")
 
     if getattr(settings, 'DEBUG', False):
         logger.info(f"=== [TechnikWelt OTP] E-Mail: {email_clean} | CODE: {otp} | Gültig bis: {expires_at.strftime('%H:%M:%S')} ===")
         print(f"\n[TechnikWelt OTP] Code für {email_clean}: {otp}\n")
 
-    if not getattr(settings, 'DEBUG', False) and not sent_via_resend:
+    if not getattr(settings, 'DEBUG', False) and not sent_successfully:
         logger.error(f"OTP email delivery failed for {email_clean} in production mode (DEBUG=False).")
         return {
             "success": False,
-            "error": "Der Bestätigungscode konnte nicht per E-Mail zugestellt werden. Bitte versuchen Sie es später erneut.",
-            "sent_via_resend": False
+            "error": "Der Bestätigungscode konnte nicht per E-Mail zugestellt werden. Bitte versuchen Sie es in Kürze erneut.",
+            "sent_via_smtp": False
         }
 
     result = {
         "success": True,
         "message": delivery_note or "Bestätigungscode wurde versendet.",
-        "sent_via_resend": sent_via_resend,
+        "sent_successfully": sent_successfully,
         "expires_in_minutes": OTP_EXPIRY_MINUTES
     }
+
+    if getattr(settings, 'DEBUG', False):
+        result["dev_code"] = otp
+
+    return result
 
     if getattr(settings, 'DEBUG', False):
         result["dev_code"] = otp
