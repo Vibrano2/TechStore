@@ -59,7 +59,7 @@ export const Impressum: React.FC = () => {
             <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200/80">
               <span className="text-xs text-neutral-400 block font-medium uppercase">E-Mail Kontakt</span>
               <p className="font-semibold text-navy-900 mt-0.5 flex items-center gap-1.5">
-                <Mail size={14} className="text-electric-500" /> kontakt@technikwelt.shop
+                <Mail size={14} className="text-electric-500" /> info@technikwelt.shop
               </p>
               <span className="text-[11px] text-neutral-400 mt-1 block">Antwort innerhalb von 24h</span>
             </div>

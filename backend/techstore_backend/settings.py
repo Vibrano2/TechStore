@@ -160,7 +160,7 @@ REST_FRAMEWORK = {
 }
 
 RESEND_API_KEY = os.environ.get('RESEND_API_KEY', '')
-RESEND_FROM_EMAIL = os.environ.get('RESEND_FROM_EMAIL', 'TechnikWelt Germany <onboarding@resend.dev>')
+RESEND_FROM_EMAIL = os.environ.get('RESEND_FROM_EMAIL', 'TechnikWelt <info@technikwelt.shop>')
 FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://127.0.0.1:5174')
 
 # Canonical German Company Legal Identity (§ 5 DDG, § 14 UStG, GoBD)
@@ -171,7 +171,7 @@ COMPANY_COUNTRY = os.environ.get('COMPANY_COUNTRY', 'Deutschland')
 COMPANY_REGISTER = os.environ.get('COMPANY_REGISTER', 'Amtsgericht München HRB 284910')
 COMPANY_VAT_ID = os.environ.get('COMPANY_VAT_ID', 'DE 362 891 042')
 COMPANY_MANAGING_DIRECTOR = os.environ.get('COMPANY_MANAGING_DIRECTOR', 'Dr. Markus Lindemann')
-COMPANY_SUPPORT_EMAIL = os.environ.get('COMPANY_SUPPORT_EMAIL', 'kontakt@technikwelt.shop')
+COMPANY_SUPPORT_EMAIL = os.environ.get('COMPANY_SUPPORT_EMAIL', 'info@technikwelt.shop')
 COMPANY_PHONE = os.environ.get('COMPANY_PHONE', '+49 (0) 89 2154 7890')
 COMPANY_BANK_BENEFICIARY = os.environ.get('COMPANY_BANK_BENEFICIARY', 'TechnikWelt GmbH')
 COMPANY_BANK_IBAN = os.environ.get('COMPANY_BANK_IBAN', 'DE38 7602 6000 0039 4791 00')
@@ -187,13 +187,13 @@ EMAIL_BACKEND = os.environ.get(
     'EMAIL_BACKEND',
     'django.core.mail.backends.smtp.EmailBackend'
 )
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
-EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '').strip()
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'premium301.web-hosting.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 465))
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'info@technikwelt.shop').strip()
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '').strip()
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True').lower() in ('true', '1', 'yes')
-EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False').lower() in ('true', '1', 'yes')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'TechnikWelt Germany <dadvic03@gmail.com>')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'False').lower() in ('true', '1', 'yes')
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'True').lower() in ('true', '1', 'yes')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'TechnikWelt <info@technikwelt.shop>')
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 

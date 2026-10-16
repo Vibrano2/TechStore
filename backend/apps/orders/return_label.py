@@ -76,7 +76,7 @@ class NumberedReturnCanvas(canvas.Canvas):
         self.line(20 * mm, 16 * mm, 190 * mm, 16 * mm)
 
         y = 12 * mm
-        self.drawString(20 * mm, y, "TechnikWelt Kundenservice: kontakt@technikwelt.shop | Tel: +49 (0) 89 2154 7890 (Mo-Fr 9-18 Uhr)")
+        self.drawString(20 * mm, y, "TechnikWelt Kundenservice: info@technikwelt.shop | Tel: +49 (0) 89 2154 7890 (Mo-Fr 9-18 Uhr)")
         self.drawRightString(190 * mm, y, f"Seite {self._pageNumber} von {page_count}")
         self.restoreState()
 

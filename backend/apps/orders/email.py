@@ -271,7 +271,7 @@ Bitte übermitteln Sie uns Ihren Überweisungsbeleg (Screenshot / PDF) über Ihr
             </table>
 
             <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #64748B;">
-              Haben Sie Fragen zu Ihrer Bestellung? Antworten Sie einfach auf diese E-Mail oder kontaktieren Sie unseren Kundenservice unter <a href="mailto:kontakt@technikwelt.shop" style="color: #2563EB; text-decoration: none;">kontakt@technikwelt.shop</a>.
+              Haben Sie Fragen zu Ihrer Bestellung? Antworten Sie einfach auf diese E-Mail oder kontaktieren Sie unseren Kundenservice unter <a href="mailto:info@technikwelt.shop" style="color: #2563EB; text-decoration: none;">info@technikwelt.shop</a>.
             </p>
 
           </td>
@@ -327,12 +327,12 @@ Gesamtbetrag:         {format_de_currency(order.grand_total)}
 {bank_transfer_text}
 Ihre offizielle Rechnung ({invoice_filename}) liegt dieser E-Mail als PDF bei.
 
-Kundenservice: kontakt@technikwelt.shop
+Kundenservice: info@technikwelt.shop
 TechnikWelt GmbH | Maximilianstraße 35, 80539 München | HRB 284910
 """
 
         subject = f"Bestellbestätigung: Ihre TechnikWelt Bestellung {order.id}"
-        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', None) or os.environ.get('DEFAULT_FROM_EMAIL', 'TechnikWelt Germany <dadvic03@gmail.com>')
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', None) or os.environ.get('DEFAULT_FROM_EMAIL', 'TechnikWelt <info@technikwelt.shop>')
         resend_api_key = os.environ.get('RESEND_API_KEY', getattr(settings, 'RESEND_API_KEY', ''))
 
         delivery_method = 'django'
@@ -340,7 +340,7 @@ TechnikWelt GmbH | Maximilianstraße 35, 80539 München | HRB 284910
 
         if resend_api_key and not resend_api_key.startswith('your_') and len(resend_api_key) > 10:
             try:
-                resend_from = os.environ.get('RESEND_FROM_EMAIL', getattr(settings, 'RESEND_FROM_EMAIL', 'onboarding@resend.dev'))
+                resend_from = os.environ.get('RESEND_FROM_EMAIL', getattr(settings, 'RESEND_FROM_EMAIL', 'TechnikWelt <info@technikwelt.shop>'))
                 encoded_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
                 res = requests.post(
                     "https://api.resend.com/emails",
@@ -377,7 +377,8 @@ TechnikWelt GmbH | Maximilianstraße 35, 80539 München | HRB 284910
                 subject=subject,
                 body=plain_text,
                 from_email=from_email,
-                to=[order.email]
+                to=[order.email],
+                reply_to=['info@technikwelt.shop']
             )
             msg.attach_alternative(html_content, "text/html")
             msg.attach(invoice_filename, pdf_bytes, "application/pdf")
@@ -638,7 +639,7 @@ Amtsgericht München HRB 284910 | USt-IdNr.: DE 362 891 042
 """
 
         subject = f"Ihr DHL-Retourenschein für Rücksendung {order_return.id} (Bestellung {order_id})"
-        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', None) or os.environ.get('DEFAULT_FROM_EMAIL', 'TechnikWelt Germany <dadvic03@gmail.com>')
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', None) or os.environ.get('DEFAULT_FROM_EMAIL', 'TechnikWelt <info@technikwelt.shop>')
         resend_api_key = os.environ.get('RESEND_API_KEY', getattr(settings, 'RESEND_API_KEY', ''))
 
         delivery_method = 'django'
@@ -646,7 +647,7 @@ Amtsgericht München HRB 284910 | USt-IdNr.: DE 362 891 042
 
         if resend_api_key and not resend_api_key.startswith('your_') and len(resend_api_key) > 10:
             try:
-                resend_from = os.environ.get('RESEND_FROM_EMAIL', getattr(settings, 'RESEND_FROM_EMAIL', 'onboarding@resend.dev'))
+                resend_from = os.environ.get('RESEND_FROM_EMAIL', getattr(settings, 'RESEND_FROM_EMAIL', 'TechnikWelt <info@technikwelt.shop>'))
                 encoded_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
                 res = requests.post(
                     "https://api.resend.com/emails",
@@ -683,7 +684,8 @@ Amtsgericht München HRB 284910 | USt-IdNr.: DE 362 891 042
                 subject=subject,
                 body=plain_text,
                 from_email=from_email,
-                to=[customer_email]
+                to=[customer_email],
+                reply_to=['info@technikwelt.shop']
             )
             msg.attach_alternative(html_content, "text/html")
             msg.attach(label_filename, pdf_bytes, "application/pdf")

@@ -83,7 +83,7 @@ class NumberedCanvas(canvas.Canvas):
         comp_street = getattr(settings, 'COMPANY_STREET', 'Maximilianstraße 35')
         comp_city = getattr(settings, 'COMPANY_CITY', '80539 München')
         comp_country = getattr(settings, 'COMPANY_COUNTRY', 'Deutschland')
-        comp_email = getattr(settings, 'COMPANY_SUPPORT_EMAIL', 'kontakt@technikwelt.shop')
+        comp_email = getattr(settings, 'COMPANY_SUPPORT_EMAIL', 'info@technikwelt.shop')
         comp_director = getattr(settings, 'COMPANY_MANAGING_DIRECTOR', 'Dr. Markus Lindemann')
         comp_register = getattr(settings, 'COMPANY_REGISTER', 'Amtsgericht München HRB 284910')
         comp_vat = getattr(settings, 'COMPANY_VAT_ID', 'DE 362 891 042')

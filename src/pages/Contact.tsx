@@ -55,7 +55,7 @@ export const Contact: React.FC = () => {
           <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200/80">
             <Mail size={20} className="text-electric-500 mb-2" />
             <h2 className="font-bold text-sm text-navy-900">E-Mail Service</h2>
-            <p className="text-xs text-navy-900 font-semibold mt-1">kontakt@technikwelt.shop</p>
+            <p className="text-xs text-navy-900 font-semibold mt-1">info@technikwelt.shop</p>
             <span className="text-[11px] text-neutral-500 mt-0.5 block">Antwort innerhalb 24 Std.</span>
           </div>
           <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200/80">

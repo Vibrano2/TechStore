@@ -243,10 +243,10 @@ export function printOrDownloadReceipt(order: SavedOrder | ReceiptData): void {
     </div>
     <div class="company-details">
       <strong>TechnikWelt GmbH</strong><br>
-      Friedrichstraße 123 • 10117 Berlin<br>
+      Maximilianstraße 35 • 80539 München<br>
       Amtsgericht München HRB 284910<br>
       USt-IdNr.: DE 362 891 042<br>
-      kontakt@technikwelt.shop • www.technikwelt.shop
+      info@technikwelt.shop • www.technikwelt.shop
     </div>
   </div>
 
