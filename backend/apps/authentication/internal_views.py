@@ -12,7 +12,7 @@ from rest_framework.permissions import BasePermission
 
 import re
 from .models import AuthToken, UserProfile
-from apps.orders.models import Order, OrderItem, OrderReturn, Cart, CartItem
+from apps.orders.models import Order, OrderItem, OrderReturn, Cart, CartItem, ManualBankDetails
 from apps.catalogue.models import Product, Category, Brand, EMobilityCompliance
 from apps.compliance.models import WarrantyClaim
 from apps.orders.email import send_order_confirmation_email
@@ -747,4 +747,80 @@ class AdminPurgeTestDataView(APIView):
             "deleted_warranties": warranties_count,
             "deleted_users": users_count,
         })
+
+
+class AdminBankDetailsView(APIView):
+    """
+    Administrative control endpoint to retrieve and update company bank account details
+    used for manual bank transfer (Vorkasse), invoices, and customer notifications.
+    """
+    permission_classes = [IsAdminOrStaff]
+
+    def get(self, request):
+        details = ManualBankDetails.get_details()
+        return Response({
+            "beneficiary": details.beneficiary,
+            "iban": details.clean_iban,
+            "iban_formatted": details.formatted_iban,
+            "bic": details.bic,
+            "bank_name": details.bank_name,
+            "is_active": details.is_active,
+            "updated_at": details.updated_at.isoformat() if details.updated_at else None,
+        })
+
+    def put(self, request):
+        return self._update(request)
+
+    def patch(self, request):
+        return self._update(request)
+
+    def _update(self, request):
+        beneficiary = (request.data.get('beneficiary') or '').strip()
+        iban = (request.data.get('iban') or '').strip().replace(' ', '').upper()
+        bic = (request.data.get('bic') or '').strip().upper()
+        bank_name = (request.data.get('bank_name') or '').strip()
+        is_active = request.data.get('is_active', True)
+
+        errors = {}
+        if not beneficiary:
+            errors['beneficiary'] = "Der Name des Kontoinhabers / Empfängers ist erforderlich."
+        elif len(beneficiary) < 3:
+            errors['beneficiary'] = "Der Empfängername muss mindestens 3 Zeichen lang sein."
+
+        if not iban:
+            errors['iban'] = "Die IBAN ist erforderlich."
+        elif not re.match(r'^[A-Z]{2}[0-9A-Z]{13,32}$', iban):
+            errors['iban'] = "Ungültiges IBAN-Format (z. B. DE96760703240086908100)."
+
+        if not bic:
+            errors['bic'] = "Der BIC / SWIFT-Code ist erforderlich."
+        elif not re.match(r'^[A-Z0-9]{8,11}$', bic):
+            errors['bic'] = "Ungültiger BIC-Code (8 bis 11 alphanumerische Zeichen)."
+
+        if errors:
+            return Response({"error": "Validierungsfehler", "details": errors}, status=status.HTTP_400_BAD_REQUEST)
+
+        obj = ManualBankDetails.get_details()
+        obj.beneficiary = beneficiary
+        obj.iban = iban
+        obj.bic = bic
+        if bank_name:
+            obj.bank_name = bank_name
+        if isinstance(is_active, bool):
+            obj.is_active = is_active
+        obj.save()
+
+        return Response({
+            "success": True,
+            "message": "Bankverbindung für manuelle Zahlungen (Vorkasse) erfolgreich aktualisiert.",
+            "data": {
+                "beneficiary": obj.beneficiary,
+                "iban": obj.clean_iban,
+                "iban_formatted": obj.formatted_iban,
+                "bic": obj.bic,
+                "bank_name": obj.bank_name,
+                "is_active": obj.is_active,
+                "updated_at": obj.updated_at.isoformat() if obj.updated_at else None,
+            }
+        }, status=status.HTTP_200_OK)
 

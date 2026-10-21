@@ -24,7 +24,8 @@ import {
   Users,
   ShieldAlert,
   ArrowUpRight,
-  Trash2
+  Trash2,
+  Landmark
 } from 'lucide-react';
 import {
   getAdminToken,
@@ -44,6 +45,8 @@ import {
   updateAdminReturnStatus,
   updateAdminWarrantyStatus,
   purgeAdminTestData,
+  fetchAdminBankDetails,
+  updateAdminBankDetails,
 } from '../../services/adminApi';
 import type {
   AdminStats,
@@ -52,9 +55,10 @@ import type {
   AdminReturn,
   AdminWarrantyClaim,
   AdminCustomer,
+  AdminBankDetails,
 } from '../../services/adminApi';
 
-type DashboardTab = 'overview' | 'orders' | 'products' | 'returns' | 'customers';
+type DashboardTab = 'overview' | 'orders' | 'products' | 'returns' | 'customers' | 'bank_details';
 
 export const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -102,6 +106,18 @@ export const AdminDashboard: React.FC = () => {
   const [selectedDetailOrder, setSelectedDetailOrder] = useState<AdminOrder | null>(null);
   const [isPurgingTestData, setIsPurgingTestData] = useState<boolean>(false);
 
+  // Bank Configuration State
+  const [bankConfig, setBankConfig] = useState<AdminBankDetails>({
+    beneficiary: 'Edeltraud Liesbeth Buhs',
+    iban: 'DE96760703240086908100',
+    iban_formatted: 'DE96 7607 0324 0086 9081 00',
+    bic: 'DEUTDEDBP15',
+    bank_name: 'Deutsche Bank',
+    is_active: true,
+  });
+  const [initialBankConfig, setInitialBankConfig] = useState<AdminBankDetails | null>(null);
+  const [isSavingBank, setIsSavingBank] = useState<boolean>(false);
+
   const showNotification = (message: string, type: 'success' | 'error' | 'info' = 'success') => {
     setNotification({ type, message });
     setTimeout(() => setNotification(null), 4500);
@@ -141,13 +157,14 @@ export const AdminDashboard: React.FC = () => {
     setIsRefreshing(true);
 
     try {
-      const [statsData, ordersData, productsData, returnsData, warrantiesData, customersData] = await Promise.all([
+      const [statsData, ordersData, productsData, returnsData, warrantiesData, customersData, bankData] = await Promise.all([
         fetchAdminStats().catch(() => null),
         fetchAdminOrders().catch(() => ({ count: 0, orders: [] })),
         fetchAdminProducts().catch(() => ({ count: 0, products: [] })),
         fetchAdminReturns().catch(() => ({ count: 0, returns: [] })),
         fetchAdminWarrantyClaims().catch(() => ({ count: 0, claims: [] })),
         fetchAdminCustomers().catch(() => ({ count: 0, customers: [] })),
+        fetchAdminBankDetails().catch(() => null),
       ]);
 
       if (statsData) setStats(statsData);
@@ -156,6 +173,10 @@ export const AdminDashboard: React.FC = () => {
       setReturns(returnsData.returns || []);
       setWarranties(warrantiesData.claims || []);
       setCustomers(customersData.customers || []);
+      if (bankData) {
+        setBankConfig(bankData);
+        setInitialBankConfig(bankData);
+      }
     } catch (err: any) {
       if (err.message?.includes('401') || err.message?.includes('Ungültig')) {
         handleLogout();
@@ -265,6 +286,51 @@ export const AdminDashboard: React.FC = () => {
       loadAllData(true);
     } catch (err: any) {
       showNotification(err.message || 'Fehler beim Aktualisieren des Garantieantrags.', 'error');
+    }
+  };
+
+  // Bank Configuration Handlers
+  const handleSaveBankDetails = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!bankConfig.beneficiary.trim()) {
+      showNotification('Bitte Kontoinhaber / Empfänger angeben.', 'error');
+      return;
+    }
+    const cleanIban = bankConfig.iban.replace(/\s+/g, '').toUpperCase();
+    if (cleanIban.length < 15) {
+      showNotification('Bitte eine gültige IBAN angeben (mindestens 15 Zeichen, z. B. DE...).', 'error');
+      return;
+    }
+    if (!bankConfig.bic.trim()) {
+      showNotification('Bitte einen gültigen BIC / SWIFT-Code angeben.', 'error');
+      return;
+    }
+
+    try {
+      setIsSavingBank(true);
+      const res = await updateAdminBankDetails({
+        beneficiary: bankConfig.beneficiary.trim(),
+        iban: cleanIban,
+        bic: bankConfig.bic.trim().toUpperCase(),
+        bank_name: (bankConfig.bank_name || 'Deutsche Bank').trim(),
+        is_active: bankConfig.is_active ?? true,
+      });
+      if (res && res.data) {
+        setBankConfig(res.data);
+        setInitialBankConfig(res.data);
+      }
+      showNotification(res.message || 'Bankverbindung für manuelle Zahlungen erfolgreich aktualisiert.', 'success');
+    } catch (err: any) {
+      showNotification(err.message || 'Fehler beim Speichern der Bankdaten.', 'error');
+    } finally {
+      setIsSavingBank(false);
+    }
+  };
+
+  const handleResetBankDetails = () => {
+    if (initialBankConfig) {
+      setBankConfig(initialBankConfig);
+      showNotification('Änderungen verworfen. Aktuelle Daten wiederhergestellt.', 'info');
     }
   };
 
@@ -487,6 +553,18 @@ export const AdminDashboard: React.FC = () => {
           >
             <Users size={14} />
             <span>Kundenstamm</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('bank_details')}
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer ${
+              activeTab === 'bank_details'
+                ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+            }`}
+          >
+            <Landmark size={14} />
+            <span>Bankverbindung (Manuell)</span>
           </button>
         </div>
       </header>
@@ -1320,6 +1398,224 @@ export const AdminDashboard: React.FC = () => {
                         )}
                       </tbody>
                     </table>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 6: BANKVERBINDUNG (MANUELLE ZAHLUNG) */}
+            {activeTab === 'bank_details' && (
+              <div className="space-y-6 animate-fadeIn">
+                {/* Header Information Banner */}
+                <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 text-slate-300 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/30">
+                      <Landmark size={20} />
+                    </div>
+                    <div>
+                      <h2 className="text-base font-bold text-white flex items-center gap-2">
+                        Manuelle Bankverbindung & Vorkasse-Kontodaten
+                      </h2>
+                      <p className="text-xs text-slate-400 mt-1 max-w-2xl leading-relaxed">
+                        Verwalten Sie hier die Bankverbindung für manuelle Zahlungen (Vorkasse / Banküberweisung). Änderungen werden in Echtzeit für alle neuen Checkout-Transaktionen, Kunden-E-Mails und PDF-Rechnungen (§ 14 UStG) übernommen.
+                      </p>
+                    </div>
+                  </div>
+                  {bankConfig.updated_at && (
+                    <div className="text-[11px] text-slate-500 shrink-0 font-mono bg-slate-950/60 px-3 py-1.5 rounded-lg border border-slate-800/60">
+                      Letzte Änderung: {formatDate(bankConfig.updated_at)}
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                  {/* Left Column: Bank Configuration Form */}
+                  <div className="lg:col-span-7 bg-slate-900/80 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-5">
+                    <div className="border-b border-slate-800 pb-3">
+                      <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                        <CreditCard size={16} className="text-blue-400" />
+                        Kontodaten bearbeiten
+                      </h3>
+                      <p className="text-xs text-slate-400 mt-0.5">
+                        Pflegen Sie korrekte Daten nach SEPA-Standard für Deutschland.
+                      </p>
+                    </div>
+
+                    <form onSubmit={handleSaveBankDetails} className="space-y-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                          Empfänger / Kontoinhaber <span className="text-red-400">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={bankConfig.beneficiary}
+                          onChange={(e) => setBankConfig({ ...bankConfig, beneficiary: e.target.value })}
+                          placeholder="z. B. Edeltraud Liesbeth Buhs oder Firmenname"
+                          className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 font-medium"
+                        />
+                        <span className="text-[11px] text-slate-500 mt-1 block">
+                          Name, der dem Käufer als Empfänger der Überweisung angezeigt wird.
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                            IBAN (Deutschland / SEPA) <span className="text-red-400">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={bankConfig.iban}
+                            onChange={(e) => setBankConfig({ ...bankConfig, iban: e.target.value })}
+                            placeholder="DE96 7607 0324 0086 9081 00"
+                            className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 font-mono font-semibold"
+                          />
+                          <span className="text-[11px] text-slate-500 mt-1 block">
+                            Leerzeichen werden automatisch bereinigt und formatiert.
+                          </span>
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                            BIC / SWIFT-Code <span className="text-red-400">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={bankConfig.bic}
+                            onChange={(e) => setBankConfig({ ...bankConfig, bic: e.target.value })}
+                            placeholder="z. B. DEUTDEDBP15"
+                            className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 font-mono font-semibold"
+                          />
+                          <span className="text-[11px] text-slate-500 mt-1 block">
+                            8 bis 11-stelliger internationaler Bank-Identifikationscode.
+                          </span>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                          Kreditinstitut / Name der Bank
+                        </label>
+                        <input
+                          type="text"
+                          value={bankConfig.bank_name || ''}
+                          onChange={(e) => setBankConfig({ ...bankConfig, bank_name: e.target.value })}
+                          placeholder="z. B. Deutsche Bank / Sparkasse"
+                          className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 font-medium"
+                        />
+                        <span className="text-[11px] text-slate-500 mt-1 block">
+                          Wird auf Rechnungsbelegen und Quittungen zur Orientierung angegeben.
+                        </span>
+                      </div>
+
+                      <div className="pt-2">
+                        <label className="flex items-center gap-2.5 cursor-pointer text-xs text-slate-300 select-none">
+                          <input
+                            type="checkbox"
+                            checked={bankConfig.is_active ?? true}
+                            onChange={(e) => setBankConfig({ ...bankConfig, is_active: e.target.checked })}
+                            className="w-4 h-4 rounded text-blue-600 bg-slate-950 border-slate-800 focus:ring-0 cursor-pointer"
+                          />
+                          <span className="font-semibold text-white">Manuelle Banküberweisung (Vorkasse) als Zahlungsart aktivieren</span>
+                        </label>
+                      </div>
+
+                      {/* Action buttons */}
+                      <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+                        <button
+                          type="button"
+                          onClick={handleResetBankDetails}
+                          disabled={isSavingBank}
+                          className="px-4 py-2.5 rounded-xl border border-slate-800 text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 font-semibold cursor-pointer transition-colors"
+                        >
+                          Zurücksetzen
+                        </button>
+                        <button
+                          type="submit"
+                          disabled={isSavingBank}
+                          className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-lg shadow-blue-600/30 transition-all disabled:opacity-50"
+                        >
+                          {isSavingBank ? (
+                            <>
+                              <RefreshCw size={14} className="animate-spin" />
+                              <span>Wird gespeichert...</span>
+                            </>
+                          ) : (
+                            <>
+                              <Check size={14} />
+                              <span>Änderungen speichern</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  {/* Right Column: Live Customer Preview */}
+                  <div className="lg:col-span-5 space-y-5">
+                    {/* Live Preview Header */}
+                    <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+                      <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                          <Eye size={16} className="text-emerald-400" />
+                          Live-Vorschau für Kunden
+                        </h3>
+                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                          Echtzeit
+                        </span>
+                      </div>
+
+                      {/* Customer Checkout Box Preview */}
+                      <div>
+                        <span className="text-[11px] font-bold uppercase text-slate-400 block mb-2">
+                          1. Vorschau an der Kasse (Checkout):
+                        </span>
+                        <div className="bg-white rounded-xl p-3.5 border border-slate-200 shadow-sm text-slate-900 space-y-2.5">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="text-slate-500 font-medium">Empfänger:</span>
+                            <span className="font-semibold text-slate-900">{bankConfig.beneficiary || 'Edeltraud Liesbeth Buhs'}</span>
+                          </div>
+                          <div className="flex items-center justify-between text-xs pt-1.5 border-t border-slate-100">
+                            <span className="text-slate-500 font-medium">IBAN:</span>
+                            <span className="font-mono font-bold text-blue-600 text-xs tracking-wide">
+                              {bankConfig.iban_formatted || bankConfig.iban}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between text-xs pt-1.5 border-t border-slate-100">
+                            <span className="text-slate-500 font-medium">BIC:</span>
+                            <span className="font-mono font-semibold text-slate-900">{bankConfig.bic || 'DEUTDEDBP15'}</span>
+                          </div>
+                          <div className="flex items-center justify-between text-xs pt-1.5 border-t border-slate-100">
+                            <span className="text-slate-500 font-medium">Bank:</span>
+                            <span className="font-medium text-slate-700">{bankConfig.bank_name || 'Deutsche Bank'}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Official PDF Invoice Footer Preview */}
+                      <div>
+                        <span className="text-[11px] font-bold uppercase text-slate-400 block mb-2">
+                          2. Vorschau auf PDF-Rechnung (§ 14 UStG):
+                        </span>
+                        <div className="bg-slate-950 rounded-xl p-3 border border-slate-800 text-[11px] font-mono text-slate-300 space-y-1">
+                          <p className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Rechnungsfußzeile Spalte 3:</p>
+                          <p className="font-bold text-white">{bankConfig.beneficiary || 'Edeltraud Liesbeth Buhs'}</p>
+                          <p className="text-blue-400">IBAN: {bankConfig.iban_formatted || bankConfig.iban}</p>
+                          <p className="text-slate-300">BIC: {bankConfig.bic || 'DEUTDEDBP15'}</p>
+                        </div>
+                      </div>
+
+                      {/* Compliance hint */}
+                      <div className="p-3 rounded-xl bg-blue-950/40 border border-blue-800/60 text-blue-200 text-xs flex items-start gap-2.5">
+                        <CheckCircle2 size={16} className="text-blue-400 shrink-0 mt-0.5" />
+                        <span className="leading-relaxed text-[11px]">
+                          <strong>Rechtssicherheit:</strong> Änderungen an den Kontodaten erfüllen die Dokumentations- und Ausweispflicht nach deutschem Handels- und Steuerrecht (UStG, GoBD).
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

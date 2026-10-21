@@ -366,3 +366,30 @@ export async function purgeAdminTestData(): Promise<{
     body: JSON.stringify({}),
   });
 }
+
+export interface AdminBankDetails {
+  beneficiary: string;
+  iban: string;
+  iban_formatted?: string;
+  bic: string;
+  bank_name: string;
+  is_active?: boolean;
+  updated_at?: string | null;
+}
+
+export async function fetchAdminBankDetails(): Promise<AdminBankDetails> {
+  return await adminFetch('/intern/bank-details/');
+}
+
+export async function updateAdminBankDetails(data: {
+  beneficiary: string;
+  iban: string;
+  bic: string;
+  bank_name?: string;
+  is_active?: boolean;
+}): Promise<{ success: boolean; message: string; data: AdminBankDetails }> {
+  return await adminFetch('/intern/bank-details/', {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+}

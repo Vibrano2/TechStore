@@ -198,3 +198,46 @@ class OrderReturn(models.Model):
     def __str__(self):
         return f"Retoure {self.id} zu {self.order.id} ({self.refund_amount} EUR)"
 
+
+class ManualBankDetails(models.Model):
+    beneficiary = models.CharField(max_length=255, default='Edeltraud Liesbeth Buhs', verbose_name='Empfänger / Kontoinhaber')
+    iban = models.CharField(max_length=50, default='DE96 7607 0324 0086 9081 00', verbose_name='IBAN')
+    bic = models.CharField(max_length=30, default='DEUTDEDBP15', verbose_name='BIC / SWIFT')
+    bank_name = models.CharField(max_length=255, default='Deutsche Bank', verbose_name='Bankname')
+    is_active = models.BooleanField(default=True, verbose_name='Aktiv')
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Bankverbindung (Manuelle Überweisung)'
+        verbose_name_plural = 'Bankverbindungen (Manuelle Überweisung)'
+
+    def __str__(self):
+        return f"{self.beneficiary} - {self.iban}"
+
+    @property
+    def clean_iban(self):
+        return self.iban.replace(' ', '').strip().upper()
+
+    @property
+    def formatted_iban(self):
+        raw = self.clean_iban
+        return ' '.join(raw[i:i+4] for i in range(0, len(raw), 4))
+
+    @classmethod
+    def get_details(cls):
+        obj = cls.objects.filter(is_active=True).first()
+        if not obj:
+            obj = cls.objects.first()
+        if not obj:
+            beneficiary = getattr(settings, 'COMPANY_BANK_BENEFICIARY', 'Edeltraud Liesbeth Buhs')
+            iban = getattr(settings, 'COMPANY_BANK_IBAN', 'DE96 7607 0324 0086 9081 00')
+            bic = getattr(settings, 'COMPANY_BANK_BIC', 'DEUTDEDBP15')
+            bank_name = getattr(settings, 'COMPANY_BANK_NAME', 'Deutsche Bank')
+            obj = cls.objects.create(
+                beneficiary=beneficiary,
+                iban=iban,
+                bic=bic,
+                bank_name=bank_name
+            )
+        return obj
+

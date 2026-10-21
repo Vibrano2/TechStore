@@ -4,7 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { CheckCircle, Shield, ArrowLeft, Loader2, PackageCheck, FileText, Download, MailCheck, AlertCircle, Building2, Copy, Check, UploadCloud, X, CreditCard, Lock, ExternalLink } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { useAuth } from '../context/AuthContext';
-import { createOrder, createStripeSession, verifyStripeSession, downloadInvoicePdf, resendOrderConfirmation, uploadPaymentProof } from '../services/ordersApi';
+import { createOrder, createStripeSession, verifyStripeSession, downloadInvoicePdf, resendOrderConfirmation, uploadPaymentProof, fetchPublicBankDetails } from '../services/ordersApi';
 import { useSEO } from '../utils/useSEO';
 
 export interface SavedOrder {
@@ -40,10 +40,10 @@ export interface SavedOrder {
 }
 
 const BANK_DETAILS = {
-  beneficiary: 'TechnikWelt GmbH',
-  iban: 'DE38760260000039479100',
-  ibanFormatted: 'DE38 7602 6000 0039 4791 00',
-  bic: 'NORSDE71XXX',
+  beneficiary: 'Edeltraud Liesbeth Buhs',
+  iban: 'DE96760703240086908100',
+  ibanFormatted: 'DE96 7607 0324 0086 9081 00',
+  bic: 'DEUTDEDBP15',
 };
 
 export const Checkout = () => {
@@ -59,6 +59,20 @@ export const Checkout = () => {
 
   const [step, setStep] = useState(1);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [bankDetails, setBankDetails] = useState(BANK_DETAILS);
+
+  useEffect(() => {
+    fetchPublicBankDetails().then((data) => {
+      if (data && data.iban) {
+        setBankDetails({
+          beneficiary: data.beneficiary,
+          iban: data.iban,
+          ibanFormatted: data.iban_formatted || data.iban,
+          bic: data.bic,
+        });
+      }
+    }).catch(() => {});
+  }, []);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isVerifyingStripe, setIsVerifyingStripe] = useState(false);
   const [completedOrderNumber, setCompletedOrderNumber] = useState('');
@@ -293,10 +307,10 @@ export const Checkout = () => {
               <div className="flex items-center justify-between text-xs">
                 <span className="text-neutral-500 font-medium">{t('bankBeneficiary')}</span>
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-navy-900">{BANK_DETAILS.beneficiary}</span>
+                  <span className="font-semibold text-navy-900">{bankDetails.beneficiary}</span>
                   <button
                     type="button"
-                    onClick={() => handleCopy(BANK_DETAILS.beneficiary, 'beneficiary')}
+                    onClick={() => handleCopy(bankDetails.beneficiary, 'beneficiary')}
                     className="text-neutral-400 hover:text-electric-600 p-1 rounded transition-colors cursor-pointer"
                     title={t('copy')}
                   >
@@ -308,10 +322,10 @@ export const Checkout = () => {
               <div className="flex items-center justify-between text-xs pt-2 border-t border-neutral-200/60">
                 <span className="text-neutral-500 font-medium">{t('bankIban')}</span>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono font-bold text-electric-600 text-sm tracking-wide">{BANK_DETAILS.ibanFormatted}</span>
+                  <span className="font-mono font-bold text-electric-600 text-sm tracking-wide">{bankDetails.ibanFormatted}</span>
                   <button
                     type="button"
-                    onClick={() => handleCopy(BANK_DETAILS.iban, 'iban')}
+                    onClick={() => handleCopy(bankDetails.iban, 'iban')}
                     className="text-neutral-400 hover:text-electric-600 p-1 rounded transition-colors cursor-pointer"
                     title={t('copy')}
                   >
@@ -323,10 +337,10 @@ export const Checkout = () => {
               <div className="flex items-center justify-between text-xs pt-2 border-t border-neutral-200/60">
                 <span className="text-neutral-500 font-medium">{t('bankBic')}</span>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono font-semibold text-navy-900">{BANK_DETAILS.bic}</span>
+                  <span className="font-mono font-semibold text-navy-900">{bankDetails.bic}</span>
                   <button
                     type="button"
-                    onClick={() => handleCopy(BANK_DETAILS.bic, 'bic')}
+                    onClick={() => handleCopy(bankDetails.bic, 'bic')}
                     className="text-neutral-400 hover:text-electric-600 p-1 rounded transition-colors cursor-pointer"
                     title={t('copy')}
                   >
@@ -885,15 +899,15 @@ export const Checkout = () => {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] bg-neutral-50 p-2.5 rounded-md border border-neutral-200/60">
                               <div>
                                 <span className="text-neutral-400 block text-[10px] uppercase font-bold">{t('bankBeneficiary')}</span>
-                                <span className="font-semibold text-navy-900">{BANK_DETAILS.beneficiary}</span>
+                                <span className="font-semibold text-navy-900">{bankDetails.beneficiary}</span>
                               </div>
                               <div>
                                 <span className="text-neutral-400 block text-[10px] uppercase font-bold">{t('bankBic')}</span>
-                                <span className="font-mono font-semibold text-navy-900">{BANK_DETAILS.bic}</span>
+                                <span className="font-mono font-semibold text-navy-900">{bankDetails.bic}</span>
                               </div>
                               <div className="sm:col-span-2">
                                 <span className="text-neutral-400 block text-[10px] uppercase font-bold">{t('bankIban')}</span>
-                                <span className="font-mono font-bold text-electric-600 tracking-wide">{BANK_DETAILS.ibanFormatted}</span>
+                                <span className="font-mono font-bold text-electric-600 tracking-wide">{bankDetails.ibanFormatted}</span>
                               </div>
                             </div>
                             <div className="mt-2 p-2.5 bg-amber-50 border border-amber-200/80 rounded-md text-[11px] text-amber-900 flex items-start gap-2">

@@ -185,4 +185,26 @@ class AuthenticationTests(TestCase):
         self.assertEqual(orders_res.status_code, 200)
         self.assertIn('orders', orders_res.data)
 
+        # 6. Public bank details endpoint works
+        pub_bank = self.client.get('/api/v1/bank-details/')
+        self.assertEqual(pub_bank.status_code, 200)
+        self.assertEqual(pub_bank.data['beneficiary'], 'Edeltraud Liesbeth Buhs')
+        self.assertEqual(pub_bank.data['bic'], 'DEUTDEDBP15')
+
+        # 7. Admin bank details retrieval and update succeeds
+        admin_bank_get = admin_client.get('/api/v1/intern/bank-details/')
+        self.assertEqual(admin_bank_get.status_code, 200)
+        self.assertEqual(admin_bank_get.data['iban'], 'DE96760703240086908100')
+
+        # 8. Update bank details via admin
+        update_res = admin_client.put('/api/v1/intern/bank-details/', {
+            'beneficiary': 'Edeltraud Liesbeth Buhs',
+            'iban': 'DE96 7607 0324 0086 9081 00',
+            'bic': 'DEUTDEDBP15',
+            'bank_name': 'Deutsche Bank Privat'
+        })
+        self.assertEqual(update_res.status_code, 200)
+        self.assertTrue(update_res.data['success'])
+        self.assertEqual(update_res.data['data']['bank_name'], 'Deutsche Bank Privat')
+
 

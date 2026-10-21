@@ -6,10 +6,11 @@ from django.db import transaction, models
 from django.http import HttpResponse
 from django.utils import timezone
 from rest_framework import viewsets, status
+from rest_framework.views import APIView
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from apps.catalogue.models import Product, ProductVariant
-from .models import Cart, CartItem, Order, OrderItem, OrderReturn
+from .models import Cart, CartItem, Order, OrderItem, OrderReturn, ManualBankDetails
 from .serializers import (
     CartSerializer,
     AddToCartSerializer,
@@ -819,4 +820,22 @@ class OrderReturnViewSet(viewsets.ModelViewSet):
             )
 
         return Response(OrderReturnSerializer(ret).data)
+
+
+class PublicBankDetailsView(APIView):
+    """
+    Public read-only bank details for manual bank transfer (Vorkasse).
+    Always reflects the active account details configured by the administrator.
+    """
+    permission_classes = []
+
+    def get(self, request):
+        details = ManualBankDetails.get_details()
+        return Response({
+            "beneficiary": details.beneficiary,
+            "iban": details.clean_iban,
+            "iban_formatted": details.formatted_iban,
+            "bic": details.bic,
+            "bank_name": details.bank_name,
+        }, status=status.HTTP_200_OK)
 

@@ -47,9 +47,16 @@ def send_order_confirmation_email(order) -> dict:
 
         bank_transfer_html = ""
         bank_transfer_text = ""
-        b_beneficiary = getattr(settings, 'COMPANY_BANK_BENEFICIARY', 'TechnikWelt GmbH')
-        b_iban = getattr(settings, 'COMPANY_BANK_IBAN', 'DE38 7602 6000 0039 4791 00')
-        b_bic = getattr(settings, 'COMPANY_BANK_BIC', 'NORSDE71XXX')
+        from apps.orders.models import ManualBankDetails
+        try:
+            bank_obj = ManualBankDetails.get_details()
+            b_beneficiary = bank_obj.beneficiary
+            b_iban = bank_obj.formatted_iban
+            b_bic = bank_obj.bic
+        except Exception:
+            b_beneficiary = getattr(settings, 'COMPANY_BANK_BENEFICIARY', 'Edeltraud Liesbeth Buhs')
+            b_iban = getattr(settings, 'COMPANY_BANK_IBAN', 'DE96 7607 0324 0086 9081 00')
+            b_bic = getattr(settings, 'COMPANY_BANK_BIC', 'DEUTDEDBP15')
 
         if order.payment_method == 'bank_transfer':
             bank_transfer_html = f"""

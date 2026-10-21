@@ -87,9 +87,16 @@ class NumberedCanvas(canvas.Canvas):
         comp_director = getattr(settings, 'COMPANY_MANAGING_DIRECTOR', 'Dr. Markus Lindemann')
         comp_register = getattr(settings, 'COMPANY_REGISTER', 'Amtsgericht München HRB 284910')
         comp_vat = getattr(settings, 'COMPANY_VAT_ID', 'DE 362 891 042')
-        comp_beneficiary = getattr(settings, 'COMPANY_BANK_BENEFICIARY', 'TechnikWelt GmbH')
-        comp_iban = getattr(settings, 'COMPANY_BANK_IBAN', 'DE38 7602 6000 0039 4791 00')
-        comp_bic = getattr(settings, 'COMPANY_BANK_BIC', 'NORSDE71XXX')
+        from apps.orders.models import ManualBankDetails
+        try:
+            bank_obj = ManualBankDetails.get_details()
+            comp_beneficiary = bank_obj.beneficiary
+            comp_iban = bank_obj.formatted_iban
+            comp_bic = bank_obj.bic
+        except Exception:
+            comp_beneficiary = getattr(settings, 'COMPANY_BANK_BENEFICIARY', 'Edeltraud Liesbeth Buhs')
+            comp_iban = getattr(settings, 'COMPANY_BANK_IBAN', 'DE96 7607 0324 0086 9081 00')
+            comp_bic = getattr(settings, 'COMPANY_BANK_BIC', 'DEUTDEDBP15')
 
         y = 20 * mm
         line_height = 9
@@ -436,9 +443,16 @@ def generate_invoice_pdf(order) -> bytes:
     story.append(Spacer(1, 6 * mm))
 
     from django.conf import settings
-    b_beneficiary = getattr(settings, 'COMPANY_BANK_BENEFICIARY', 'TechnikWelt GmbH')
-    b_iban = getattr(settings, 'COMPANY_BANK_IBAN', 'DE38 7602 6000 0039 4791 00')
-    b_bic = getattr(settings, 'COMPANY_BANK_BIC', 'NORSDE71XXX')
+    from apps.orders.models import ManualBankDetails
+    try:
+        bank_obj = ManualBankDetails.get_details()
+        b_beneficiary = bank_obj.beneficiary
+        b_iban = bank_obj.formatted_iban
+        b_bic = bank_obj.bic
+    except Exception:
+        b_beneficiary = getattr(settings, 'COMPANY_BANK_BENEFICIARY', 'Edeltraud Liesbeth Buhs')
+        b_iban = getattr(settings, 'COMPANY_BANK_IBAN', 'DE96 7607 0324 0086 9081 00')
+        b_bic = getattr(settings, 'COMPANY_BANK_BIC', 'DEUTDEDBP15')
 
     if order.payment_method == 'bank_transfer':
         payment_notice = (

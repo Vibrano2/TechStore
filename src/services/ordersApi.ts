@@ -587,4 +587,37 @@ export async function verifyStripeSession(sessionId: string, orderId?: string): 
   }
 }
 
+export interface BankDetailsResponse {
+  beneficiary: string;
+  iban: string;
+  iban_formatted: string;
+  bic: string;
+  bank_name: string;
+}
+
+export async function fetchPublicBankDetails(): Promise<BankDetailsResponse> {
+  const fallback: BankDetailsResponse = {
+    beneficiary: 'Edeltraud Liesbeth Buhs',
+    iban: 'DE96760703240086908100',
+    iban_formatted: 'DE96 7607 0324 0086 9081 00',
+    bic: 'DEUTDEDBP15',
+    bank_name: 'Deutsche Bank',
+  };
+
+  try {
+    const res = await fetch(`${API_BASE}/bank-details/`);
+    if (!res.ok) return fallback;
+    const data = await res.json();
+    return {
+      beneficiary: data.beneficiary || fallback.beneficiary,
+      iban: data.iban || fallback.iban,
+      iban_formatted: data.iban_formatted || fallback.iban_formatted,
+      bic: data.bic || fallback.bic,
+      bank_name: data.bank_name || fallback.bank_name,
+    };
+  } catch {
+    return fallback;
+  }
+}
+
 

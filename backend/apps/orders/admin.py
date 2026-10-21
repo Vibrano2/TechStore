@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cart, CartItem, Order, OrderItem, OrderReturn
+from .models import Cart, CartItem, Order, OrderItem, OrderReturn, ManualBankDetails
 
 
 class OrderItemInline(admin.TabularInline):
@@ -34,4 +34,10 @@ class OrderReturnAdmin(admin.ModelAdmin):
     list_filter = ('status', 'reason', 'refund_method', 'created_at')
     search_fields = ('id', 'order__id', 'customer_name', 'customer_email', 'return_tracking_number')
     readonly_fields = ('created_at', 'updated_at')
+
+
+@admin.register(ManualBankDetails)
+class ManualBankDetailsAdmin(admin.ModelAdmin):
+    list_display = ('beneficiary', 'iban', 'bic', 'bank_name', 'is_active', 'updated_at')
+    list_editable = ('is_active',)
 

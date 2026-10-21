@@ -26,11 +26,22 @@ export interface ReceiptData {
   };
 }
 
+export interface CustomReceiptBankDetails {
+  beneficiary?: string;
+  bankName?: string;
+  iban?: string;
+  ibanFormatted?: string;
+  bic?: string;
+}
+
 /**
  * Generates an official, printable German receipt / order confirmation document
  * and opens the native print / save as PDF dialog.
  */
-export function printOrDownloadReceipt(order: SavedOrder | ReceiptData): void {
+export function printOrDownloadReceipt(
+  order: SavedOrder | ReceiptData,
+  bankDetails?: CustomReceiptBankDetails
+): void {
   const printWindow = window.open('', '_blank', 'width=850,height=950');
   if (!printWindow) {
     alert('Bitte erlauben Sie Pop-ups für diese Seite, um die Quittung auszudrucken.');
@@ -48,6 +59,11 @@ export function printOrDownloadReceipt(order: SavedOrder | ReceiptData): void {
   const isBankTransfer = order.paymentMethod.toLowerCase().includes('überweis') || 
                          order.paymentMethod.toLowerCase().includes('bank') ||
                          order.paymentMethod === 'bank_transfer';
+
+  const bBeneficiary = bankDetails?.beneficiary || 'Edeltraud Liesbeth Buhs';
+  const bBank = bankDetails?.bankName || 'Deutsche Bank';
+  const bIban = bankDetails?.ibanFormatted || bankDetails?.iban || 'DE96 7607 0324 0086 9081 00';
+  const bBic = bankDetails?.bic || 'DEUTDEDBP15';
 
   const customerName = `${order.customer.firstName || ''} ${order.customer.lastName || ''}`.trim() || 'Kunde';
   const customerAddress = order.customer.street 
@@ -321,10 +337,10 @@ export function printOrDownloadReceipt(order: SavedOrder | ReceiptData): void {
       Bitte überweisen Sie den Gesamtbetrag von <strong>${formatPrice(order.total)}</strong> unter Angabe des Verwendungszwecks auf folgendes Bankkonto:
     </p>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-family: monospace; font-size: 12px; background: #FFFFFF; padding: 10px; border-radius: 6px; border: 1px solid #FDE68A;">
-      <div><strong>Empfänger:</strong> TechnikWelt GmbH</div>
-      <div><strong>Bank:</strong> Deutsche Handelsbank AG</div>
-      <div><strong>IBAN:</strong> DE38 7602 6000 0039 4791 00</div>
-      <div><strong>BIC:</strong> NORSDE71XXX</div>
+      <div><strong>Empfänger:</strong> ${bBeneficiary}</div>
+      <div><strong>Bank:</strong> ${bBank}</div>
+      <div><strong>IBAN:</strong> ${bIban}</div>
+      <div><strong>BIC:</strong> ${bBic}</div>
       <div style="grid-column: span 2; border-top: 1px dashed #FDE68A; padding-top: 6px; margin-top: 4px;">
         <strong>Verwendungszweck (Pflichtangabe):</strong> <span style="background: #FEF3C7; padding: 2px 6px; border-radius: 4px;">${orderNum}</span>
       </div>
